@@ -8,10 +8,12 @@ public class InteractionWithPlayer : MonoBehaviour {
 	public bool askingForHelp; // Use this to call the cops!
 
 	private SpriteRenderer resultSR;
+	private ParticleSystem resultPS;
 
 	// Use this for initialization
 	void Start () {
 		resultSR = transform.GetChild(0).GetComponent<SpriteRenderer>();
+		resultPS = GetComponent<ParticleSystem>();
 	}
 	
 
@@ -28,6 +30,7 @@ public class InteractionWithPlayer : MonoBehaviour {
 				Debug.Log("They cared enough");
 				resultSR.sprite = successSprite;
 				resultSR.enabled = true;
+				resultPS.Play();
 				
 				int change = Random.Range(1,100); // The possible money you will receive in cents
 				Debug.Log("Money Before: " + inventory.money);
