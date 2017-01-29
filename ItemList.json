@@ -1,17 +1,20 @@
 [
 	{
 		"id": 0,
-		"title": "Burger",
-		"description": "Eat this to regain your hunger"
+		"title": "Money",
+		"description": "Money",
+		"stackable": false
 	},
 	{
 		"id": 1,
 		"title": "Burger",
-		"description": "Eat this to regain your hunger"
+		"description": "Eat this to regain your hunger",
+		"stackable": false
 	},
 	{
 		"id": 2,
 		"title": "Cheeseburger",
-		"description": "Eat this to regain your hunger--WITH CHEESE"	
+		"description": "Eat this to regain your hunger--WITH CHEESE",
+		"stackable": false
 	}
 ]
