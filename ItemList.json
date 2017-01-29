@@ -1,0 +1,17 @@
+[
+	{
+		"id": 0,
+		"title": "Burger",
+		"description": "Eat this to regain your hunger"
+	},
+	{
+		"id": 1,
+		"title": "Burger",
+		"description": "Eat this to regain your hunger"
+	},
+	{
+		"id": 2,
+		"title": "Cheeseburger",
+		"description": "Eat this to regain your hunger--WITH CHEESE"	
+	}
+]
