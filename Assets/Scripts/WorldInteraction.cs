@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class WorldInteraction : MonoBehaviour {
 	public Sprite destinationSprite;
 	private NavMeshAgent navMeshAgent;
 	private bool walking;
@@ -25,15 +25,17 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (Input.GetButtonDown ("Fire2")){
 			if (Physics.Raycast(ray, out hit, 100)){
-				if (hit.collider.gameObject.tag == "PanhandleActivate"){
-					Debug.Log("Panhandling Activated");
-					clickedPanhandle = true;
+				if (hit.collider.gameObject.tag == "Interactable Object"){
+					hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
+				} else {
+					navMeshAgent.stoppingDistance = 0f;
+					walking=true;
+					destinationObject.SetActive(true);
+					destinationObject.transform.position = hit.point;
+					navMeshAgent.destination = hit.point;
+					navMeshAgent.Resume();
+
 				}
-				walking=true;
-				destinationObject.SetActive(true);
-				destinationObject.transform.position = hit.point;
-				navMeshAgent.destination = hit.point;
-				navMeshAgent.Resume();
 			}
 		}
 
