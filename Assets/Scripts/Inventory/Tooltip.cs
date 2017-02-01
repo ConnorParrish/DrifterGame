@@ -9,7 +9,7 @@ public class Tooltip : MonoBehaviour {
 
     void Start()
     {
-        tooltip = transform.parent.parent.parent.parent.GetChild(4).gameObject; // Why can't this find it with GameObject.Find("Tooltip")?
+        tooltip = transform.parent.parent.parent.parent.GetChild(5).gameObject; // Why can't this find it with GameObject.Find("Tooltip")?
         //Debug.Log(tooltip.name);
         tooltip.SetActive(false);
     }
@@ -18,7 +18,7 @@ public class Tooltip : MonoBehaviour {
     {
         if (tooltip.activeSelf)
         {
-            tooltip.transform.position = Input.mousePosition;
+            tooltip.transform.position = Input.mousePosition;                   // Sets the corner of the tooltip to the mouse position
         }
     }
         

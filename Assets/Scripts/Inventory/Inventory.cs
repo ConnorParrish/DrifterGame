@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour {
         {
             items.Add(new Item());
             slots.Add(Instantiate(inventorySlot));
-            slots[i].GetComponent<SlotItem>().id = i;                           // This tells the slot it's ID in the slot panel
+            slots[i].GetComponent<SlotItem>().slotID = i;                           // This tells the slot it's ID in the slot panel
             slots[i].transform.SetParent(slotPanel.transform);                  // Sets the parent of the slot to the slot panel
         }
 
@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour {
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
+        
         if (itemToAdd.Stackable && ItemInInventoryCheck(itemToAdd))
         {
             for (int i = 0; i < items.Count; i++)
@@ -71,6 +72,46 @@ public class Inventory : MonoBehaviour {
                     itemObj.transform.position = slots[i].transform.position;   // Lines up the item in the middle of the slot
                     itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;    // Sets the item's sprite
                     itemObj.name = itemToAdd.Title;                             // Labels the item for easier reading
+                    break;
+                }
+            }
+        }
+    }
+
+    public void RemoveItem(int id)
+    {
+        Item itemToRemove = database.FetchItemByID(id);
+        if (itemToRemove.Stackable && ItemInInventoryCheck(itemToRemove))
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].ID == id)
+                {
+                    ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
+                    if (data.amount > 1)
+                    {
+                        data.amount--;                                          // If there's more than one of the stacked item, we lower it
+                        data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+                    }
+                    else
+                    {
+                        slots[i].name = "Slot(Clone)";                          // Returns the slot to it's default name
+                        items[i] = new Item();                                  // We're creating a new blank item that is in every 
+                        Destroy(slots[i].transform.GetChild(0).gameObject);
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = items.Count - 1; i > 0; i--)
+            {
+                if (items[i].ID == id)
+                {
+                    slots[i].name = "Slot(Clone)";
+                    items[i] = new Item();
+                    Destroy(slots[i].transform.GetChild(0).gameObject);
                     break;
                 }
             }
