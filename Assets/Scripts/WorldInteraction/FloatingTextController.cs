@@ -9,7 +9,7 @@ public class FloatingTextController : MonoBehaviour {
     {
         canvas = GameObject.Find("InventoryNotificationCanvas");
         if (!popupText)
-            popupText = Resources.Load<FloatingText>("Prefabs/ItemPopupTextParent");
+            popupText = Resources.Load<FloatingText>("Prefabs/UI/PopupText/ItemPopupTextParent");
 	}
 
 	public static void CreateFloatingText(string text, Transform location)

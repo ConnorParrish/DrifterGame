@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 1d79fb8a2adceed4d9405b377e6d29d8
-timeCreated: 1485913766
+timeCreated: 1485992233
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - inventorySlot: {fileID: 1000013699890126, guid: efc4dc6c3a0d7c54a95d90b7f7049a75,
+      type: 2}
+  - inventoryItem: {fileID: 1000010945033592, guid: d4195230923f4a8419f79b2aac2ff7ea,
+      type: 2}
   executionOrder: 200
   icon: {instanceID: 0}
   userData: 
