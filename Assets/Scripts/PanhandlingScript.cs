@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(PlayerInventory))]
-
 public class PanhandlingScript : MonoBehaviour {
 	public int begsRemaining;
 
-	private PlayerInventory inventory;
+	private Inventory inventory;
 
 	// Use this for initialization
 	void Start () {
-		inventory = GetComponent<PlayerInventory>();
+		inventory = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
 
 	}
 	

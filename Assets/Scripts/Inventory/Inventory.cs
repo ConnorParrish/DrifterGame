@@ -1,0 +1,91 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+
+public class Inventory : MonoBehaviour {
+    GameObject inventoryPanel;                                                  // Main UI Panel
+    GameObject slotPanel;                                                       // Reference to the panel with the slots
+    ItemDatabase database;                                                      // This is the list of all items
+    public GameObject inventorySlot;                                            // Prefab of the slot itself
+    public GameObject inventoryItem;                                            // Prefab that is the item
+    public float Money;                                                         // NEEEEED TO IMPLEMENNTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+
+    int slotAmount;                                                             // Max number of slots
+    public List<Item> items = new List<Item>();                                 // List of items in the inventory
+    public List<GameObject> slots = new List<GameObject>();                     // List of slots in the inventory
+    
+    void Start()
+    {
+        database = GetComponent<ItemDatabase>();
+        slotAmount = 16;
+        inventoryPanel = GameObject.Find("Inventory Panel");
+        slotPanel = inventoryPanel.transform.FindChild("Slot Panel").gameObject;
+
+        for (int i = 0; i < slotAmount; i++)
+        {
+            items.Add(new Item());
+            slots.Add(Instantiate(inventorySlot));
+            slots[i].GetComponent<SlotItem>().id = i;                           // This tells the slot it's ID in the slot panel
+            slots[i].transform.SetParent(slotPanel.transform);                  // Sets the parent of the slot to the slot panel
+        }
+
+        AddItem(0);
+        AddItem(1);
+        AddItem(2);
+        AddItem(2);
+        AddItem(2);
+        AddItem(2);
+        AddItem(2);
+    }
+
+    public void AddItem(int id)
+    {
+        Item itemToAdd = database.FetchItemByID(id);
+        if (itemToAdd.Stackable && ItemInInventoryCheck(itemToAdd))
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].ID == id)
+                {
+                    ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
+                    data.amount++;                                              // This will add the new item via an amount
+                    data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+                    break;                                                      // Stops it from creating a bunch of lesser stacks
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].ID == -1)
+                {
+                    slots[i].name = "Slot #" + i + " - " + itemToAdd.Title;     // Labels the slot for easier reading
+                    items[i] = itemToAdd;                                       // Adds the item
+                    GameObject itemObj = Instantiate(inventoryItem);            // Creates a new GameObject for the item
+                    itemObj.GetComponent<ItemData>().item = itemToAdd;          // Sets the item data structure for the ItemDatabase
+                    itemObj.GetComponent<ItemData>().slotID = i;                // Sets the slot number its originally in
+                    itemObj.transform.SetParent(slots[i].transform);            // Sets the parent of the object to it's correct slot
+                    itemObj.transform.position = slots[i].transform.position;   // Lines up the item in the middle of the slot
+                    itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;    // Sets the item's sprite
+                    itemObj.name = itemToAdd.Title;                             // Labels the item for easier reading
+                    break;
+                }
+            }
+        }
+    }
+    
+    // This is used to make sure the item we are stacking is already in the inventory
+    bool ItemInInventoryCheck(Item item)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].ID == item.ID)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}

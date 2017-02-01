@@ -5,7 +5,7 @@ using System.Collections;
 public class PanhandlingUIManager : MonoBehaviour {
 	private GameObject Player;
 	private PanhandlingScript panhandlingScript;
-	private PlayerInventory playerInventory;
+	private Inventory playerInventory;
 	private GameObject moneyUI;
 	private GameObject begUI;
 
@@ -13,14 +13,14 @@ public class PanhandlingUIManager : MonoBehaviour {
 	void Start () {
 		Player = GameObject.FindWithTag("Player");
 		panhandlingScript = Player.GetComponent<PanhandlingScript>();
-		playerInventory = Player.GetComponent<PlayerInventory>();
+		playerInventory = Player.GetComponent<Inventory>();
 		moneyUI = transform.GetChild(0).GetChild(0).gameObject;
 		begUI = transform.GetChild(1).GetChild(0).gameObject;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		moneyUI.GetComponent<Text>().text = playerInventory.money.ToString();
+		moneyUI.GetComponent<Text>().text = playerInventory.Money.ToString();
 		begUI.GetComponent<Text>().text = panhandlingScript.begsRemaining.ToString();
 	}
 }

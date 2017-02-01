@@ -22,7 +22,7 @@ public class InteractionWithPlayer : MonoBehaviour {
 	
 	}
 
-	public void OnPanhandleClick(PlayerInventory inventory){
+	public void OnPanhandleClick(Inventory inventory){
 		if (!hasInteracted){
 			int chance = Random.Range(0,5); // Chance the pedestrian will give you $$$
 
@@ -33,9 +33,9 @@ public class InteractionWithPlayer : MonoBehaviour {
 				resultPS.Play();
 				
 				int change = Random.Range(1,100); // The possible money you will receive in cents
-				Debug.Log("Money Before: " + inventory.money);
-				inventory.money += change*(0.01f);
-				Debug.Log("Money After: " + inventory.money);
+				Debug.Log("Money Before: " + inventory.Money);
+				inventory.Money += change*(0.01f);
+				Debug.Log("Money After: " + inventory.Money);
 			} else {
 				Debug.Log("They didn't care");
 				resultSR.sprite = failedSprite;
