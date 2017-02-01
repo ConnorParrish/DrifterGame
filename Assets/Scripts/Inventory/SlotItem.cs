@@ -22,7 +22,7 @@ public class SlotItem : MonoBehaviour, IDropHandler {
             inv.items[id] = droppedItem.item;                                   // The new slot's item will be the dropped item
             droppedItem.slotID = id;                                            // Updates the item's slot id
         } 
-        else
+        else if (droppedItem.slotID != id)
         {
             Transform itemTransform = this.transform.GetChild(0);
             itemTransform.GetComponent<ItemData>().slotID = droppedItem.slotID; // Might want to use a setter that sets the item then moves the other to the correct slot

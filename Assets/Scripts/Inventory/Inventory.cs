@@ -65,6 +65,7 @@ public class Inventory : MonoBehaviour {
                     items[i] = itemToAdd;                                       // Adds the item
                     GameObject itemObj = Instantiate(inventoryItem);            // Creates a new GameObject for the item
                     itemObj.GetComponent<ItemData>().item = itemToAdd;          // Sets the item data structure for the ItemDatabase
+                    itemObj.GetComponent<ItemData>().amount = 1;                // Sets the amount to 1 because it's creating the first
                     itemObj.GetComponent<ItemData>().slotID = i;                // Sets the slot number its originally in
                     itemObj.transform.SetParent(slots[i].transform);            // Sets the parent of the object to it's correct slot
                     itemObj.transform.position = slots[i].transform.position;   // Lines up the item in the middle of the slot
