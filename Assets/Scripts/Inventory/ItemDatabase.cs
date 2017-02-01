@@ -64,6 +64,5 @@ public class Item {
     public Item()
     {
         this.ID = -1;
-        Debug.Log("This didn't get a valid ID");
     }
 }

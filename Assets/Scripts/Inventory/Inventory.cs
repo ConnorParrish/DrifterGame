@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour {
     public GameObject inventorySlot;                                            // Prefab of the slot itself
     public GameObject inventoryItem;                                            // Prefab that is the item
     public float Money;                                                         // NEEEEED TO IMPLEMENNTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    public bool fullInventory;
 
     int slotAmount;                                                             // Max number of slots
     public List<Item> items = new List<Item>();                                 // List of items in the inventory
@@ -42,7 +43,11 @@ public class Inventory : MonoBehaviour {
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
-        
+        if (slots[slots.Count - 1].transform.childCount != 0)
+        {
+            Debug.Log("Your Inventory is full!");
+            fullInventory = true;
+        }
         if (itemToAdd.Stackable && ItemInInventoryCheck(itemToAdd))
         {
             for (int i = 0; i < items.Count; i++)
@@ -60,7 +65,7 @@ public class Inventory : MonoBehaviour {
         {
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i].ID == -1)
+                if (items[i].ID == -1 && !fullInventory)
                 {
                     slots[i].name = "Slot #" + i + " - " + itemToAdd.Title;     // Labels the slot for easier reading
                     items[i] = itemToAdd;                                       // Adds the item
@@ -81,6 +86,10 @@ public class Inventory : MonoBehaviour {
     public void RemoveItem(int id)
     {
         Item itemToRemove = database.FetchItemByID(id);
+        if (ItemInInventoryCheck(itemToRemove) == false)
+        {
+            Debug.Log("You don't have any " + itemToRemove.Title + " in your inventory!");
+        }
         if (itemToRemove.Stackable && ItemInInventoryCheck(itemToRemove))
         {
             for (int i = 0; i < items.Count; i++)
@@ -95,6 +104,10 @@ public class Inventory : MonoBehaviour {
                     }
                     else
                     {
+                        if (fullInventory)
+                        {
+                            fullInventory = false;
+                        }
                         slots[i].name = "Slot(Clone)";                          // Returns the slot to it's default name
                         items[i] = new Item();                                  // We're creating a new blank item that is in every 
                         Destroy(slots[i].transform.GetChild(0).gameObject);
@@ -109,6 +122,10 @@ public class Inventory : MonoBehaviour {
             {
                 if (items[i].ID == id)
                 {
+                    if (fullInventory)
+                    {
+                        fullInventory = false;
+                    }
                     slots[i].name = "Slot(Clone)";
                     items[i] = new Item();
                     Destroy(slots[i].transform.GetChild(0).gameObject);
