@@ -4,15 +4,16 @@ using UnityEngine.UI;
 
 public class FloatingText : MonoBehaviour {
 	public Animator animator;
-	private Text damageText;
-	void Start(){
+	private Text infoText;
+
+    void OnEnable(){
 		AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
 		Destroy(gameObject, clipInfo[0].clip.length);
 
-		damageText = animator.GetComponent<Text>();
+		infoText= animator.GetComponent<Text>();
 	}
 
 	public void SetText(string text){
-		damageText.text = text;
+		infoText.text = text;
 	}
 }

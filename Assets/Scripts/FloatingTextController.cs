@@ -2,12 +2,23 @@
 using System.Collections;
 
 public class FloatingTextController : MonoBehaviour {
-	private static FloatingText popupText;
-	public static void Initialize(){
-		popupText = Resources.Load<FloatingText>("Prefabs/ItemPopupTextParent");
+	public static FloatingText popupText;
+    private static GameObject canvas;
+
+	public static void Initialize()
+    {
+        canvas = GameObject.Find("InventoryNotificationCanvas");
+        if (!popupText)
+            popupText = Resources.Load<FloatingText>("Prefabs/ItemPopupTextParent");
 	}
 
-	public static void CreateFloatingText(string text, Transform location){
-
+	public static void CreateFloatingText(string text, Transform location)
+    {
+        Debug.Log(text);
+        FloatingText instance = Instantiate(popupText);
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
+        instance.transform.SetParent(canvas.transform, false);
+        instance.transform.position = screenPosition;
+        instance.GetComponent<FloatingText>().SetText(text);
 	}
 }
