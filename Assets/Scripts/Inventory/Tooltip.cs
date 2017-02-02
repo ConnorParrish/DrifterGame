@@ -2,6 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/**
+ * This script creates dynamic tooltips based off the item's information
+ **/
+
 public class Tooltip : MonoBehaviour {
     private Item item;
     private string data;

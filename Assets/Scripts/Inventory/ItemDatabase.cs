@@ -4,6 +4,11 @@ using LitJson;
 using System.Collections.Generic;
 using System.IO;
 
+/**
+ * This script builds the Item Database found in ItemList.json
+ * The script creates an Item object that has all the information the individual elements of the JSON has.
+ **/
+
 public class ItemDatabase : MonoBehaviour {
 	private JsonData itemDatabase;                                              // A JSON of all the possible items a player could have
     private List<Item> database = new List<Item>();                             // The database we create based off of itemDatabase

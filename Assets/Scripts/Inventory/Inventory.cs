@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+/**
+ * This is the script that needs to be referenced in order to add/subtract items from the player's inventory
+ **/
+
 public class Inventory : MonoBehaviour {
     GameObject inventoryPanel;                                                  // Main UI Panel
     GameObject slotPanel;                                                       // Reference to the panel with the slots
@@ -10,7 +14,7 @@ public class Inventory : MonoBehaviour {
     public GameObject inventorySlot;                                            // Prefab of the slot itself
     public GameObject inventoryItem;                                            // Prefab that is the item
     public float Money;                                                         // NEEEEED TO IMPLEMENNTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-    public bool fullInventory;
+    public bool fullInventory;                                                  // Keeps track of whether the inventory is full already
 
     int slotAmount;                                                             // Max number of slots
     public List<Item> items = new List<Item>();                                 // List of items in the inventory

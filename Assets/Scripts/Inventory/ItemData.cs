@@ -3,6 +3,14 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using System;
 
+/**
+ * This script keeps track of interaction events between the user and the scene.
+ * This also keeps track of:
+ *          -- The actual item itself
+ *          -- The number of the item's in it's stack
+ *          -- The current slot the item is on
+ **/
+
 public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler {
     public Item item;
     public int amount;                                                          // Used to track stackable item amounts

@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * This script is used to pickup an item
+ **/
+
 public class PickupItem : Interactable {
     public Inventory inv;
     

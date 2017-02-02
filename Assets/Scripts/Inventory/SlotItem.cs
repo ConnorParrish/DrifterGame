@@ -3,6 +3,10 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using System;
 
+/**
+ * This script handles drag-n-drop in the inventory 
+ **/
+
 public class SlotItem : MonoBehaviour, IDropHandler {
     public int slotID;                                                              // Used to keep track of it's location on the board
     private Inventory inv;                                                      // Cache of the useful Inventory (with items and slots)

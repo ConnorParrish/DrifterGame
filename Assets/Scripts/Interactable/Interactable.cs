@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/** 
+ * The other scripts in this directory inherit this class.
+ * This is used to store the NavMeshAgent for each of the smaller items
+ **/
+
 public class Interactable : MonoBehaviour {
 	public NavMeshAgent playerAgent;
 
