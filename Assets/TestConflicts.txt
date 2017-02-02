@@ -1,2 +1,2 @@
 This is for testing conflicts
-Fucking hell, skyler
+This is a conflict
