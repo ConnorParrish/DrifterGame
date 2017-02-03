@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 /**
  * This script is used to pickup an item
@@ -16,7 +17,14 @@ public class PickupItem : Interactable {
         FloatingTextController.Initialize();
     }
 
-	public override void Interact()
+    public override void MoveToInteraction(NavMeshAgent playerAgent)
+    {
+        this.playerAgent = playerAgent;
+        playerAgent.stoppingDistance = 1f;
+        playerAgent.destination = this.transform.position;
+    }
+
+    public override void Interact()
     {
         string itemName = itemDB.FetchItemByID(itemID).Title;
         Debug.Log("Adding " + itemName);

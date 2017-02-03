@@ -6,7 +6,7 @@ using System.Collections;
  **/
 
 public class ActionItem : Interactable {
-	public virtual void Interact(){
+	public override void Interact(){
 		Debug.Log("Interacting with base ActionItem");
 	}
 }

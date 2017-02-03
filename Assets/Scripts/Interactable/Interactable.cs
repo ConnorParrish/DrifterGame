@@ -14,9 +14,19 @@ public class Interactable : MonoBehaviour {
 		this.playerAgent = playerAgent;
 		playerAgent.stoppingDistance = 2.5f;
 		playerAgent.destination = this.transform.position;
-
-		Interact();
+        
 	}
+
+    void Update()
+    {
+        if (playerAgent != null&& !playerAgent.pathPending)
+        {
+            if (playerAgent.remainingDistance < playerAgent.stoppingDistance)
+            {
+                Interact();
+            }
+        }
+    }
 
 	public virtual void Interact(){
 		Debug.Log("Interacting with base class.");
