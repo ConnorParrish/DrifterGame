@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour {
 
 	public virtual void MoveToInteraction(UnityEngine.AI.NavMeshAgent playerAgent){
 		this.playerAgent = playerAgent;
-		playerAgent.stoppingDistance = 2.5f;
+		playerAgent.stoppingDistance = 1f;
 		playerAgent.destination = this.transform.position;
         
 	}
