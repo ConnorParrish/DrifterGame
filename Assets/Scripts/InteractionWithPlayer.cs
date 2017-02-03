@@ -14,6 +14,7 @@ public class InteractionWithPlayer : MonoBehaviour {
 	void Start () {
 		resultSR = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		resultPS = GetComponent<ParticleSystem>();
+        resultPS.Pause();
 	}
 	
 
@@ -26,7 +27,7 @@ public class InteractionWithPlayer : MonoBehaviour {
 		if (!hasInteracted){
 			int chance = Random.Range(0,5); // Chance the pedestrian will give you $$$
 
-			if ( chance > 3){
+			if (true){
 				Debug.Log("They cared enough");
 				resultSR.sprite = successSprite;
 				resultSR.enabled = true;

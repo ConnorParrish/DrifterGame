@@ -50,11 +50,4 @@ public class WorldInteraction : MonoBehaviour {
 			}
 		}
 	}
-
-	void OnCollisionEnter(Collision col){
-		if (col.gameObject.tag == "PanhandleActivate"){
-			Debug.Log("Yo");
-			Application.LoadLevel(1);
-		}
-	}
 }

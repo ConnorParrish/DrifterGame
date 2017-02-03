@@ -8,12 +8,14 @@ using UnityEngine.UI;
  **/
 
 public class Inventory : MonoBehaviour {
+    GameObject inventoryMenu;
     GameObject inventoryPanel;                                                  // Main UI Panel
     GameObject slotPanel;                                                       // Reference to the panel with the slots
     ItemDatabase database;                                                      // This is the list of all items
     public GameObject inventorySlot;                                            // Prefab of the slot itself
     public GameObject inventoryItem;                                            // Prefab that is the item
     public float Money;                                                         // NEEEEED TO IMPLEMENNTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    Text moneyText;
     public bool fullInventory;                                                  // Keeps track of whether the inventory is full already
 
     int slotAmount;                                                             // Max number of slots
@@ -25,6 +27,8 @@ public class Inventory : MonoBehaviour {
         database = GetComponent<ItemDatabase>();
         slotAmount = 16;
         inventoryPanel = GameObject.Find("Inventory Panel");
+        inventoryMenu = GameObject.Find("Menu");
+        moneyText = GameObject.Find("Money Text").transform.GetChild(0).GetComponent<Text>();
         slotPanel = inventoryPanel.transform.FindChild("Slot Panel").gameObject;
 
         for (int i = 0; i < slotAmount; i++)
@@ -42,6 +46,29 @@ public class Inventory : MonoBehaviour {
         AddItem(2);
         AddItem(2);
         AddItem(2);
+
+        inventoryMenu.SetActive(false);
+    }
+
+    public void ShowInventory()
+    {
+        if (inventoryPanel.transform.parent.gameObject.activeSelf)
+        {
+            inventoryPanel.transform.parent.gameObject.SetActive(false);
+        } else
+        {
+            inventoryPanel.transform.parent.gameObject.SetActive(true);
+        }
+    }
+
+    public void HideInventory()
+    {
+        inventoryItem.transform.parent.gameObject.SetActive(true);
+    }
+
+    public void UpdateMoney()
+    {
+        moneyText.text = Money.ToString();
     }
 
     public void AddItem(int id)
