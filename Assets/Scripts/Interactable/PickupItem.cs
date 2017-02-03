@@ -7,17 +7,21 @@ using System.Collections;
 
 public class PickupItem : Interactable {
     public Inventory inv;
-    
+    public ItemDatabase itemDB;
+    public int itemID;    
     public void Start()
     {
         inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
+        itemDB = inv.GetComponent<ItemDatabase>();
         FloatingTextController.Initialize();
     }
 
 	public override void Interact()
     {
-		Debug.Log("This should add an item you pickup to your inventory");
-        FloatingTextController.CreateFloatingText("+1 " + this.gameObject.name, transform);
-        inv.AddItem(3);
+        string itemName = itemDB.FetchItemByID(itemID).Title;
+        Debug.Log("Adding " + itemName);
+        FloatingTextController.CreateFloatingText("+1 " + itemName, transform);
+        inv.AddItem(itemID);
+        Destroy(gameObject);
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WorldInteraction : MonoBehaviour {
 	public Sprite destinationSprite;
-	private NavMeshAgent navMeshAgent;
+	private UnityEngine.AI.NavMeshAgent navMeshAgent;
 	private bool walking;
 	private bool clickedPanhandle;
 	private GameObject destinationObject;
@@ -15,7 +15,7 @@ public class WorldInteraction : MonoBehaviour {
 		destinationObject.AddComponent<SpriteRenderer>();
 		destinationObject.GetComponent<SpriteRenderer>().sprite = destinationSprite;
 				
-		navMeshAgent = GetComponent<NavMeshAgent>();
+		navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 	}
 	
 	// Update is called once per frame

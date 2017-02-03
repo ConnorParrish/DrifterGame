@@ -7,9 +7,9 @@ using System.Collections;
  **/
 
 public class Interactable : MonoBehaviour {
-	public NavMeshAgent playerAgent;
+	public UnityEngine.AI.NavMeshAgent playerAgent;
 
-	public virtual void MoveToInteraction(NavMeshAgent playerAgent){
+	public virtual void MoveToInteraction(UnityEngine.AI.NavMeshAgent playerAgent){
 		this.playerAgent = playerAgent;
 		playerAgent.stoppingDistance = 2.5f;
 		playerAgent.destination = this.transform.position;
