@@ -10,9 +10,9 @@ using UnityEngine.UI;
 
 public class simpleDialogue : MonoBehaviour {
 
-    public GameObject popUpDialogue;
-    public float messageBloomTime = .7f;
-    public float messageDisplayTime = 3f;
+    public GameObject popUpDialogue;            // link this to the popUpDialogue prefab
+    public float messageBloomTime = .7f;        // the amount of time the message spends blooming into and out of view
+    public float messageDisplayTime = 3f;       // the amount of time the message is displayed for excluding bloom time
 
     GameObject canvas;
     Text text;
@@ -20,25 +20,38 @@ public class simpleDialogue : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(popUpDialogue);
         text = canvas.GetComponentInChildren<Text>();
         t = canvas.GetComponent<RectTransform>();
+        // set the canvas to false because we don't need it yet
         canvas.SetActive(false);
+
+        // set the follow object on the toFollow script so the canvas follows the game object we are attached to
+        canvas.GetComponent<SimpleFollow>().toFollow = gameObject;
+    }
+
+    void Update()
+    {
+        // if the canvas is displaying, force its rotation to face the main camera
+        if (canvas.activeSelf)
+            canvas.transform.rotation = Camera.main.transform.rotation;
     }
 	
 	void OnMouseDown () {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+        // test if the player clicked on the game object the script is attached to
         if (Physics.Raycast(ray, out hit, 100) && hit.collider.gameObject.Equals(gameObject))
             showDialogue();
 	}
 
     private void showDialogue()
     {
+        // we don't want to start the courtine again once it's already been started, so check if it's running
         if (!canvas.activeSelf)
         {
-            canvas.SetActive(true);
+            canvas.SetActive(true); // enable the canvas and the follow script on the canvas
             text.text = "KJNBASKDJNAKSD";
             StartCoroutine(growCanvas());
         }
@@ -51,6 +64,7 @@ public class simpleDialogue : MonoBehaviour {
         float currentScale;
         float timePassed = 0f;
 
+        // this first loop grows the scale of the canvas
         while (waitTime > timePassed)
         {
             timePassed += Time.deltaTime;
@@ -59,9 +73,11 @@ public class simpleDialogue : MonoBehaviour {
             yield return new WaitForSeconds(.01f);
         }
 
+        // this waits for the message to display for the desired time
         yield return new WaitForSeconds(messageDisplayTime);
         timePassed = 0;
         
+        // this shrinks the canvas back down now that we're done viewing
         while (waitTime > timePassed)
         {
             timePassed += Time.deltaTime;
@@ -70,6 +86,7 @@ public class simpleDialogue : MonoBehaviour {
             yield return new WaitForSeconds(.01f);
         }
 
+        // this disabes the canvas and allows the coroutine to begin again
         canvas.SetActive(false);
 
     }
