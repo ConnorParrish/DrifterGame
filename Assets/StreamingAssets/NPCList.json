@@ -1,0 +1,40 @@
+[
+	{
+		"name": "Wealthy Pedestrian",
+		"dialogTexts":	[
+							{
+								"text": "Why don't you get a job, you creep!",
+								"itemID": -1,
+								"cost": 0,
+							}
+						],
+		"slug": "w_pedestrian"
+	},
+	{
+		"name": "Middle Pedestrian",
+		"dialogTexts":	[
+							{
+								"text": "You should use this to get something to eat!",
+								"itemID": -1,
+								"cost": 0,
+							},
+							{
+								"text": "Here's a sandwich, you look hungry",
+								"itemID": 0,
+								"cost": 0
+							}
+						],
+		"slug": "m_pedestrian"
+	},
+	{
+		"name": "Poor Pedestrian",
+		"dialogTexts":	[
+							{
+								"text": "Look man, I don't have any money either!",
+								"itemID": -1,
+								"cost": 0,
+							}
+						],
+		"slug": "p_pedestrian"
+	}
+]
