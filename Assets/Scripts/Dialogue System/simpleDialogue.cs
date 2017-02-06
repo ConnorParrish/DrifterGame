@@ -39,11 +39,7 @@ public class simpleDialogue : MonoBehaviour {
     }
 	
 	void OnMouseDown () {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // test if the player clicked on the game object the script is attached to
-        if (Physics.Raycast(ray, out hit, 100) && hit.collider.gameObject.Equals(gameObject))
-            showDialogue();
+        showDialogue();
 	}
 
     private void showDialogue()
