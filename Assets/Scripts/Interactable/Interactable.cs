@@ -17,18 +17,18 @@ public class Interactable : MonoBehaviour {
         
 	}
 
-    void Update()
+    public virtual void Update()
     {
         if (playerAgent != null&& !playerAgent.pathPending)
         {
             if (playerAgent.remainingDistance < playerAgent.stoppingDistance)
             {
-                Interact();
+	            Interact();
             }
         }
     }
 
 	public virtual void Interact(){
-		Debug.Log("Interacting with base class.");
+		Debug.Log("Interacting with base classs.");
 	}
 }

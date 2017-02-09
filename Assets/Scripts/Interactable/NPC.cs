@@ -8,6 +8,27 @@ using UnityEngine.AI;
 
 public class NPC : Interactable
 {
+	fullDialogue fDialog;
+	bool hasInteracted;
+
+	void Start() {
+		fDialog = GetComponent<fullDialogue> ();
+	}
+	public override void Update(){
+		{
+			if (playerAgent != null&& !playerAgent.pathPending)
+			{
+				if (playerAgent.remainingDistance < playerAgent.stoppingDistance)
+				{
+					if (!hasInteracted) {
+						Interact ();
+					}
+				}
+			}
+		}
+	
+	}
+
     // This is overriden so that the stopping distance is larger in order to
     //  make the player stop near the NPC and not ontop of them.
     public override void MoveToInteraction(NavMeshAgent playerAgent)
@@ -19,6 +40,11 @@ public class NPC : Interactable
 
     public override void Interact()
     {
-		Debug.Log("Interacting with base NPC.");
+		hasInteracted = true;
+		if (!fDialog.canvas.activeSelf) {
+			fDialog.showDialogue ();
+		} else {
+			fDialog.endDialogue ();
+		}
 	}
 }

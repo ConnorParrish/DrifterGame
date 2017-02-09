@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: edc9b1a3b76360f49bf71f3786eb8997
-timeCreated: 1486346124
-licenseType: Free
+timeCreated: 1486604097
+licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Dialogue: {fileID: 1895282506609318, guid: 07b55a7ffe987d943971ab2133756b26, type: 2}
+  - canvas: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

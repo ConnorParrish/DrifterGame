@@ -15,7 +15,7 @@ public class fullDialogue : MonoBehaviour
     public GameObject Dialogue;                  // link this to the fullDialogue prefab
     public int messageSpeed = 10;                // scale from 1-10 about how fast you want the message to write
 
-    GameObject canvas;
+    public GameObject canvas;
     Text text;
     GameObject image;
     Button button;
@@ -27,6 +27,7 @@ public class fullDialogue : MonoBehaviour
     {
         // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(Dialogue);
+		Debug.Log (canvas.name);
         text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
         image = canvas.transform.FindChild("Image").gameObject;
         button = image.GetComponent<Button>();
@@ -38,21 +39,7 @@ public class fullDialogue : MonoBehaviour
         currentCoroutine = writeMessage();
     }
 
-    void Update()
-    {
-        // need to put way of checking if they clicked away from the npc to move so the dialogue closes
-    }
-
-    void OnMouseDown()
-    {
-        // if they click the NPC and the dialogue isn't active, show the dialogue. Otherwise, close the dialogue
-        if (!canvas.activeSelf)
-            showDialogue();
-        else
-            endDialogue();
-    }
-
-    private void endDialogue()
+	public void endDialogue()
     {
         // sort of a placeholder right now
         StartCoroutine(shrinkCanvas());
@@ -72,7 +59,7 @@ public class fullDialogue : MonoBehaviour
         StartCoroutine(currentCoroutine);
     }
 
-    private void showDialogue()
+	public void showDialogue()
     {
         canvas.SetActive(true);
         StartCoroutine(growCanvas());
