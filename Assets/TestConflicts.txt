@@ -1,2 +1,0 @@
-This is for testing conflicts
-This is a conflict

@@ -41,7 +41,6 @@ public class ItemDatabase : MonoBehaviour {
                 (int)itemDatabase[i]["resale"]));
 		}
 	}
-
 }
 
 public class Item {

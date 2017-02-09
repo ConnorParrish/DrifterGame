@@ -14,9 +14,12 @@ public class simpleDialogue : MonoBehaviour {
     public float messageBloomTime = .7f;        // the amount of time the message spends blooming into and out of view
     public float messageDisplayTime = 3f;       // the amount of time the message is displayed for excluding bloom time
 
+
     GameObject canvas;
     Text text;
     RectTransform t;
+	NPC NPCData;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +32,9 @@ public class simpleDialogue : MonoBehaviour {
 
         // set the follow object on the toFollow script so the canvas follows the game object we are attached to
         canvas.GetComponent<SimpleFollow>().toFollow = gameObject;
+
+		// fetch the data from the NPC manager\
+		NPCData = GameObject.Find("NPC Manager").GetComponent<NPCDatabase>().npcDict["Wealthy Pedestrian"];
     }
 
     void Update()
@@ -48,7 +54,7 @@ public class simpleDialogue : MonoBehaviour {
         if (!canvas.activeSelf)
         {
             canvas.SetActive(true); // enable the canvas and the follow script on the canvas
-            text.text = "KJNBASKDJNAKSD";
+			text.text = NPCData.DialogueFrames[UnityEngine.Random.Range(0, NPCData.DialogueFrames.Count)]["text"];
             StartCoroutine(growCanvas());
         }
     }

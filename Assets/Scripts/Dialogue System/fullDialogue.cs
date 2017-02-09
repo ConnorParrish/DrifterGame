@@ -19,9 +19,11 @@ public class fullDialogue : MonoBehaviour
     Text text;
     GameObject image;
     Button button;
+	NPC NPCData;
 
-    string currentText = "This is going to be replaced with dict stuff. Testing. Testing. woop..."; // this is temporary, ignore.
+    string currentText; // this is temporary, ignore.
     IEnumerator currentCoroutine;
+	IEnumerator messageCycler;
 
     void Start()
     {
@@ -37,6 +39,9 @@ public class fullDialogue : MonoBehaviour
 
         // this is just to avoid a null reference error, ignore it.
         currentCoroutine = writeMessage();
+
+		// fetch the data from the NPC manager\
+		NPCData = GameObject.Find("NPC Manager").GetComponent<NPCDatabase>().npcDict["Wealthy Pedestrian"];
     }
 
 	public void endDialogue()
@@ -48,6 +53,7 @@ public class fullDialogue : MonoBehaviour
     private void showNextMessage()
     {
         // code up here will cycle through the message set
+		messageCycler.MoveNext();
 
         // stop the old coroutine if it has not finished
         StopCoroutine(currentCoroutine);
@@ -62,8 +68,8 @@ public class fullDialogue : MonoBehaviour
 	public void showDialogue()
     {
         canvas.SetActive(true);
+		messageCycler = cycleMessages ();
         StartCoroutine(growCanvas());
-        text.text = "";
     }
 
 
@@ -97,6 +103,9 @@ public class fullDialogue : MonoBehaviour
             t.localScale = new Vector3(currentScale, currentScale, 0f);
             yield return new WaitForSeconds(.01f);
         }
+
+		// start writing the first message when this finishes
+		showNextMessage();
     }
 
     IEnumerator shrinkCanvas()
@@ -118,4 +127,15 @@ public class fullDialogue : MonoBehaviour
 
         canvas.SetActive(false);
     }
+
+	IEnumerator cycleMessages(){
+		List<Dictionary<string, string>> messages = NPCData.DialogueFrames;
+		while (true) {
+			foreach (Dictionary<string, string> d in messages) {
+				currentText = d ["text"];
+				yield return null;
+			}
+		}
+	}
+		
 }

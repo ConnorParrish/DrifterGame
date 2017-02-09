@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cop : NPC {
+public class Cop : NPCInteraction {
 
 	// Use this for initialization
 	void Start () {
