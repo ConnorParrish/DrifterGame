@@ -19,7 +19,7 @@ public class fullDialogue : MonoBehaviour
     Text text;
     GameObject image;
     Button button;
-	NPC NPCData;
+	public NPC NPCData;
 
     string currentText; // this is temporary, ignore.
     IEnumerator currentCoroutine;
@@ -40,8 +40,6 @@ public class fullDialogue : MonoBehaviour
         // this is just to avoid a null reference error, ignore it.
         currentCoroutine = writeMessage();
 
-		// fetch the data from the NPC manager\
-		NPCData = GameObject.Find("NPC Manager").GetComponent<NPCDatabase>().npcDict["Wealthy Pedestrian"];
     }
 
 	public void endDialogue()

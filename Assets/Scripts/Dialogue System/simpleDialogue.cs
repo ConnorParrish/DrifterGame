@@ -15,10 +15,10 @@ public class simpleDialogue : MonoBehaviour {
     public float messageDisplayTime = 3f;       // the amount of time the message is displayed for excluding bloom time
 
 
-    GameObject canvas;
+    public GameObject canvas;
     Text text;
     RectTransform t;
-	NPC NPCData;
+	public NPC NPCData;
 
 
 	// Use this for initialization
@@ -33,22 +33,14 @@ public class simpleDialogue : MonoBehaviour {
         // set the follow object on the toFollow script so the canvas follows the game object we are attached to
         canvas.GetComponent<SimpleFollow>().toFollow = gameObject;
 
-		// fetch the data from the NPC manager\
-		NPCData = GameObject.Find("NPC Manager").GetComponent<NPCDatabase>().npcDict["Wealthy Pedestrian"];
     }
 
-    void Update()
-    {
-        // if the canvas is displaying, force its rotation to face the main camera
-        if (canvas.activeSelf)
-            canvas.transform.rotation = Camera.main.transform.rotation;
-    }
 	
 	void OnMouseDown () {
         showDialogue();
 	}
 
-    private void showDialogue()
+    public void showDialogue()
     {
         // we don't want to start the courtine again once it's already been started, so check if it's running
         if (!canvas.activeSelf)

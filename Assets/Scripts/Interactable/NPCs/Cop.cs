@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Cop : NPCInteraction {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public override void Start()
+    {
+        base.NPCData = GameObject.Find("NPC Manager").GetComponent<NPCDatabase>().npcDict["Police Officer"];
+        base.Start();
+
+    }
 }

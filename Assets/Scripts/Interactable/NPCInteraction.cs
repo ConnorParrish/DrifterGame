@@ -8,11 +8,22 @@ using UnityEngine.AI;
 
 public class NPCInteraction : Interactable
 {
-	fullDialogue fDialog;
+	public fullDialogue fDialog;
+    public simpleDialogue sDialog;
+    public NPC NPCData;
 	bool hasInteracted;
 
-	void Start() {
+	public virtual void Start() {
 		fDialog = GetComponent<fullDialogue> ();
+        sDialog = GetComponent<simpleDialogue>();
+        
+        if (fDialog != null)
+        {
+            fDialog.NPCData = this.NPCData;
+        } else if (sDialog != null)
+        {
+            sDialog.NPCData = this.NPCData;
+        }
 	}
 	public override void Update(){
 		{
@@ -41,10 +52,23 @@ public class NPCInteraction : Interactable
     public override void Interact()
     {
 		hasInteracted = true;
-		if (!fDialog.canvas.activeSelf) {
-			fDialog.showDialogue ();
-		} else {
-			fDialog.endDialogue ();
-		}
-	}
+        if (fDialog != null)
+        {
+            if (!fDialog.canvas.activeSelf)
+            {
+                fDialog.showDialogue();
+            }
+            else
+            {
+                fDialog.endDialogue();
+            }
+        } else if (sDialog != null)
+        {
+            sDialog.showDialogue();
+            // if the canvas is displaying, force its rotation to face the main camera
+            if (sDialog.canvas.activeSelf)
+                sDialog.canvas.transform.rotation = Camera.main.transform.rotation;
+            
+        }
+    }
 }

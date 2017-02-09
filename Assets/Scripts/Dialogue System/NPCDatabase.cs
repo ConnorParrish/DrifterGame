@@ -14,6 +14,10 @@ public class NPCDatabase : MonoBehaviour {
 		JsonData dioDatabase = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
 			"/StreamingAssets/NPCList.json"));
 		ConstructNPCDatabase (dioDatabase);
+        foreach (string keys in npcDict.Keys)
+        {
+            Debug.Log(keys);
+        }
 	}
 	
 	void ConstructNPCDatabase(JsonData data){
@@ -32,7 +36,7 @@ public class NPC
 
 	public NPC(string name, string slug, JsonData frames){
 		Name = name;
-		slug = slug;
+		Slug = slug;
 		for (int i = 0; i < frames.Count; i++) {
 			Dictionary<string, string> temp = new Dictionary<string, string> ();
 			temp ["text"] = frames [i] ["text"].ToString ();
