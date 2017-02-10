@@ -54,9 +54,11 @@ public class Inventory : MonoBehaviour {
     {
         if (inventoryPanel.transform.parent.gameObject.activeSelf)
         {
+            Debug.Log("Hiding");
             inventoryPanel.transform.parent.gameObject.SetActive(false);
         } else
         {
+            Debug.Log("Showing");
             inventoryPanel.transform.parent.gameObject.SetActive(true);
         }
     }
