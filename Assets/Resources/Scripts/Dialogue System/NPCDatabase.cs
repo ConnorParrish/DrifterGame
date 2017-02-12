@@ -14,10 +14,7 @@ public class NPCDatabase : MonoBehaviour {
 		JsonData dioDatabase = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
 			"/StreamingAssets/NPCList.json"));
 		ConstructNPCDatabase (dioDatabase);
-        foreach (string keys in npcDict.Keys)
-        {
-            Debug.Log(keys);
-        }
+        
 	}
 	
 	void ConstructNPCDatabase(JsonData data){

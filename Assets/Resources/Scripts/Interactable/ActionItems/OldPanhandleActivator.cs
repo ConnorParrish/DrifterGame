@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PanhandleActivator : ActionItem {
+public class OldPanhandleActivator : ActionItem {
 
     public override void Interact()
     {
