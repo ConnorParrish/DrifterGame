@@ -7,7 +7,6 @@ public class PanhandleActivator : ActionItem {
     public SplineInterpolator splineInterpolator;
     public SplineController splineController;
     public GameObject splineRoots;
-    public bool hasInteracted;
     public int pathToSet;
 
     public override void MoveToInteraction(NavMeshAgent playerAgent)
@@ -20,14 +19,13 @@ public class PanhandleActivator : ActionItem {
     }
     public override void Interact()
     {
-        if (!hasInteracted)
+        if (true)
         {
             SplineController splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
             //splineController.AutoClose = false;
             splineController.Duration = 5f;
-            SplineInterpolator splineInterpolator = Camera.main.gameObject.AddComponent<SplineInterpolator>();
-            hasInteracted = true;
+            //SplineInterpolator splineInterpolator = Camera.main.gameObject.AddComponent<SplineInterpolator>();
             gameObject.SetActive(false);
         }
     }

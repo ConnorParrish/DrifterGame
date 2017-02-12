@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 /**
  * This should be used on any NPCs to start dialogs
@@ -11,7 +12,6 @@ public class NPCInteraction : Interactable
 	public fullDialogue fDialog;
     public simpleDialogue sDialog;
     public NPC NPCData;
-	bool hasInteracted;
 
 	public virtual void Start() {
 		fDialog = GetComponent<fullDialogue> ();
@@ -25,33 +25,46 @@ public class NPCInteraction : Interactable
             sDialog.NPCData = this.NPCData;
         }
 	}
-	public override void Update(){
-		{
-			if (playerAgent != null&& !playerAgent.pathPending)
-			{
-				if (playerAgent.remainingDistance < playerAgent.stoppingDistance)
-				{
-					if (!hasInteracted) {
-						Interact ();
-					}
-				}
-			}
-		}
-	
-	}
+
 
     // This is overriden so that the stopping distance is larger in order to
     //  make the player stop near the NPC and not ontop of them.
-    public override void MoveToInteraction(NavMeshAgent playerAgent)
+    public override void MoveToInteraction(NavMeshAgent pAgent)
     {
-        this.playerAgent = playerAgent;
-        playerAgent.stoppingDistance = 2.5f;
-        playerAgent.destination = this.transform.position;
+        pAgent.stoppingDistance = 4f;
+
+        base.MoveToInteraction(pAgent);
+    }
+
+    public override void Update()
+    {
+        if (playerAgent != null && !playerAgent.pathPending)
+        {
+            float speed = playerAgent.desiredVelocity.magnitude;
+
+            if (playerAgent.remainingDistance <= playerAgent.stoppingDistance * 1f)
+            {
+                if (!hasInteracted)
+                {
+                    //playerAgent.transform.position = transform.position;
+
+                    //playerAgent = null;
+                    Interact();
+                    //Stopping(out speed);
+                    hasInteracted = true;
+
+                }
+            }
+            if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
+            {
+                hasInteracted = false;
+            }
+        }
     }
 
     public override void Interact()
     {
-		hasInteracted = true;
+        base.Interact();
         if (fDialog != null)
         {
             if (!fDialog.canvas.activeSelf)

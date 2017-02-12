@@ -8,12 +8,13 @@ using UnityEngine.AI;
  **/
 
 public class Interactable : MonoBehaviour {
-	public UnityEngine.AI.NavMeshAgent playerAgent;
+	public UnityEngine.AI.NavMeshAgent playerAgent = new NavMeshAgent();
+    public bool hasInteracted;
 
-	public virtual void MoveToInteraction(UnityEngine.AI.NavMeshAgent playerAgent){
-		this.playerAgent = playerAgent;
-		playerAgent.stoppingDistance = 1f;
-		playerAgent.destination = this.transform.position;
+	public virtual void MoveToInteraction(UnityEngine.AI.NavMeshAgent pAgent){
+        this.playerAgent = pAgent;
+        
+        playerAgent.destination = this.transform.position;
         
 	}
 
@@ -21,14 +22,38 @@ public class Interactable : MonoBehaviour {
     {
         if (playerAgent != null&& !playerAgent.pathPending)
         {
-            if (playerAgent.remainingDistance < playerAgent.stoppingDistance)
+            float speed = playerAgent.desiredVelocity.magnitude;
+
+
+            if (playerAgent.remainingDistance <= playerAgent.stoppingDistance *1f)
             {
-	            Interact();
+                if (!hasInteracted)
+                {
+                    //playerAgent.transform.position = transform.position;
+
+                    playerAgent = null;
+                    Interact();
+                    //Stopping(out speed);
+                    hasInteracted = true;
+
+                }
+            }
+            if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
+            {
+                hasInteracted = false;
             }
         }
     }
 
+    void Stopping(out float speed)
+    {
+        playerAgent.Stop();
+        playerAgent.transform.position = transform.position;
+        speed = 0f;
+
+    }
+
 	public virtual void Interact(){
-		Debug.Log("Interacting with base classs.");
-	}
+        playerAgent.Stop();
+    }
 }

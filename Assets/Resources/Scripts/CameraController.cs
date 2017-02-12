@@ -20,6 +20,7 @@ public class CameraController : MonoBehaviour {
         anim = GetComponent<Animator>();
         offset = transform.position - target.position;
         anim.enabled = false;
+        //GetComponent<SplineInterpolator>().enabled = false;
     }
 
     void FixedUpdate()
