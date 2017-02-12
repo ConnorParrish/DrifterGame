@@ -24,9 +24,8 @@ public class PanhandleActivator : ActionItem {
         {
             SplineController splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
-            splineController.AutoClose = false;
+            //splineController.AutoClose = false;
             splineController.Duration = 5f;
-            //splineController.pathIndex = pathToSet;
             SplineInterpolator splineInterpolator = Camera.main.gameObject.AddComponent<SplineInterpolator>();
             hasInteracted = true;
             gameObject.SetActive(false);

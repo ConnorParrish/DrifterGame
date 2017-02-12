@@ -131,20 +131,21 @@ public class SplineInterpolator : MonoBehaviour
 	}
 
 	float mCurrentTime;
-	int mCurrentIdx = 1;
+	public int mCurrentIdx = 1;
+    public bool ended;
 
 	void Update()
 	{
         if (mState == "Reset" || mNodes.Count < 4)
 			return;
-        
 
-		mCurrentTime += Time.deltaTime;
+
+        mCurrentTime += Time.deltaTime;
 
 		// We advance to next point in the path
 		if (mCurrentTime >= mNodes[mCurrentIdx + 1].Time)
 		{
-			if (mCurrentIdx < mNodes.Count - 3)
+			if (mCurrentIdx < mNodes.Count/2 - 3)
 			{
                 mCurrentIdx++;
 
@@ -174,7 +175,7 @@ public class SplineInterpolator : MonoBehaviour
 			}
 		}
 
-		if (mState != "Stopped")
+		if (mState == "Reset" || mState == "Loop" || mState == "Once")
 		{
 			// Calculates the t param between 0 and 1
 			float param = (mCurrentTime - mNodes[mCurrentIdx].Time) / (mNodes[mCurrentIdx + 1].Time - mNodes[mCurrentIdx].Time);
@@ -189,7 +190,34 @@ public class SplineInterpolator : MonoBehaviour
 				transform.rotation = GetSquad(mCurrentIdx, param);
 			}
 		}
-	}
+
+
+        if (mState == "Stopped")
+        {
+            if (ended)
+            {
+                this.enabled = false;
+                Destroy(gameObject.GetComponent<SplineController>());
+                Destroy(gameObject.GetComponent<SplineInterpolator>());
+
+            }
+            else
+            {
+                mCurrentTime -= Time.deltaTime;
+                // We stop right in the end point
+                transform.position = mNodes[mNodes.Count - 3].Point;
+
+                if (mRotations)
+                    transform.rotation = mNodes[mNodes.Count - 3].Rot;
+                //ended = true;
+
+                return;
+
+
+            }
+
+        }
+    }
 
 	Quaternion GetSquad(int idxFirstPoint, float t)
 	{
