@@ -127,12 +127,12 @@ public class fullDialogue : MonoBehaviour
 
 	IEnumerator cycleMessages(){
 		List<Dictionary<string, string>> messages = NPCData.DialogueFrames;
-		while (true) {
-			foreach (Dictionary<string, string> d in messages) {
-				currentText = d ["text"];
-				yield return null;
-			}
+		foreach (Dictionary<string, string> d in messages) {
+			currentText = d ["text"];
+			yield return null;
 		}
+
+        endDialogue();
 	}
 		
 }
