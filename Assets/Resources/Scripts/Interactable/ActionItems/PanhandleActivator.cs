@@ -27,6 +27,7 @@ public class PanhandleActivator : ActionItem {
             splineController.Duration = 5f;
             //SplineInterpolator splineInterpolator = Camera.main.gameObject.AddComponent<SplineInterpolator>();
             gameObject.SetActive(false);
+            GameObject.Find("Player").GetComponent<WorldInteraction>().canMove = false;
         }
     }
 

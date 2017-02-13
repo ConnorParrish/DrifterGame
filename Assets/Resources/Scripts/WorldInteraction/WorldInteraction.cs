@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public class WorldInteraction : MonoBehaviour {
 	public Sprite destinationSprite;
+    public bool canMove = true;
 	private UnityEngine.AI.NavMeshAgent navMeshAgent;
 	private bool walking;
 	private bool clickedPanhandle;
@@ -27,7 +28,7 @@ public class WorldInteraction : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		    RaycastHit hit;
 
-			if (Physics.Raycast(ray, out hit, 100)){
+			if (Physics.Raycast(ray, out hit, 100) && canMove){
 				if (hit.collider.gameObject.tag == "Interactable Object"){
 					hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
 				} else {

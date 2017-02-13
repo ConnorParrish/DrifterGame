@@ -54,6 +54,6 @@ public class Interactable : MonoBehaviour {
     }
 
 	public virtual void Interact(){
-        playerAgent.Stop();
+        Debug.Log("Interacting with base Interactable");
     }
 }

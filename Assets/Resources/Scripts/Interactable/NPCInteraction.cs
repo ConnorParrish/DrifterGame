@@ -57,7 +57,11 @@ public class NPCInteraction : Interactable
             }
             if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
             {
-                hasInteracted = false;
+                //hasInteracted = false;
+                if (fDialog != null)
+                {
+                    fDialog.endDialogue();
+                }
             }
         }
     }

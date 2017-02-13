@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PanhandleDeactivator : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PanhandleDeactivator : MonoBehaviour
         {
             panhandlingActivatorGO.transform.GetChild(0).GetChild(0).GetChild(i).gameObject.SetActive(true);
         }
+        GameObject.Find("Player").GetComponent<WorldInteraction>().canMove = true;
         panhandlingActivatorGO.SetActive(true);
 
     }
