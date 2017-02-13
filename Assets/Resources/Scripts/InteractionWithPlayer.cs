@@ -35,14 +35,14 @@ public class InteractionWithPlayer : MonoBehaviour {
 				
 				int change = Random.Range(1,100); // The possible money you will receive in cents
 				Debug.Log("Money Before: " + inventory.Money);
-				inventory.Money += change*(0.01f);
+				inventory.AddMoney(change*(0.01f));
 				Debug.Log("Money After: " + inventory.Money);
 			} else {
 				Debug.Log("They didn't care");
 				resultSR.sprite = failedSprite;
 				resultSR.enabled = true;
 			}
-			hasInteracted = true; // Remembers the player has asked for money
+			//hasInteracted = true; // Remembers the player has asked for money
 		} else {
 			askingForHelp = true; // Implement later to call cops
 		}

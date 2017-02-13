@@ -68,7 +68,7 @@ public class NPCInteraction : Interactable
 
     public override void Interact()
     {
-        base.Interact();
+        playerAgent.Stop();
         if (fDialog != null)
         {
             if (!fDialog.canvas.activeSelf)

@@ -37,7 +37,7 @@ public class simpleDialogue : MonoBehaviour {
 
 	
 	void OnMouseDown () {
-        showDialogue();
+        //showDialogue();           // enable for debugging dialog
 	}
 
     public void showDialogue()

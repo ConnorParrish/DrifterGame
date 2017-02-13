@@ -9,10 +9,13 @@ public class PanhandleActivator : ActionItem {
     public GameObject splineRoots;
     public int pathToSet;
 
+    private GameObject player;
+
     public override void MoveToInteraction(NavMeshAgent playerAgent)
     {
         //gameObject.GetComponent<BoxCollider>().enabled = false;
         splineRoots = transform.GetChild(0).gameObject;
+        player = GameObject.Find("Player");
         //splineRoots.GetComponent<SimpleFollow>().toFollow = this.gameObject;
 
         base.MoveToInteraction(playerAgent);
@@ -27,7 +30,8 @@ public class PanhandleActivator : ActionItem {
             splineController.Duration = 5f;
             //SplineInterpolator splineInterpolator = Camera.main.gameObject.AddComponent<SplineInterpolator>();
             gameObject.SetActive(false);
-            GameObject.Find("Player").GetComponent<WorldInteraction>().canMove = false;
+            player.GetComponent<WorldInteraction>().canMove = false;
+            player.GetComponent<PanhandlingScript>().enabled = true;
         }
     }
 

@@ -12,13 +12,17 @@ public class PanhandleDeactivator : MonoBehaviour
         Camera.main.GetComponent<SplineInterpolator>().ended = true;
         Camera.main.GetComponent<SplineInterpolator>().mCurrentIdx++;
 
+        GameObject player = GameObject.Find("Player");
+
         panhandlingActivatorGO.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
 
         for (int i = 0; i < panhandlingActivatorGO.transform.GetChild(0).GetChild(0).childCount; i++)
         {
             panhandlingActivatorGO.transform.GetChild(0).GetChild(0).GetChild(i).gameObject.SetActive(true);
         }
-        GameObject.Find("Player").GetComponent<WorldInteraction>().canMove = true;
+
+        player.GetComponent<WorldInteraction>().canMove = true;
+        player.GetComponent<PanhandlingScript>().enabled = false;
         panhandlingActivatorGO.SetActive(true);
 
     }
