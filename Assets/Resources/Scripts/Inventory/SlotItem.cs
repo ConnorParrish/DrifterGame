@@ -20,6 +20,16 @@ public class SlotItem : MonoBehaviour, IDropHandler {
     {
         ItemData droppedItem = eventData.pointerDrag.GetComponent<ItemData>();  // Get's the item the mouse is dragging, then gets the component ItemData
         Debug.Log(inv.items[slotID].ID);
+
+        if (gameObject.name == "Trash Slot" || gameObject.name == "Image")
+        {
+            Debug.Log("Deleting item: " + droppedItem.item.Title);
+            inv.itemTrashed = true;
+            inv.RemoveItem(droppedItem.item.ID);
+            //inv.itemTrashed = false;
+            return;
+        }
+
         if (inv.items[slotID].ID == -1)                                             // If the slot is empty
         {
             inv.items[droppedItem.slotID] = new Item();                         // Sets the old slot to be an empty item (so we can return back to it)

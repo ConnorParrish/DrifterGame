@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour {
     public float Money;                                                         // NEEEEED TO IMPLEMENNTTTT (you did (: )
     Text moneyText;
     public bool fullInventory;                                                  // Keeps track of whether the inventory is full already
-
+    public bool itemTrashed;
     int slotAmount;                                                             // Max number of slots
     public List<Item> items = new List<Item>();                                 // List of items in the inventory
     public List<GameObject> slots = new List<GameObject>();                     // List of slots in the inventory
@@ -167,8 +167,15 @@ public class Inventory : MonoBehaviour {
                     }
                     slots[i].name = "Slot(Clone)";
                     items[i] = new Item();
-                    Destroy(slots[i].transform.GetChild(0).gameObject);
+                    if (itemTrashed)
+                    {
+                        Destroy(GameObject.Find(itemToRemove.Title));
+                    } else
+                    {
+                        Destroy(slots[i].transform.GetChild(0).gameObject);
+                    }
                     break;
+
                 }
             }
         }
