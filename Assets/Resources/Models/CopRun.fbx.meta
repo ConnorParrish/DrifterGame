@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 94f5a8f8d7b72954c8d62c33507096a5
-timeCreated: 1487192224
+guid: 058634407a80f474faa565c0d97d5335
+timeCreated: 1487192922
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Character1_Reference
+    100000: Character1_Reference
+    100002: //RootNode
     100004: group
     100006: group1
     100008: group2
@@ -50,11 +50,25 @@ ModelImporter:
     100084: pasted__joint5
     100086: pasted__joint6
     100088: pasted__joint7
-    100090: pSphere5
-    100092: pSphere7
-    100094: transform8
-    400000: //RootNode
-    400002: Character1_Reference
+    100090: pCube1
+    100092: pCube2
+    100094: pCylinder1
+    100096: pSphere2
+    100098: pSphere3
+    100100: pSphere4
+    100102: pSphere5
+    100104: pSphere6
+    100106: pSphere7
+    100108: transform1
+    100110: transform2
+    100112: transform3
+    100114: transform4
+    100116: transform5
+    100118: transform6
+    100120: transform7
+    100122: transform8
+    400000: Character1_Reference
+    400002: //RootNode
     400004: group
     400006: group1
     400008: group2
@@ -98,9 +112,23 @@ ModelImporter:
     400084: pasted__joint5
     400086: pasted__joint6
     400088: pasted__joint7
-    400090: pSphere5
-    400092: pSphere7
-    400094: transform8
+    400090: pCube1
+    400092: pCube2
+    400094: pCylinder1
+    400096: pSphere2
+    400098: pSphere3
+    400100: pSphere4
+    400102: pSphere5
+    400104: pSphere6
+    400106: pSphere7
+    400108: transform1
+    400110: transform2
+    400112: transform3
+    400114: transform4
+    400116: transform5
+    400118: transform6
+    400120: transform7
+    400122: transform8
     4300000: pSphere7
     7400000: Take 001
     9500000: //RootNode
