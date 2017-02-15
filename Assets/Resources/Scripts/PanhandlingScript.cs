@@ -15,7 +15,17 @@ public class PanhandlingScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Camera.main.GetComponent<SplineInterpolator>().mState == "Stopped") // THIS IS POTENTIALLY VERY SLOW
+        {
+            Vector3 temp = gameObject.transform.eulerAngles;
+            float width = Input.mousePosition.x / Screen.currentResolution.width - .5f;
+            float height = Input.mousePosition.y / Screen.currentResolution.height - .5f;
+            temp.x += height * -15f + 15;
+            temp.y += width * 30f;
+            Camera.main.transform.eulerAngles = temp;
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
 
 		if (Input.GetButtonDown("Fire1")){ // If the player clicks (left mouse)
@@ -36,14 +46,6 @@ public class PanhandlingScript : MonoBehaviour {
 			}
 		}
 
-        if (Camera.main.GetComponent<SplineInterpolator>().mState == "Stopped") // THIS IS POTENTIALLY VERY SLOW
-        {
-            Vector3 temp = gameObject.transform.eulerAngles;
-            float width = Input.mousePosition.x / Screen.currentResolution.width - .5f;
-            float height = Input.mousePosition.y / Screen.currentResolution.height - .5f;
-            temp.x += height * -15f + 15;
-            temp.y += width * 30f;
-            Camera.main.transform.eulerAngles = temp;
-        }
+
 	}
 }

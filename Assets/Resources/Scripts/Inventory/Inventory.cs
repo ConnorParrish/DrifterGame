@@ -76,7 +76,8 @@ public class Inventory : MonoBehaviour {
     public void AddMoney(float change)
     {
         Money += change;
-        inventoryMenu.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#.00");
+
+        inventoryMenu.transform.GetChild(4).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#.00");
     }
 
     public void AddItem(int id)
