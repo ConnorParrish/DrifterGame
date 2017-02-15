@@ -33,6 +33,11 @@
         "text": "Can't you see people don't want you to bother them?",
         "itemID": -1,
         "cost": 0
+      },
+      {
+        "text": "Hey randomly, and not for debugging purposes, do you want this Chicken Sandwich? Shit is gonna cost you 100$ because fuck you.",
+        "itemID": 1,
+        "cost": 100
       }
     ]
   }

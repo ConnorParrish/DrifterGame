@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour {
     ItemDatabase database;                                                      // This is the list of all items
     public GameObject inventorySlot;                                            // Prefab of the slot itself
     public GameObject inventoryItem;                                            // Prefab that is the item
-    public float Money;                                                         // NEEEEED TO IMPLEMENNTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    public float Money;                                                         // NEEEEED TO IMPLEMENNTTTT (you did (: )
     Text moneyText;
     public bool fullInventory;                                                  // Keeps track of whether the inventory is full already
 

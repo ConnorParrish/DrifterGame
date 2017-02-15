@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PanhandlingScript : MonoBehaviour {
 	public int begsRemaining;
@@ -10,8 +11,6 @@ public class PanhandlingScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		inventory = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
-        Debug.Log(inventory.name);
-
 	}
 	
 	// Update is called once per frame
@@ -35,6 +34,18 @@ public class PanhandlingScript : MonoBehaviour {
 					}
 				}
 			}
-		}	
+		}
+
+        if (Camera.main.GetComponent<SplineInterpolator>().mState == "Stopped") // THIS IS POTENTIALLY VERY SLOW
+        {
+            Vector3 temp = gameObject.transform.eulerAngles;
+            float width = Input.mousePosition.x / Screen.currentResolution.width - .5f;
+            float height = Input.mousePosition.y / Screen.currentResolution.height - .5f;
+            Debug.Log("Height: " + Convert.ToString(temp.x));
+            Debug.Log("width: " + Convert.ToString(temp.z));
+            temp.x += height * -15f + 15;
+            temp.y += width * 30f;
+            Camera.main.transform.eulerAngles = temp;
+        }
 	}
 }
