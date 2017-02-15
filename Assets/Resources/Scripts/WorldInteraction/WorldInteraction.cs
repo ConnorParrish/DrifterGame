@@ -9,14 +9,14 @@ public class WorldInteraction : MonoBehaviour {
 	private bool walking;
 	private bool clickedPanhandle;
 	private GameObject destinationObject;
-    private GameObject player;
+    private Animator anim;
 
 	// Use this for initialization
 	void Start () {
 		destinationObject = new GameObject();
 		destinationObject.AddComponent<SpriteRenderer>();
 		destinationObject.GetComponent<SpriteRenderer>().sprite = destinationSprite;
-        player = GameObject.FindWithTag("Player");
+        anim = GetComponentInChildren<Animator>();
 
 
 		navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -36,7 +36,7 @@ public class WorldInteraction : MonoBehaviour {
 				} else {
 					navMeshAgent.stoppingDistance = 0f;
 					walking=true;
-                    player.GetComponentInChildren<Animator>().SetBool("IsWalking", walking);
+                    anim.SetBool("IsWalking", walking); 
 					destinationObject.SetActive(true);
 					destinationObject.transform.position = hit.point;
 					navMeshAgent.destination = hit.point;
@@ -49,7 +49,7 @@ public class WorldInteraction : MonoBehaviour {
 		if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance){
 			if (!navMeshAgent.hasPath || Mathf.Abs (navMeshAgent.velocity.sqrMagnitude) < float.Epsilon){
 				walking = false;
-                player.GetComponentInChildren<Animator>().SetBool("IsWalking", walking);
+                anim.SetBool("IsWalking", walking);
                 destinationObject.SetActive(false);
 			} else {
 				walking = true;
