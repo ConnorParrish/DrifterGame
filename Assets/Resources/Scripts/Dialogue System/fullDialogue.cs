@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,10 +19,12 @@ public class fullDialogue : MonoBehaviour
     public GameObject canvas;
     Text text;
     GameObject image;
-    Button button;
 	public NPC NPCData;
+    Inventory inv;
 
-    string currentText; // this is temporary, ignore.
+    string currentText;
+    int currentItem;
+    float currentCost;
     IEnumerator currentCoroutine;
 	IEnumerator messageCycler;
 
@@ -31,7 +34,7 @@ public class fullDialogue : MonoBehaviour
         canvas = GameObject.Instantiate(Dialogue);
 		text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
         image = canvas.transform.FindChild("Image").gameObject;
-        button = image.GetComponent<Button>();
+        Button button = image.GetComponent<Button>();
         button.onClick.AddListener(showNextMessage);
         // set the canvas to false because we don't need it yet
         canvas.SetActive(false);
@@ -39,12 +42,17 @@ public class fullDialogue : MonoBehaviour
         // this is just to avoid a null reference error, ignore it.
         currentCoroutine = writeMessage();
 
+        // get a reference to the inventory for adding items
+        inv = GameObject.Find("InventoriesCanvas").GetComponentInChildren<Inventory>();
+
     }
 
 	public void endDialogue()
     {
         // sort of a placeholder right now
         StartCoroutine(shrinkCanvas());
+        canvas.transform.FindChild("Decline").gameObject.SetActive(false);
+        canvas.transform.FindChild("Accept").gameObject.SetActive(false);
     }
 
     private void showNextMessage()
@@ -67,6 +75,23 @@ public class fullDialogue : MonoBehaviour
         canvas.SetActive(true);
 		messageCycler = cycleMessages ();
         StartCoroutine(growCanvas());
+    }
+
+    public void purchaseItem()
+    {
+        if (inv.Money - currentCost < 0)
+        {
+            currentText = "(You rifle through your pockets, and sadly realize you can't afford it)";
+            StopCoroutine(currentCoroutine);
+            currentCoroutine = writeMessage();
+            StartCoroutine(currentCoroutine);
+        }
+        else
+        {
+            inv.AddItem(currentItem);
+            inv.AddMoney(-currentCost);
+            endDialogue();
+        }
     }
 
 
@@ -129,6 +154,15 @@ public class fullDialogue : MonoBehaviour
 		List<Dictionary<string, string>> messages = NPCData.DialogueFrames;
 		foreach (Dictionary<string, string> d in messages) {
 			currentText = d ["text"];
+            if (Convert.ToInt32(d["itemID"]) != -1) // if the dialogue frame contains an item
+            {
+                canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.AddListener(endDialogue);
+                canvas.transform.FindChild("Decline").gameObject.SetActive(true);
+                canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(purchaseItem);
+                canvas.transform.FindChild("Accept").gameObject.SetActive(true);
+                currentCost = float.Parse(d["cost"]);
+                currentItem = Convert.ToInt32(d["itemID"]);
+            }
 			yield return null;
 		}
 

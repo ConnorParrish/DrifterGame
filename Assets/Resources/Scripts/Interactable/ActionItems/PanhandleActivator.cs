@@ -27,11 +27,12 @@ public class PanhandleActivator : ActionItem {
             SplineController splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
             //splineController.AutoClose = false;
-            splineController.Duration = 5f;
+            splineController.Duration = 3f;
             //SplineInterpolator splineInterpolator = Camera.main.gameObject.AddComponent<SplineInterpolator>();
             gameObject.SetActive(false);
             player.GetComponent<WorldInteraction>().canMove = false;
             player.GetComponent<PanhandlingScript>().enabled = true;
+            player.transform.forward = gameObject.transform.forward;
         }
     }
 
