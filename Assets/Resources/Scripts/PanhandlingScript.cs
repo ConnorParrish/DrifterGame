@@ -41,8 +41,6 @@ public class PanhandlingScript : MonoBehaviour {
             Vector3 temp = gameObject.transform.eulerAngles;
             float width = Input.mousePosition.x / Screen.currentResolution.width - .5f;
             float height = Input.mousePosition.y / Screen.currentResolution.height - .5f;
-            Debug.Log("Height: " + Convert.ToString(temp.x));
-            Debug.Log("width: " + Convert.ToString(temp.z));
             temp.x += height * -15f + 15;
             temp.y += width * 30f;
             Camera.main.transform.eulerAngles = temp;
