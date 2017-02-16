@@ -25,11 +25,11 @@ public class PanhandlingScript : MonoBehaviour {
             Camera.main.transform.eulerAngles = temp;
         }
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hit;
-
 		if (Input.GetButtonDown("Fire1")){ // If the player clicks (left mouse)
-			if (Physics.Raycast(ray, out hit, 100)){ // Returns true if the raycast hit something
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100)){ // Returns true if the raycast hit something
 				if (hit.collider.gameObject.tag == "Interactable Object" && hit.collider.gameObject.GetComponent<W_pedestrian>()){ // Checks to see if the player clicked a pedestrian
 					if (begsRemaining > 0){
                         if (infiniteBegs)
