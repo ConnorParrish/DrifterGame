@@ -1,0 +1,38 @@
+[
+	{
+		"id": 0,
+		"title": "Cheeseburger",
+		"description": "Eat this beefy shit to regain your hunger",
+		"slug": "burger",
+		"type": "Consumable",
+		"stackable": false,
+		"resale": 0
+	},
+	{
+		"id": 1,
+		"title": "Chicken Sandwich",
+		"description": "Eat this chicken shit to regain your hunger",
+		"slug": "chicken_sandwich",
+		"type": "Consumable",
+		"stackable": false,
+		"resale": 0
+	},
+	{
+		"id": 2,
+		"title": "Bottlecaps",
+		"description": "Is this fallout?",
+		"slug": "bottlecap",
+		"type": "Recyclable",
+		"stackable": true,
+		"resale": 3
+	},
+	{
+		"id": 3,
+		"title": "Beer Bottle",
+		"description": "Shit, I wish there was still some in here for me...",
+		"slug": "beer_bottle",
+		"type": "Recyclable",
+		"stackable": false,
+		"resale": 10
+	}
+]
