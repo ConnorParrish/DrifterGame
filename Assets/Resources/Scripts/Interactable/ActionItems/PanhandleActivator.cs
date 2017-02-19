@@ -32,6 +32,7 @@ public class PanhandleActivator : ActionItem {
             gameObject.SetActive(false);
             player.GetComponent<WorldInteraction>().canMove = false;
             player.GetComponent<PanhandlingScript>().enabled = true;
+            Camera.main.gameObject.GetComponent<CameraController>().enabled = false;
             player.transform.forward = gameObject.transform.forward;
         }
     }

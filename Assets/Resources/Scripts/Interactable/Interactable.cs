@@ -8,19 +8,21 @@ using UnityEngine.AI;
  **/
 
 public class Interactable : MonoBehaviour {
-	public UnityEngine.AI.NavMeshAgent playerAgent = new NavMeshAgent();
+	public NavMeshAgent playerAgent = new NavMeshAgent();
+    public Vector3 pa_destination;
     public bool hasInteracted;
 
+    
 	public virtual void MoveToInteraction(UnityEngine.AI.NavMeshAgent pAgent){
         this.playerAgent = pAgent;
-        
         playerAgent.destination = this.transform.position;
-        
-	}
+        this.pa_destination = playerAgent.destination;
+
+    }
 
     public virtual void Update()
     {
-        if (playerAgent != null&& !playerAgent.pathPending)
+        if (playerAgent != null && !playerAgent.pathPending && pa_destination == playerAgent.destination)
         {
             float speed = playerAgent.desiredVelocity.magnitude;
 
@@ -31,7 +33,6 @@ public class Interactable : MonoBehaviour {
                 {
                     //playerAgent.transform.position = transform.position;
 
-                    playerAgent = null;
                     Interact();
                     //Stopping(out speed);
                     hasInteracted = true;
