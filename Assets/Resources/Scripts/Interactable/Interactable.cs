@@ -24,6 +24,10 @@ public class Interactable : MonoBehaviour {
         {
             float speed = playerAgent.desiredVelocity.magnitude;
 
+            if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
+            {
+                hasInteracted = false;
+            }
 
             if (playerAgent.remainingDistance <= playerAgent.stoppingDistance *1f)
             {
@@ -37,10 +41,6 @@ public class Interactable : MonoBehaviour {
                     hasInteracted = true;
 
                 }
-            }
-            if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
-            {
-                hasInteracted = false;
             }
         }
     }

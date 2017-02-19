@@ -130,7 +130,8 @@ ModelImporter:
     400120: transform7
     400122: transform8
     4300000: pSphere7
-    7400000: Take 001
+    7400000: Run
+    7400002: Jump
     9500000: //RootNode
     13700000: pSphere7
   materials:
@@ -153,7 +154,159 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Character1_Reference
+        weight: 1
+      - path: group
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group2
+        weight: 1
+      - path: group2/pasted__joint1
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6/pasted__joint7
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint11
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13/pasted__joint14
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17/pasted__joint18
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21/pasted__joint22
+        weight: 1
+      - path: nurbsCircle1
+        weight: 1
+      - path: nurbsCircle1/ikHandle7
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle2
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle2/ikHandle1
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle3
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle3/ikHandle2
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle6
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle6/ikHandle11
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle7
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle7/ikHandle14
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle8
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle8/ikHandle15
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle9
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle9/ikHandle12
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle9/ikHandle20
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle10
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle10/ikHandle13
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle10/ikHandle21
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle13
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle13/ikHandle19
+        weight: 1
+      - path: nurbsCircle1/nurbsCircle13/ikHandle22
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: pCube1/transform2
+        weight: 1
+      - path: pCube2
+        weight: 1
+      - path: pCube2/transform3
+        weight: 1
+      - path: pCylinder1
+        weight: 1
+      - path: pCylinder1/transform1
+        weight: 1
+      - path: pSphere2
+        weight: 1
+      - path: pSphere2/transform4
+        weight: 1
+      - path: pSphere3
+        weight: 1
+      - path: pSphere3/transform6
+        weight: 1
+      - path: pSphere4
+        weight: 1
+      - path: pSphere4/transform5
+        weight: 1
+      - path: pSphere5
+        weight: 1
+      - path: pSphere5/transform8
+        weight: 1
+      - path: pSphere6
+        weight: 1
+      - path: pSphere6/transform7
+        weight: 1
+      - path: pSphere7
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -177,7 +330,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     serializedVersion: 2
     human: []
@@ -194,7 +347,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 94f5a8f8d7b72954c8d62c33507096a5,
+    type: 3}
   animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
