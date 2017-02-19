@@ -28,22 +28,29 @@ public class WorldInteraction : MonoBehaviour {
         if (Input.GetButtonDown("Fire2"))
         {
             Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-		    RaycastHit hit;
+		    RaycastHit[] hits = Physics.RaycastAll(ray, 100);
 
-			if (Physics.Raycast(ray, out hit, 100) && canMove){
-				if (hit.collider.gameObject.tag == "Interactable Object"){
-					hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
-				} else {
-					navMeshAgent.stoppingDistance = 0f;
-					walking=true;
-                    anim.SetBool("IsWalking", walking); 
-					destinationObject.SetActive(true);
-					destinationObject.transform.position = hit.point;
-					navMeshAgent.destination = hit.point;
-					navMeshAgent.Resume();
+			if (hits != null && canMove){
+                foreach (RaycastHit hit in hits)
+                {
+                    if (hit.collider.gameObject.tag == "Interactable Object")
+                    {
+                        hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
+                    }
+                    else if (hit.collider.gameObject.tag == "Walkable")
+                    {
+                        navMeshAgent.stoppingDistance = 0f;
+                        walking = true;
+                        anim.SetBool("IsWalking", walking);
+                        destinationObject.SetActive(true);
+                        destinationObject.transform.position = hit.point;
+                        navMeshAgent.destination = hit.point;
+                        navMeshAgent.Resume();
 
-				}
-			}
+                    }
+
+                }
+            }
 		}
 
 		if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance){

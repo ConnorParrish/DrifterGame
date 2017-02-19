@@ -3,55 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-
     public Transform target;
     public float smoothing = 5f;
-    public AnimationClip CameraPan0;
-    public AnimationClip CameraPan90;
-    public AnimationClip CameraPan180;
-    public AnimationClip CameraPan270;
-    
-    Animator anim;
-    
+
+    Material opaqueMat;
+    Material transparentMat;
+
+    Vector3 screenPos;
     Vector3 offset;
+
+    List<GameObject> GOInTheWay = new List<GameObject>();
 
     void Start()
     {
-        anim = GetComponent<Animator>();
         offset = transform.position - target.position;
-        anim.enabled = false;
-        //GetComponent<SplineInterpolator>().enabled = false;
+        opaqueMat = new Material(Resources.Load<Material>("Materials/DebugOpaque"));
+        transparentMat = new Material(Resources.Load<Material>("Materials/DebugTransparent"));
+    } 
+
+    void Update()
+    {
+        RaycastHit hit;
+        screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        Debug.DrawRay(ray.origin, ray.direction * 50, Color.yellow);
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject go = hit.collider.gameObject;
+            if (go.tag == "Building")
+            {
+                GOInTheWay.Add(go);
+                if (go.tag == "Building")
+                {
+                    foreach (Renderer renderer in go.GetComponentsInChildren<Renderer>())
+                        renderer.material = transparentMat;
+                }
+                else
+                {
+                    foreach (Renderer renderer in go.GetComponentsInChildren<Renderer>())
+                        renderer.material = opaqueMat;
+                }
+            }
+            else
+            {
+                if (GOInTheWay != null)
+                {
+                    foreach (GameObject goo in GOInTheWay)
+                    {
+                        if (goo.tag == "Building")
+                        {
+                            foreach (Renderer renderer in goo.GetComponentsInChildren<Renderer>())
+                                renderer.material = opaqueMat;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     void LateUpdate()
     {
+        
+        
+
         Vector3 targetCamPos = target.position + offset;
         transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
         //transform.position = targetCamPos;
-    }
-
-    public void PanhandleRotate(Vector3 activatorRotation)
-    {
-        if (activatorRotation.y == 0)
-        {
-            anim.SetTrigger("is0");
-            anim.enabled = true;
-        }
-        else if (activatorRotation.y == 90)
-        {
-            anim.SetTrigger("is90");
-            anim.enabled = true;
-        }
-        else if (activatorRotation.y == 180)
-        {
-            anim.SetTrigger("is180");
-            anim.enabled = true;
-        }
-        else if (activatorRotation.y == 270)
-        {
-            anim.SetTrigger("is270");
-            anim.enabled = true;
-        }
     }
 
 }
