@@ -17,7 +17,6 @@ public class Inventory : MonoBehaviour {
     public float Money;                                                         // NEEEEED TO IMPLEMENNTTTT (you did (: )
     Text moneyText;
     public bool fullInventory;                                                  // Keeps track of whether the inventory is full already
-    public bool itemTrashed;
     int slotAmount;                                                             // Max number of slots
     public List<Item> items = new List<Item>();                                 // List of items in the inventory
     public List<GameObject> slots = new List<GameObject>();                     // List of slots in the inventory
@@ -54,11 +53,9 @@ public class Inventory : MonoBehaviour {
     {
         if (inventoryPanel.transform.parent.gameObject.activeSelf)
         {
-            Debug.Log("Hiding");
             inventoryPanel.transform.parent.gameObject.SetActive(false);
         } else
         {
-            Debug.Log("Showing");
             inventoryPanel.transform.parent.gameObject.SetActive(true);
         }
     }
@@ -129,14 +126,16 @@ public class Inventory : MonoBehaviour {
         if (ItemInInventoryCheck(itemToRemove) == false)
         {
             Debug.Log("You don't have any " + itemToRemove.Title + " in your inventory!");
+            return;
         }
-        if (itemToRemove.Stackable && ItemInInventoryCheck(itemToRemove))
+        if (itemToRemove.Stackable)
         {
+            Debug.Log("Stackable...");
             for (int i = 0; i < items.Count; i++)
             {
                 if (items[i].ID == id)
                 {
-                    ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
+                    ItemData data = GameObject.Find(itemToRemove.Title).GetComponent<ItemData>();
                     if (data.amount > 1)
                     {
                         data.amount--;                                          // If there's more than one of the stacked item, we lower it
@@ -150,7 +149,7 @@ public class Inventory : MonoBehaviour {
                         }
                         slots[i].name = "Slot(Clone)";                          // Returns the slot to it's default name
                         items[i] = new Item();                                  // We're creating a new blank item that is in every 
-                        Destroy(slots[i].transform.GetChild(0).gameObject);
+                        Destroy(data.gameObject);
                         break;
                     }
                 }
@@ -158,7 +157,8 @@ public class Inventory : MonoBehaviour {
         }
         else
         {
-            for (int i = items.Count - 1; i > 0; i--)
+            Debug.Log("Not stackable");
+            for (int i = items.Count - 1; i > -1; i--)
             {
                 if (items[i].ID == id)
                 {
@@ -168,13 +168,7 @@ public class Inventory : MonoBehaviour {
                     }
                     slots[i].name = "Slot(Clone)";
                     items[i] = new Item();
-                    if (itemTrashed)
-                    {
-                        Destroy(GameObject.Find(itemToRemove.Title));
-                    } else
-                    {
-                        Destroy(slots[i].transform.GetChild(0).gameObject);
-                    }
+                    Destroy(GameObject.Find(itemToRemove.Title));
                     break;
 
                 }

@@ -24,15 +24,15 @@ public class SlotItem : MonoBehaviour, IDropHandler {
         if (gameObject.name == "Trash Slot" || gameObject.name == "Image")
         {
             Debug.Log("Deleting item: " + droppedItem.item.Title);
-            inv.itemTrashed = true;
             inv.RemoveItem(droppedItem.item.ID);
-            //inv.itemTrashed = false;
             return;
         }
 
         if (inv.items[slotID].ID == -1)                                             // If the slot is empty
         {
+            inv.slots[droppedItem.slotID].gameObject.name = "Slot(Clone)";
             inv.items[droppedItem.slotID] = new Item();                         // Sets the old slot to be an empty item (so we can return back to it)
+            inv.slots[slotID].gameObject.name = "Slot #" + slotID + " - " + droppedItem.item.Title;
             inv.items[slotID] = droppedItem.item;                                   // The new slot's item will be the dropped item
             droppedItem.slotID = slotID;                                            // Updates the item's slot id
         } 
@@ -43,11 +43,14 @@ public class SlotItem : MonoBehaviour, IDropHandler {
             itemTransform.SetParent(inv.slots[droppedItem.slotID].transform);
             itemTransform.position = inv.slots[droppedItem.slotID].transform.position;
 
+            inv.slots[droppedItem.slotID].gameObject.name = "Slot #" + droppedItem.slotID + " - " + itemTransform.GetComponent<ItemData>().item.Title;
+            inv.items[droppedItem.slotID] = itemTransform.GetComponent<ItemData>().item;
+
             droppedItem.slotID = slotID;
             droppedItem.transform.SetParent(this.transform);
             droppedItem.transform.position = this.transform.position;
 
-            inv.items[droppedItem.slotID] = itemTransform.GetComponent<ItemData>().item;
+            inv.slots[slotID].gameObject.name = "Slot #" + slotID + " - " + droppedItem.item.Title;
             inv.items[slotID] = droppedItem.item;
         }
     }
