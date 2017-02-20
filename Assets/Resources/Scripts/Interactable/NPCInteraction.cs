@@ -81,11 +81,7 @@ public class NPCInteraction : Interactable
             }
         } else if (sDialog != null)
         {
-            sDialog.showDialogue();
-            // if the canvas is displaying, force its rotation to face the main camera
-            if (sDialog.canvas.activeSelf)
-                sDialog.canvas.transform.rotation = Camera.main.transform.rotation;
-            
+            sDialog.showDialogue();           
         }
     }
 }
