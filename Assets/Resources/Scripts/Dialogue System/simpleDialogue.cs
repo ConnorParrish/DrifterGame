@@ -87,6 +87,5 @@ public class simpleDialogue : MonoBehaviour {
 
         // this disabes the canvas and allows the coroutine to begin again
         canvas.SetActive(false);
-
     }
 }
