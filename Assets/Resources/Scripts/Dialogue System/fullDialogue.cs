@@ -143,7 +143,7 @@ public class fullDialogue : MonoBehaviour
         while (waitTime > timePassed)
         {
             timePassed += Time.deltaTime;
-            currentScale = startScale / (waitTime / (.3f - timePassed));
+            currentScale = startScale / (waitTime / (waitTime - timePassed));
             t.localScale = new Vector3(currentScale, currentScale, 0f);
             yield return new WaitForSeconds(.01f);
         }

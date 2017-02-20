@@ -80,7 +80,7 @@ public class simpleDialogue : MonoBehaviour {
         while (waitTime > timePassed)
         {
             timePassed += Time.deltaTime;
-            currentScale = endScale * ((1-timePassed) / waitTime);
+            currentScale = endScale / (waitTime / (waitTime - timePassed));
             t.localScale = new Vector3(currentScale, currentScale, 0f);
             yield return new WaitForSeconds(.01f);
         }
