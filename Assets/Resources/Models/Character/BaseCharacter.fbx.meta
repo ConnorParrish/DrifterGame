@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2ab813aabba21c64086d526347759678
-timeCreated: 1487494550
+guid: 8fa1153a79912214586171c0f49ba8ef
+timeCreated: 1487551523
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -50,9 +50,23 @@ ModelImporter:
     100084: pasted__joint5
     100086: pasted__joint6
     100088: pasted__joint7
-    100090: pSphere6
-    100092: pSphere7
-    100094: transform7
+    100090: pCube1
+    100092: pCube2
+    100094: pCylinder1
+    100096: pSphere2
+    100098: pSphere3
+    100100: pSphere4
+    100102: pSphere5
+    100104: pSphere6
+    100106: pSphere7
+    100108: transform1
+    100110: transform2
+    100112: transform3
+    100114: transform4
+    100116: transform5
+    100118: transform6
+    100120: transform7
+    100122: transform8
     400000: //RootNode
     400002: Character1_Reference
     400004: group
@@ -98,13 +112,26 @@ ModelImporter:
     400084: pasted__joint5
     400086: pasted__joint6
     400088: pasted__joint7
-    400090: pSphere6
-    400092: pSphere7
-    400094: transform7
-    2300000: pSphere7
-    3300000: pSphere7
+    400090: pCube1
+    400092: pCube2
+    400094: pCylinder1
+    400096: pSphere2
+    400098: pSphere3
+    400100: pSphere4
+    400102: pSphere5
+    400104: pSphere6
+    400106: pSphere7
+    400108: transform1
+    400110: transform2
+    400112: transform3
+    400114: transform4
+    400116: transform5
+    400118: transform6
+    400120: transform7
+    400122: transform8
     4300000: pSphere7
     9500000: //RootNode
+    13700000: pSphere7
   materials:
     importMaterials: 1
     materialName: 0
