@@ -12,7 +12,7 @@ public class InteractionWithPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		resultSR = transform.GetChild(0).GetComponent<SpriteRenderer>();
+		resultSR = transform.GetChild(1).GetComponent<SpriteRenderer>();
 		resultPS = GetComponentInChildren<ParticleSystem>();
         resultPS.Pause();
 	}
