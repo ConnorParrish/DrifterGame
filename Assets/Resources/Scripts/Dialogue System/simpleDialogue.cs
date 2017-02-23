@@ -20,7 +20,6 @@ public class simpleDialogue : MonoBehaviour {
     RectTransform t;
 	public NPC NPCData;
 
-
 	// Use this for initialization
 	void Start () {
         // fetch a couple components and game objects for future use
@@ -32,13 +31,15 @@ public class simpleDialogue : MonoBehaviour {
 
         // set the follow object on the toFollow script so the canvas follows the game object we are attached to
         canvas.GetComponent<SimpleFollow>().toFollow = gameObject;
-
     }
 
-	
-	void OnMouseDown () {
-        //showDialogue();           // enable for debugging dialog
-	}
+    void Update()
+    {
+        if (canvas.activeSelf)
+        {
+            canvas.transform.rotation = Camera.main.transform.rotation;
+        }
+    }
 
     public void showDialogue()
     {
@@ -51,7 +52,11 @@ public class simpleDialogue : MonoBehaviour {
         }
     }
 
-    IEnumerator growCanvas()
+    /// <summary>
+    /// this method will grow the canvas, display the message for set time, then shrink and disable the canvas
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator growCanvas() 
     {
         float waitTime = messageBloomTime;
         float endScale = .01f;
@@ -75,13 +80,12 @@ public class simpleDialogue : MonoBehaviour {
         while (waitTime > timePassed)
         {
             timePassed += Time.deltaTime;
-            currentScale = endScale * ((1-timePassed) / waitTime);
+            currentScale = endScale / (waitTime / (waitTime - timePassed));
             t.localScale = new Vector3(currentScale, currentScale, 0f);
             yield return new WaitForSeconds(.01f);
         }
 
         // this disabes the canvas and allows the coroutine to begin again
         canvas.SetActive(false);
-
     }
 }

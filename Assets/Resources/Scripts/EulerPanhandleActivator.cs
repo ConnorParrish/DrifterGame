@@ -8,7 +8,7 @@ public class EulerPanhandleActivator : ActionItem {
     {
         if (!activated)
         {
-            Camera.main.GetComponent<CameraController>().PanhandleRotate(transform.rotation.eulerAngles);
+//            Camera.main.GetComponent<CameraController>().PanhandleRotate(transform.rotation.eulerAngles);
             activated = true;
         }
         else

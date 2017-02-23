@@ -23,6 +23,7 @@ public class PanhandleDeactivator : MonoBehaviour
 
         player.GetComponent<WorldInteraction>().canMove = true;
         player.GetComponent<PanhandlingScript>().enabled = false;
+        Camera.main.GetComponent<CameraController>().enabled = true;
         panhandlingActivatorGO.SetActive(true);
 
     }

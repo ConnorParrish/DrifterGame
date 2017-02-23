@@ -78,6 +78,7 @@ public class fullDialogue : MonoBehaviour
 
     public void purchaseItem()
     {
+        setButtonState(false);
         if (inv.Money - currentCost < 0)
         {
             currentText = "(You rifle through your pockets, and sadly realize you can't afford it)";
@@ -131,6 +132,7 @@ public class fullDialogue : MonoBehaviour
 
     IEnumerator shrinkCanvas()
     {
+        currentText = "";
         float waitTime = .3f;
         float startScale = .9f;
         float currentScale;
@@ -141,7 +143,7 @@ public class fullDialogue : MonoBehaviour
         while (waitTime > timePassed)
         {
             timePassed += Time.deltaTime;
-            currentScale = startScale / (waitTime / (.3f - timePassed));
+            currentScale = startScale / (waitTime / (waitTime - timePassed));
             t.localScale = new Vector3(currentScale, currentScale, 0f);
             yield return new WaitForSeconds(.01f);
         }
@@ -155,10 +157,7 @@ public class fullDialogue : MonoBehaviour
 			currentText = d ["text"];
             if (Convert.ToInt32(d["itemID"]) != -1) // if the dialogue frame contains an item
             {
-                canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.AddListener(endDialogue);
-                canvas.transform.FindChild("Decline").gameObject.SetActive(true);
-                canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(purchaseItem);
-                canvas.transform.FindChild("Accept").gameObject.SetActive(true);
+                setButtonState(true);
                 currentCost = float.Parse(d["cost"]);
                 currentItem = Convert.ToInt32(d["itemID"]);
             }
@@ -167,5 +166,13 @@ public class fullDialogue : MonoBehaviour
 
         endDialogue();
 	}
+
+    private void setButtonState(bool state)
+    {
+        canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.AddListener(endDialogue);
+        canvas.transform.FindChild("Decline").gameObject.SetActive(state);
+        canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(purchaseItem);
+        canvas.transform.FindChild("Accept").gameObject.SetActive(state);
+    }
 		
 }

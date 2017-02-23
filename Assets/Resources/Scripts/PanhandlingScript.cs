@@ -32,14 +32,10 @@ public class PanhandlingScript : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, 100)){ // Returns true if the raycast hit something
 				if (hit.collider.gameObject.tag == "Interactable Object" && hit.collider.gameObject.GetComponent<W_pedestrian>()){ // Checks to see if the player clicked a pedestrian
 					if (begsRemaining > 0){
-                        if (infiniteBegs)
-                            hit.collider.gameObject.GetComponent<InteractionWithPlayer>().OnPanhandleClick(inventory);
-                        else
-                        {
-                            hit.collider.gameObject.GetComponent<InteractionWithPlayer>().OnPanhandleClick(inventory);
+                        if (!infiniteBegs)
                             begsRemaining--;
-                        }
-					} else {
+                        hit.collider.gameObject.GetComponent<InteractionWithPlayer>().OnPanhandleClick(inventory);
+ 					} else {
 						Debug.Log("No more begs");
 					}
 				}
