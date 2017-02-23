@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using System;
+using System.Linq;
 
 public class WorldInteraction : MonoBehaviour {
 	public Sprite destinationSprite;
     public bool canMove = true;
-	private UnityEngine.AI.NavMeshAgent navMeshAgent;
+	public UnityEngine.AI.NavMeshAgent navMeshAgent;
 	public bool walking;
 	private bool clickedPanhandle;
+	private bool interacted;
 	private GameObject destinationObject;
     private Animator anim;
 
@@ -32,22 +35,28 @@ public class WorldInteraction : MonoBehaviour {
 		    RaycastHit[] hits = Physics.RaycastAll(ray, 100);
 
 			if (hits != null && canMove){
-                foreach (RaycastHit hit in hits)
+				foreach (RaycastHit hit in hits.Reverse<RaycastHit>())
                 {
-                    if (hit.collider.gameObject.tag == "Interactable Object")
+					Debug.Log (hit.collider.gameObject.tag);
+					if (hit.collider.gameObject.tag == "Interactable Object")
                     {
+						Debug.Log ("its an interactable");
                         hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
+						anim.SetBool ("IsWalking", true);
+						canMove = false;
+
                     }
-                    else if (hit.collider.gameObject.tag == "Walkable")
+                    else if (canMove && hit.collider.gameObject.tag == "Walkable")
                     {
+						
                         navMeshAgent.stoppingDistance = 0f;
-                        walking = true;
+                        //walking = true;
                         anim.SetBool("IsWalking", true);
                         destinationObject.SetActive(true);
                         destinationObject.transform.position = hit.point;
                         navMeshAgent.destination = hit.point;
                         navMeshAgent.Resume();
-                        
+						interacted = false;
 
                     }
 
@@ -63,6 +72,7 @@ public class WorldInteraction : MonoBehaviour {
                 destinationObject.SetActive(false);
 			} else {
 				walking = true;
+				//anim.SetBool ("IsWalking", true);
 				
 			}
 		}
