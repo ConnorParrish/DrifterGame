@@ -198,7 +198,10 @@ public class SplineInterpolator : MonoBehaviour
             {
                 this.enabled = false;
                 Destroy(gameObject.GetComponent<SplineController>());
-                Destroy(this);            }
+
+				Camera.main.gameObject.GetComponent<CameraController> ().enabled = true;
+				Destroy(this);
+			}
             else
             {
                 mCurrentTime -= Time.deltaTime;
