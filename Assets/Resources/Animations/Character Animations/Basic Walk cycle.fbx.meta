@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f0817a6aca1a1d34cab7a3a582bc1314
-timeCreated: 1487493252
+guid: 5e7b7989d1ef80642b4a1cc73eab2237
+timeCreated: 1487810051
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -74,7 +74,7 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 120
+      lastFrame: 119
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
