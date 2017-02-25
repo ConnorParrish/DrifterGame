@@ -180,7 +180,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8524063294113834d93911c166ba007a,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8fa1153a79912214586171c0f49ba8ef,
     type: 3}
   animationType: 2
   humanoidOversampling: 1

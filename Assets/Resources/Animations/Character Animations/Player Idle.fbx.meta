@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 85042280d04ba244c88c810aa8634597
-timeCreated: 1488049843
+guid: 740082f75bfa7e74687c027ed4970869
+timeCreated: 1488050876
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -47,6 +47,7 @@ ModelImporter:
     400036: pasted__joint7
     400038: //RootNode
     400040: group2
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -68,7 +69,77 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group2
+        weight: 1
+      - path: group2/pasted__joint1
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6/pasted__joint7
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint11
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13/pasted__joint14
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17/pasted__joint18
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21/pasted__joint22
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
