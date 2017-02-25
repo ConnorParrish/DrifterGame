@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: ce530cf44511d634092a698386e62bfc
-timeCreated: 1487493250
+guid: 0c27af00109b5c64495a83be2aa151bb
+timeCreated: 1488051248
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -56,14 +56,14 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -74,7 +74,7 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 70
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -97,45 +97,43 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: group2
+      - path: pasted__joint1
         weight: 1
-      - path: group2/pasted__joint1
+      - path: pasted__joint1/pasted__joint2
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2
+      - path: pasted__joint1/pasted__joint2/pasted__joint3
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3
+      - path: pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4
+      - path: pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5
+      - path: pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6
+      - path: pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6/pasted__joint7
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6/pasted__joint7
+      - path: pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint11
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint11
+      - path: pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12
+      - path: pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13
+      - path: pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13/pasted__joint14
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13/pasted__joint14
+      - path: pasted__joint1/pasted__joint15
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint15
+      - path: pasted__joint1/pasted__joint15/pasted__joint16
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16
+      - path: pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17
+      - path: pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17/pasted__joint18
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17/pasted__joint18
+      - path: pasted__joint1/pasted__joint19
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint19
+      - path: pasted__joint1/pasted__joint19/pasted__joint20
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20
+      - path: pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21
         weight: 1
-      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21
-        weight: 1
-      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21/pasted__joint22
+      - path: pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21/pasted__joint22
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
