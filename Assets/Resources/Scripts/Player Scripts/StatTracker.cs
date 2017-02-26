@@ -21,6 +21,7 @@ public class StatTracker : MonoBehaviour {
     // section for the stats
     public float hunger { set; get; }
     public float warmth { set; get; }
+    public float happiness { set; get; }
 
     // private float for scaling time.deltaTime appropriately with the total day length
     private float scaler;
@@ -33,12 +34,15 @@ public class StatTracker : MonoBehaviour {
         warmthDecay = warmthDecay / 100;
         warmth = 100;
         hunger = 100;
+        happiness = 100;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        // adjust warmth, hunger, and happiness
         warmth -= Time.deltaTime * scaler * warmthDecay;
         hunger -= Time.deltaTime * scaler * hungerDecay;
+        happiness = (warmth + hunger) / 2;
 	}
 
     /// <summary>
