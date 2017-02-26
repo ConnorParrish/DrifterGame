@@ -18,7 +18,7 @@ public class StatTracker : MonoBehaviour {
     public float hungerDecay = 30;
     public float warmthDecay = 30;
 
-    // section for the stats
+    // section for the stats. They range from 0 to 100
     public float hunger { set; get; }
     public float warmth { set; get; }
     public float happiness { set; get; }
@@ -40,8 +40,8 @@ public class StatTracker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // adjust warmth, hunger, and happiness
-        warmth -= Time.deltaTime * scaler * warmthDecay;
-        hunger -= Time.deltaTime * scaler * hungerDecay;
+        warmth -= (Time.deltaTime * scaler * warmthDecay);
+        hunger -= (Time.deltaTime * scaler * hungerDecay);
         happiness = (warmth + hunger) / 2;
 	}
 
