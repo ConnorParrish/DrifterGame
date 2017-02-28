@@ -6,16 +6,24 @@ public class PanhandlingScript : MonoBehaviour {
 	public int begsRemaining;
     public bool infiniteBegs;
 
+    public SplineInterpolator splineInterp;
 	private Inventory inventory;
 
-	// Use this for initialization
-	void Start () {
+    private void OnEnable()
+    {
+        splineInterp = Camera.main.GetComponent<SplineInterpolator>();
+
+    }
+
+    // Use this for initialization
+    void Start () {
+        splineInterp = Camera.main.GetComponent<SplineInterpolator>();
 		inventory = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Camera.main.GetComponent<SplineInterpolator>().mState == "Stopped") // THIS IS POTENTIALLY VERY SLOW
+        if (splineInterp != null && splineInterp.mState == "Stopped")
         {
             Vector3 temp = gameObject.transform.eulerAngles;
             float width = Input.mousePosition.x / Screen.currentResolution.width - .5f;
@@ -30,11 +38,12 @@ public class PanhandlingScript : MonoBehaviour {
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 100)){ // Returns true if the raycast hit something
-				if (hit.collider.gameObject.tag == "Interactable Object" && hit.collider.gameObject.GetComponent<W_pedestrian>()){ // Checks to see if the player clicked a pedestrian
+				if (hit.collider.gameObject.tag == "Interactable Object" && hit.collider.gameObject.GetComponent<Pedestrian>()){ // Checks to see if the player clicked a pedestrian
 					if (begsRemaining > 0){
+                        Debug.Log("begging");
                         if (!infiniteBegs)
                             begsRemaining--;
-                        hit.collider.gameObject.GetComponent<InteractionWithPlayer>().OnPanhandleClick(inventory);
+                        hit.collider.gameObject.GetComponent<Pedestrian>().OnPanhandleClick(inventory);
  					} else {
 						Debug.Log("No more begs");
 					}

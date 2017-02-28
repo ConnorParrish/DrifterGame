@@ -9,14 +9,13 @@ using UnityEngine.EventSystems;
 
 public class NPCInteraction : Interactable
 {
-	public fullDialogue fDialog;
+    public fullDialogue fDialog;
     public simpleDialogue sDialog;
     public NPC NPCData;
 
-	public virtual void Start() {
-		fDialog = GetComponent<fullDialogue> ();
+    public virtual void Start() {
+        fDialog = GetComponent<fullDialogue>();
         sDialog = GetComponent<simpleDialogue>();
-        
         if (fDialog != null)
         {
             fDialog.NPCData = this.NPCData;
@@ -24,8 +23,7 @@ public class NPCInteraction : Interactable
         {
             sDialog.NPCData = this.NPCData;
         }
-	}
-
+    }
 
     // This is overriden so that the stopping distance is larger in order to
     //  make the player stop near the NPC and not ontop of them.

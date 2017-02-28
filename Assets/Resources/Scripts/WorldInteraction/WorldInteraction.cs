@@ -43,7 +43,7 @@ public class WorldInteraction : MonoBehaviour {
 						Debug.Log ("its an interactable");
                         hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
 						anim.SetBool ("IsWalking", true);
-						canMove = false;
+                        break;
 
                     }
                     else if (canMove && hit.collider.gameObject.tag == "Walkable")

@@ -24,6 +24,7 @@ public class simpleDialogue : MonoBehaviour {
 	void Start () {
         // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(popUpDialogue);
+        canvas.transform.SetParent(transform);
         text = canvas.GetComponentInChildren<Text>();
         t = canvas.GetComponent<RectTransform>();
         // set the canvas to false because we don't need it yet

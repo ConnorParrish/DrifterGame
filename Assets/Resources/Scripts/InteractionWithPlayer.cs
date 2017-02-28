@@ -27,10 +27,10 @@ public class InteractionWithPlayer : MonoBehaviour {
 		if (!hasInteracted){
 			int chance = Random.Range(0,5); // Chance the pedestrian will give you $$$
 
-			if (true){
+			if (chance < 3){
 				Debug.Log("They cared enough");
 				resultSR.sprite = successSprite;
-				resultSR.enabled = true;
+				//resultSR.enabled = true;
 				resultPS.Play();
 				
 				int change = Random.Range(1,100); // The possible money you will receive in cents
