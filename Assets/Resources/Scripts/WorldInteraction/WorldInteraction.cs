@@ -9,6 +9,7 @@ public class WorldInteraction : MonoBehaviour {
     public bool canMove = true;
 	public UnityEngine.AI.NavMeshAgent navMeshAgent;
 	public bool walking;
+    public bool beingInterrogated;
 	private bool clickedPanhandle;
 	private bool interacted;
 	private GameObject destinationObject;
@@ -37,13 +38,11 @@ public class WorldInteraction : MonoBehaviour {
 			if (hits != null && canMove){
 				foreach (RaycastHit hit in hits.Reverse<RaycastHit>())
                 {
-					Debug.Log (hit.collider.gameObject.tag);
 					if (hit.collider.gameObject.tag == "Interactable Object")
                     {
-						Debug.Log ("its an interactable");
-                        hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
+						hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
 						anim.SetBool ("IsWalking", true);
-						canMove = false;
+                        break;
 
                     }
                     else if (canMove && hit.collider.gameObject.tag == "Walkable")

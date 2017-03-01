@@ -5,14 +5,22 @@
     "dFrames": [
       {
         "text": "Why don't you get a job, you creep!",
-        "itemID": -1,
+        "tag": "negative",
+		"itemID": -1,
         "cost": 0
       },
       {
         "text": "You smell bad...",
-        "itemID": -1,
+        "tag": "negative",
+		"itemID": -1,
         "cost": 0
-      }
+      },
+	  {
+	  	  "text": "Use this for something you can eat.",
+		  "tag": "recieve",
+		  "itemID": -1,
+		  "cost": 0
+	  }
     ]
   },
   {
@@ -21,22 +29,26 @@
     "dFrames": [
       {
         "text": "Sir, I'm going to have to ask you to leave.",
-        "itemID": -1,
+        "tag": "negative",
+		"itemID": -1,
         "cost": 0
       },
       {
         "text": "Look here dude. Get the fuck out.",
-        "itemID": -1,
+        "tag": "negative",
+		"itemID": -1,
         "cost": 0
       },
       {
         "text": "Can't you see people don't want you to bother them?",
-        "itemID": -1,
+        "tag": "negative",
+		"itemID": -1,
         "cost": 0
       },
       {
         "text": "Hey randomly, and not for debugging purposes, do you want this Chicken Sandwich? Shit is gonna cost you 100$ because fuck you.",
-        "itemID": 1,
+        "tag": "buy",
+		"itemID": 1,
         "cost": 100
       }
     ]

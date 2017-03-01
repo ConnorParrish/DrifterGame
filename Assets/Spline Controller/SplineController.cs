@@ -72,7 +72,7 @@ public class SplineController : MonoBehaviour
                 splineRoots.Add(SplineRootHolder.transform.GetChild(i).gameObject);
             }
         }
-        Debug.Log(splineRoots.Count);
+
 
         mTransforms = GetTransforms(0);
 
@@ -160,7 +160,7 @@ public class SplineController : MonoBehaviour
 	{
         //mTransforms = GetTransforms(pathIndex);
 
-        Debug.Log(mTransforms.Length);
+
 		if (mTransforms.Length > 0)
 		{
 			SetupSplineInterpolator(mSplineInterp, mTransforms);
