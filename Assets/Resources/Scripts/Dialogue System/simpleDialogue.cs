@@ -48,7 +48,27 @@ public class simpleDialogue : MonoBehaviour {
         if (!canvas.activeSelf)
         {
             canvas.SetActive(true); // enable the canvas and the follow script on the canvas
+            
 			text.text = NPCData.DialogueFrames[UnityEngine.Random.Range(0, NPCData.DialogueFrames.Count)]["text"];
+            StartCoroutine(growCanvas());
+        }
+    }
+
+    public void showDialogue(string tag)
+    {
+        if (!canvas.activeSelf)
+        {
+            canvas.SetActive(true);
+            List<Dictionary<string, string>> dialogWithSpecifiedTag = new List<Dictionary<string,string>>();
+            foreach (Dictionary<string,string> d in NPCData.DialogueFrames)
+            {
+                if (d["tag"] == tag)
+                    dialogWithSpecifiedTag.Add(d);
+            }
+
+            if (dialogWithSpecifiedTag.Count == 0)
+                throw new Exception("Tag not found!");
+            text.text = dialogWithSpecifiedTag[UnityEngine.Random.Range(0, dialogWithSpecifiedTag.Count)]["text"];
             StartCoroutine(growCanvas());
         }
     }

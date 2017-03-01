@@ -79,7 +79,7 @@ public class NPCInteraction : Interactable
             }
         } else if (sDialog != null)
         {
-            sDialog.showDialogue();           
+            sDialog.showDialogue("negative");           
         }
     }
 }

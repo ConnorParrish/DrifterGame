@@ -63,6 +63,7 @@ public class Pedestrian : NPCInteraction {
             if (chance < 3)
             {
                 Debug.Log("They cared enough");
+                sDialog.showDialogue("recieve");
                 resultPS.Play();
 
                 int change = Random.Range(1, 100); // The possible money you will receive in cents
@@ -73,7 +74,7 @@ public class Pedestrian : NPCInteraction {
             else
             {
                 Debug.Log("They didn't care");
-                sDialog.showDialogue();
+                sDialog.showDialogue("negative");
             }
             timesBegged++;
         }
