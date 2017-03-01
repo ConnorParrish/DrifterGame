@@ -6,7 +6,7 @@ using System.Linq;
 
 public class WorldInteraction : MonoBehaviour {
 	public Sprite destinationSprite;
-    public bool canMove = true;
+    public bool canMove;
 	public UnityEngine.AI.NavMeshAgent navMeshAgent;
 	public bool walking;
     public bool beingInterrogated;

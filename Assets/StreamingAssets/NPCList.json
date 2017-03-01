@@ -15,12 +15,18 @@
 		"itemID": -1,
         "cost": 0
       },
-	  {
-	  	  "text": "Use this for something you can eat.",
-		  "tag": "recieve",
-		  "itemID": -1,
-		  "cost": 0
-	  }
+      {
+        "text": "Use this for something you can eat.",
+        "tag": "recieve",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Help!! Police!! He's harassing me!",
+        "tag": "callHelp",
+        "itemID": -1,
+        "cost": 0
+      }
     ]
   },
   {
@@ -34,7 +40,7 @@
         "cost": 0
       },
       {
-        "text": "Look here dude. Get the fuck out.",
+        "text": "I've been recieving complaints about a vagrant in the area.",
         "tag": "negative",
 		"itemID": -1,
         "cost": 0

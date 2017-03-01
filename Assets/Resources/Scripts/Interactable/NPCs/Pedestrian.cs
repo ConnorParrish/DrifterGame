@@ -49,12 +49,6 @@ public class Pedestrian : NPCInteraction {
     /// <param name="inv"></param>
     public void OnPanhandleClick(Inventory inv)
     {
-        if (askingForHelp)
-        {
-            Debug.Log("Callin cops");
-            GetClosestCop().GetComponent<Cop>().RunToPlayer(GameObject.FindWithTag("Player").transform);
-
-        }
 
         if (timesBegged < maxTimesBegged)
         {
@@ -82,8 +76,15 @@ public class Pedestrian : NPCInteraction {
         {
             Debug.Log("They're gonna call the cops!");
             askingForHelp = true; // Implement later to call cops
+            sDialog.showDialogue("callHelp");
+        }
+
+        if (askingForHelp)
+        {
+            Debug.Log("Callin cops");
+            GetClosestCop().GetComponent<Cop>().RunToPlayer(GameObject.FindWithTag("Player").transform);
         }
 
     }
-    
+
 }

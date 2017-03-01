@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class Cop : NPCInteraction {
     public GameObject player;
     private Animator anim;
+    private Vector3 originalPosition;
+    private bool isInterrogating;
 
     public override void Start()
     {
@@ -20,7 +22,9 @@ public class Cop : NPCInteraction {
     /// </summary>
     public void RunToPlayer(Transform playerTransform)
     {
-        Debug.Log("Imma comming for ya");
+        Debug.Log("originalPosition: " + originalPosition);
+        originalPosition = this.transform.position;
+        Debug.Log("originalPosition: " + originalPosition);
         anim.SetBool("isRunning", true);
         NavMeshAgent copAgent = gameObject.GetComponent<NavMeshAgent>();
         copAgent.destination = playerTransform.position;
@@ -31,6 +35,11 @@ public class Cop : NPCInteraction {
 
     public override void Interact()
     {
+        isInterrogating = true;
+
+        player.GetComponent<WorldInteraction>().canMove = false;
+
+
         anim.SetTrigger("hasArrived");
         anim.SetBool("isRunning", false);
         player.GetComponent<PanhandlingScript>().canPivot = false;
@@ -42,15 +51,21 @@ public class Cop : NPCInteraction {
         Camera.main.GetComponent<SplineInterpolator>().mCurrentIdx++;
 
         fDialog.showDialogue("negative");
-        Debug.Log("I'm interacting with you");
     }
 
     public override void Update()
     {
-        if (!fDialog.canvas.activeSelf)
+        if (!fDialog.canvas.activeSelf && isInterrogating)
         {
+            isInterrogating = false;
             player.GetComponent<WorldInteraction>().canMove = true;
+            playerAgent.stoppingDistance = 0f;
+            Debug.Log("playerAgent.destination: " + playerAgent.destination);
+            playerAgent.destination = originalPosition;
+            Debug.Log("playerAgent.destination: " + playerAgent.destination);
+            
         }
+
         base.Update();
     }
 }

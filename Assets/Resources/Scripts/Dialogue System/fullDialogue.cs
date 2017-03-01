@@ -31,7 +31,8 @@ public class fullDialogue : MonoBehaviour
     {
         // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(Dialogue);
-		text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
+        canvas.transform.SetParent(transform);
+        text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
         image = canvas.transform.FindChild("Image").gameObject;
         Button button = image.GetComponent<Button>();
         button.onClick.AddListener(showNextMessage);
