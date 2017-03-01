@@ -44,4 +44,13 @@ public class Cop : NPCInteraction {
         fDialog.showDialogue("negative");
         Debug.Log("I'm interacting with you");
     }
+
+    public override void Update()
+    {
+        if (!fDialog.canvas.activeSelf)
+        {
+            player.GetComponent<WorldInteraction>().canMove = true;
+        }
+        base.Update();
+    }
 }
