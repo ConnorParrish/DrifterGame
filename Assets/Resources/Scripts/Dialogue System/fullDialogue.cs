@@ -76,6 +76,13 @@ public class fullDialogue : MonoBehaviour
         StartCoroutine(growCanvas());
     }
 
+    public void showDialogue(string tag)
+    {
+        canvas.SetActive(true);
+        messageCycler = cycleMessages(tag);
+        StartCoroutine(growCanvas());
+    }
+
     public void purchaseItem()
     {
         setButtonState(false);
@@ -166,6 +173,26 @@ public class fullDialogue : MonoBehaviour
 
         endDialogue();
 	}
+
+    IEnumerator cycleMessages(string tag)
+    {
+        List<Dictionary<string, string>> messages = NPCData.DialogueFrames;
+        foreach (Dictionary<string,string> d in messages)
+        {
+            if (d["tag"] == tag)
+            {
+                currentText = d["text"];
+                if (Convert.ToInt32(d["itemID"]) != -1)
+                {
+                    setButtonState(true);
+                    currentCost = float.Parse(d["cost"]);
+                    currentItem = Convert.ToInt32(d["itemID"]);
+                }
+                yield return null;
+            }
+        }
+        endDialogue();
+    }
 
     private void setButtonState(bool state)
     {

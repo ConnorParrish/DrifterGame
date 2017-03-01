@@ -5,10 +5,12 @@ using UnityEngine.AI;
 
 public class Cop : NPCInteraction {
     public GameObject player;
+    private Animator anim;
 
     public override void Start()
     {
         player = GameObject.FindWithTag("Player");
+        anim = transform.GetChild(0).GetComponent<Animator>();
         base.NPCData = GameObject.Find("NPC Manager").GetComponent<NPCDatabase>().npcDict["Police Officer"];
         base.Start();
     }
@@ -19,6 +21,7 @@ public class Cop : NPCInteraction {
     public void RunToPlayer(Transform playerTransform)
     {
         Debug.Log("Imma comming for ya");
+        anim.SetBool("isRunning", true);
         NavMeshAgent copAgent = gameObject.GetComponent<NavMeshAgent>();
         copAgent.destination = playerTransform.position;
         copAgent.stoppingDistance = 4f;
@@ -28,6 +31,8 @@ public class Cop : NPCInteraction {
 
     public override void Interact()
     {
+        anim.SetTrigger("hasArrived");
+        anim.SetBool("isRunning", false);
         player.GetComponent<PanhandlingScript>().canPivot = false;
         player.GetComponent<PanhandlingScript>().enabled = false;
 
@@ -36,7 +41,7 @@ public class Cop : NPCInteraction {
         Camera.main.GetComponent<SplineInterpolator>().ended = true;
         Camera.main.GetComponent<SplineInterpolator>().mCurrentIdx++;
 
-        fDialog.showDialogue();
+        fDialog.showDialogue("negative");
         Debug.Log("I'm interacting with you");
     }
 }

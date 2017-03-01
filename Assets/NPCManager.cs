@@ -15,14 +15,15 @@ public class NPCManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GameObject NPCsObject = GameObject.Find("NPCs");
-        for (int i = 0; i < NPCsObject.transform.childCount; i++)
+        for (int i = 0; i < NPCsObject.transform.GetChild(0).childCount; i++)
         {
-            GameObject npc = NPCsObject.transform.GetChild(i).gameObject;
-
-            if (npc.GetComponent<Pedestrian>())
-                Pedestrians.Add(npc);
-            else if (npc.GetComponent<Cop>())
-                Cops.Add(npc);
+            GameObject npc = NPCsObject.transform.GetChild(0).transform.GetChild(i).gameObject;
+            Pedestrians.Add(npc);
+        }
+        for (int i = 0; i < NPCsObject.transform.GetChild(1).childCount; i++)
+        {
+            GameObject npc = NPCsObject.transform.GetChild(1).transform.GetChild(i).gameObject;
+            Cops.Add(npc);
         }
 	}
 }
