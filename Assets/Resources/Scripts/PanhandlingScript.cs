@@ -5,6 +5,7 @@ using System;
 public class PanhandlingScript : MonoBehaviour {
 	public int begsRemaining;
     public bool infiniteBegs;
+    public bool canPivot = true;
 
     public SplineInterpolator splineInterp;
 	private Inventory inventory;
@@ -23,7 +24,7 @@ public class PanhandlingScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (splineInterp != null && splineInterp.mState == "Stopped")
+        if (splineInterp != null && splineInterp.mState == "Stopped" && canPivot)
         {
             Vector3 temp = gameObject.transform.eulerAngles;
             float width = Input.mousePosition.x / Screen.currentResolution.width - .5f;

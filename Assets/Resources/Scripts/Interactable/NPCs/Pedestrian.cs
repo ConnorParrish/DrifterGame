@@ -4,14 +4,44 @@ using UnityEngine;
 
 public class Pedestrian : NPCInteraction {
     ParticleSystem resultPS;
-    simpleDialogue simpleD;
+    public int maxTimesBegged;
+    public bool askingForHelp;
+
+    private int timesBegged;
+    private List<GameObject> cops;
 
 	// Use this for initialization
 	public override void Start () {
-        resultPS = transform.GetChild(3).GetComponent<ParticleSystem>();
-        simpleD = GetComponent<simpleDialogue>();
+        if (maxTimesBegged == 0)
+            maxTimesBegged = 2;
+
+        cops = GameObject.Find("NPCs").GetComponent<NPCManager>().Cops;
+        resultPS = transform.GetChild(2).GetComponent<ParticleSystem>();
         base.Start();
 	}
+
+    /// <summary>
+    /// This finds the closest cop for pedestrians in stress.
+    /// </summary>
+    /// <returns></returns>
+    private GameObject GetClosestCop()
+    {
+        GameObject closestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (GameObject potentialTarget in cops)
+        {
+            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                closestTarget = potentialTarget;
+            }
+        }
+
+        return closestTarget;
+    }
 
     /// <summary>
     /// Called when the player clicks a pedestrian while panhandling.
@@ -19,7 +49,14 @@ public class Pedestrian : NPCInteraction {
     /// <param name="inv"></param>
     public void OnPanhandleClick(Inventory inv)
     {
-        if (!hasInteracted)
+        if (askingForHelp)
+        {
+            Debug.Log("Callin cops");
+            GetClosestCop().GetComponent<Cop>().RunToPlayer(GameObject.FindWithTag("Player").transform);
+
+        }
+
+        if (timesBegged < maxTimesBegged)
         {
             int chance = Random.Range(0, 5); // Chance the pedestrian will give you $$$
 
@@ -36,14 +73,16 @@ public class Pedestrian : NPCInteraction {
             else
             {
                 Debug.Log("They didn't care");
-                simpleD.showDialogue();
+                sDialog.showDialogue();
             }
-            //hasInteracted = true; // Remembers the player has asked for money
+            timesBegged++;
         }
         else
         {
-            //askingForHelp = true; // Implement later to call cops
+            Debug.Log("They're gonna call the cops!");
+            askingForHelp = true; // Implement later to call cops
         }
 
     }
+    
 }

@@ -25,7 +25,7 @@ public class Interactable : MonoBehaviour {
     /// Should be called when the player clicks an interactable object.
     /// </summary>
     /// <param name="pAgent"></param>
-	public virtual void MoveToInteraction(UnityEngine.AI.NavMeshAgent pAgent){
+	public virtual void MoveToInteraction(NavMeshAgent pAgent){
         pAgent.destination = this.transform.position;
 		this.playerAgent = pAgent;
 		this.pa_destination = new Vector2(transform.position.x, transform.position.z);

@@ -25,7 +25,6 @@ public class PanhandleActivator : ActionItem {
         //gameObject.GetComponent<BoxCollider>().enabled = false;
         splineRoots = transform.GetChild(0).gameObject;
         player = GameObject.Find("Player");
-		Debug.Log ("twice?");
         //splineRoots.GetComponent<SimpleFollow>().toFollow = this.gameObject;
 
         base.MoveToInteraction(playerAgent);
@@ -36,7 +35,6 @@ public class PanhandleActivator : ActionItem {
         if (true)
         {
 
-			Debug.Log ("Panhandle Interact()");
             SplineController splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
             //splineController.AutoClose = false;
