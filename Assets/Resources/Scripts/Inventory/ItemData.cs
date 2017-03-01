@@ -62,12 +62,12 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>().ChangeActiveItem(item.ID);
+        //GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>().ChangeActiveItem(item.ID);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>().ChangeActiveItem(item.ID);
+        //GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>().ChangeActiveItem(item.ID);
 
         tooltip.Activate(item);
     }

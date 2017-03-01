@@ -10,12 +10,12 @@ using System;
 public class SlotItem : MonoBehaviour, IDropHandler, IPointerClickHandler {
     public int slotID;                                                              // Used to keep track of it's location on the board
     private Inventory inv;                                                      // Cache of the useful Inventory (with items and slots)
-    private ItemPreviewScript ips;
-
+    //private ItemPreviewScript ips;
+    private DeletionDialog dDialog;
     void Start()
     {
         inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
-        ips = GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>();
+        //    ips = GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>();
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -63,7 +63,7 @@ public class SlotItem : MonoBehaviour, IDropHandler, IPointerClickHandler {
         Debug.Log("Hi");
         if (gameObject.name != "Trash Slot" && gameObject.name != "Image")
         {
-            ips.ChangeActiveItem(clickedItem.item.ID);
+            //ips.ChangeActiveItem(clickedItem.item.ID);
         }
     }
 }

@@ -8,22 +8,6 @@ using UnityEngine.UI;
 /// </summary>
 public class Inventory : MonoBehaviour {
     /// <summary>
-    /// The overall menu housing the different panels.
-    /// </summary>
-    GameObject inventoryMenu;
-    /// <summary>
-    /// The panel housing the inventory.
-    /// </summary>
-    GameObject inventoryPanel;                                                  // Main UI Panel
-    /// <summary>
-    /// The panel housing the items in inventory slots.
-    /// </summary>
-    GameObject slotPanel;                                                       // Reference to the panel with the slots
-    /// <summary>
-    /// The list of all possible items.
-    /// </summary>
-    ItemDatabase database;                                                      // This is the list of all items
-    /// <summary>
     /// The slot prefab.
     /// </summary>
     public GameObject inventorySlot;                                            // Prefab of the slot itself
@@ -48,6 +32,24 @@ public class Inventory : MonoBehaviour {
     /// </summary>
     public List<GameObject> slots = new List<GameObject>();                     // List of slots in the inventory
 
+    /// <summary>
+    /// The overall menu housing the different panels.
+    /// </summary>
+    GameObject inventoryMenu;
+    /// <summary>
+    /// The panel housing the inventory.
+    /// </summary>
+    GameObject inventoryPanel;                                                  // Main UI Panel
+    /// <summary>
+    /// The panel housing the items in inventory slots.
+    /// </summary>
+    GameObject slotPanel;                                                       // Reference to the panel with the slots
+    /// <summary>
+    /// The list of all possible items.
+    /// </summary>
+    ItemDatabase database;                                                      // This is the list of all items
+    DeletionDialog dDialog;
+     
     Text moneyText;
     int slotAmount;                                                             // Max number of slots
     
@@ -59,6 +61,7 @@ public class Inventory : MonoBehaviour {
         inventoryMenu = GameObject.Find("Menu");
         moneyText = GameObject.Find("Money Text").transform.GetChild(0).GetComponent<Text>();
         slotPanel = inventoryPanel.transform.FindChild("Slot Panel").gameObject;
+        dDialog = transform.parent.GetChild(3).GetChild(6).GetComponent<DeletionDialog>();
 
         for (int i = 0; i < slotAmount; i++)
         {
@@ -163,34 +166,8 @@ public class Inventory : MonoBehaviour {
             Debug.Log("You don't have any " + itemToRemove.Title + " in your inventory!");
             return;
         }
-        if (itemToRemove.Stackable)
-        {
-            Debug.Log("Stackable...");
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].ID == id)
-                {
-                    ItemData data = GameObject.Find(itemToRemove.Title).GetComponent<ItemData>();
-                    if (data.amount > 1)
-                    {
-                        data.amount--;                                          // If there's more than one of the stacked item, we lower it
-                        data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
-                    }
-                    else
-                    {
-                        if (fullInventory)
-                        {
-                            fullInventory = false;
-                        }
-                        slots[i].name = "Slot(Clone)";                          // Returns the slot to it's default name
-                        items[i] = new Item();                                  // We're creating a new blank item that is in every 
-                        Destroy(data.gameObject);
-                        break;
-                    }
-                }
-            }
-        }
-        else
+
+        if (!itemToRemove.Stackable)
         {
             Debug.Log("Not stackable");
             for (int i = items.Count - 1; i > -1; i--)
@@ -209,8 +186,50 @@ public class Inventory : MonoBehaviour {
                 }
             }
         }
+        else
+        {
+            dDialog.OpenDialog(GameObject.Find(itemToRemove.Title).GetComponent<ItemData>());
+        }
     }
-    
+
+    public void RemoveItem(int id, int amountToDelete)
+    {
+        Item itemToRemove = database.FetchItemByID(id);
+
+        if (itemToRemove.Stackable)
+        {
+            Debug.Log("Stackable...");
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].ID == id)
+                {
+                    ItemData data = GameObject.Find(itemToRemove.Title).GetComponent<ItemData>();
+                    if (data.amount > amountToDelete)
+                    {
+                        //dDialog.OpenDialog(data);
+                        Debug.Log(amountToDelete + " can be deleted.");
+
+                        data.amount -= amountToDelete;                                          // If there's more than one of the stacked item, we lower it
+                        data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+                    }
+                    else
+                    {
+                        if (fullInventory)
+                        {
+                            fullInventory = false;
+                        }
+                        slots[i].name = "Slot(Clone)";                          // Returns the slot to it's default name
+                        items[i] = new Item();                                  // We're creating a new blank item that is in every 
+                        Destroy(data.gameObject);
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
+
     // This is used to make sure the item we are stacking is already in the inventory
     bool ItemInInventoryCheck(Item item)
     {
