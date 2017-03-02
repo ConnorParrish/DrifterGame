@@ -31,7 +31,8 @@ public class fullDialogue : MonoBehaviour
     {
         // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(Dialogue);
-		text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
+        canvas.transform.SetParent(transform);
+        text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
         image = canvas.transform.FindChild("Image").gameObject;
         Button button = image.GetComponent<Button>();
         button.onClick.AddListener(showNextMessage);
@@ -73,6 +74,13 @@ public class fullDialogue : MonoBehaviour
     {
         canvas.SetActive(true);
 		messageCycler = cycleMessages ();
+        StartCoroutine(growCanvas());
+    }
+
+    public void showDialogue(string tag)
+    {
+        canvas.SetActive(true);
+        messageCycler = cycleMessages(tag);
         StartCoroutine(growCanvas());
     }
 
@@ -166,6 +174,26 @@ public class fullDialogue : MonoBehaviour
 
         endDialogue();
 	}
+
+    IEnumerator cycleMessages(string tag)
+    {
+        List<Dictionary<string, string>> messages = NPCData.DialogueFrames;
+        foreach (Dictionary<string,string> d in messages)
+        {
+            if (d["tag"] == tag)
+            {
+                currentText = d["text"];
+                if (Convert.ToInt32(d["itemID"]) != -1)
+                {
+                    setButtonState(true);
+                    currentCost = float.Parse(d["cost"]);
+                    currentItem = Convert.ToInt32(d["itemID"]);
+                }
+                yield return null;
+            }
+        }
+        endDialogue();
+    }
 
     private void setButtonState(bool state)
     {

@@ -11,7 +11,7 @@ using System;
  *          -- The current slot the item is on
  **/
 
-public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler {
+public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     public Item item;
     public int amount;                                                          // Used to track stackable item amounts
     public int slotID;                                                          // Which slot the item is in
@@ -60,8 +60,15 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>().ChangeActiveItem(item.ID);
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
+        //GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>().ChangeActiveItem(item.ID);
+
         tooltip.Activate(item);
     }
 

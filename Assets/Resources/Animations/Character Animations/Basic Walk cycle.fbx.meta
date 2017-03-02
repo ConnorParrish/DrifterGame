@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5e7b7989d1ef80642b4a1cc73eab2237
-timeCreated: 1487810051
+guid: 2b1a82bbaa2b05c43bd7c9073f2a8d5b
+timeCreated: 1488149372
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -47,7 +47,9 @@ ModelImporter:
     400036: pasted__joint6
     400038: pasted__joint7
     400040: group2
-    7400000: Take 001
+    7400000: Start walk
+    7400002: Stop Walk
+    7400004: Walk Cycle
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -63,7 +65,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -71,10 +73,150 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Start walk
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 119
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group2
+        weight: 1
+      - path: group2/pasted__joint1
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6/pasted__joint7
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint11
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13/pasted__joint14
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17/pasted__joint18
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21/pasted__joint22
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Stop Walk
+      takeName: Take 001
+      firstFrame: 159
+      lastFrame: 220
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group2
+        weight: 1
+      - path: group2/pasted__joint1
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint5/pasted__joint6/pasted__joint7
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint11
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint2/pasted__joint3/pasted__joint4/pasted__joint12/pasted__joint13/pasted__joint14
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint15/pasted__joint16/pasted__joint17/pasted__joint18
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21
+        weight: 1
+      - path: group2/pasted__joint1/pasted__joint19/pasted__joint20/pasted__joint21/pasted__joint22
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk Cycle
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 159
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
