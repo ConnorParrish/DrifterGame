@@ -188,7 +188,27 @@ public class Inventory : MonoBehaviour {
         }
         else
         {
-            dDialog.OpenDialog(GameObject.Find(itemToRemove.Title).GetComponent<ItemData>());
+            if (GameObject.Find(itemToRemove.Title).GetComponent<ItemData>().amount == 1)
+            {
+                Debug.Log("Not stackable");
+                for (int i = items.Count - 1; i > -1; i--)
+                {
+                    if (items[i].ID == id)
+                    {
+                        if (fullInventory)
+                        {
+                            fullInventory = false;
+                        }
+                        slots[i].name = "Slot(Clone)";
+                        items[i] = new Item();
+                        Destroy(GameObject.Find(itemToRemove.Title));
+                        break;
+
+                    }
+                }
+            }
+            else 
+                dDialog.OpenDialog(GameObject.Find(itemToRemove.Title).GetComponent<ItemData>());
         }
     }
 
