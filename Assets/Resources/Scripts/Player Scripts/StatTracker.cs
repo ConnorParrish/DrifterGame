@@ -19,9 +19,13 @@ public class StatTracker : MonoBehaviour {
     public float warmthDecay = 30;
 
     // section for the stats. They range from 0 to 100
-    public float hunger { set; get; }
-    public float warmth { set; get; }
-    public float happiness { set; get; }
+    public float Happiness { get { return happiness; } }
+    public float Hunger { get { return hunger; } }
+    public float Warmth { get { return warmth; } }
+
+    private float happiness = 100;
+    private float hunger = 100;
+    private float warmth = 100;
 
     // private float for scaling time.deltaTime appropriately with the total day length
     private float scaler;
