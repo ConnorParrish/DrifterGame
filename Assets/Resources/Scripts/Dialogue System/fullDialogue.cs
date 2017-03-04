@@ -84,21 +84,40 @@ public class fullDialogue : MonoBehaviour
         StartCoroutine(growCanvas());
     }
 
-    public void purchaseItem()
+    public void sellOrBuyItem() // linked to "yes" button for selling or buying items in dialogue
     {
         setButtonState(false);
-        if (inv.Money - currentCost < 0)
+        if (currentCost >= 0) // if the current cost is positive, buy the item
         {
-            currentText = "(You rifle through your pockets, and sadly realize you can't afford it)";
-            StopCoroutine(currentCoroutine);
-            currentCoroutine = writeMessage();
-            StartCoroutine(currentCoroutine);
+            if (inv.Money - currentCost < 0)
+            {
+                currentText = "(You rifle through your pockets, and sadly realize you can't afford it)";
+                StopCoroutine(currentCoroutine);
+                currentCoroutine = writeMessage();
+                StartCoroutine(currentCoroutine);
+            }
+            else
+            {
+                inv.AddItem(currentItem);
+                inv.AddMoney(-currentCost);
+                endDialogue();
+            }
         }
-        else
+        else // otherwise, we are selling an item to the NPC
         {
-            inv.AddItem(currentItem);
-            inv.AddMoney(-currentCost);
-            endDialogue();
+            if (inv.ItemInInventoryCheck(new Item() { ID = currentItem }))
+            {
+                inv.AddMoney(-currentCost);
+                inv.RemoveItem(currentItem);
+                endDialogue();
+            }
+            else
+            {
+                currentText = "(You dig through your backpack and sadly realize you don't have what they want...)";
+                StopCoroutine(currentCoroutine);
+                currentCoroutine = writeMessage();
+                StartCoroutine(currentCoroutine);
+            }
         }
     }
 
@@ -199,7 +218,7 @@ public class fullDialogue : MonoBehaviour
     {
         canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.AddListener(endDialogue);
         canvas.transform.FindChild("Decline").gameObject.SetActive(state);
-        canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(purchaseItem);
+        canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(sellOrBuyItem);
         canvas.transform.FindChild("Accept").gameObject.SetActive(state);
     }
 		

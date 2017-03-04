@@ -251,7 +251,7 @@ public class Inventory : MonoBehaviour {
     }
 
     // This is used to make sure the item we are stacking is already in the inventory
-    bool ItemInInventoryCheck(Item item)
+    public bool ItemInInventoryCheck(Item item) // I MADE THIS PUBLIC TO USE IT IN THE DIALOGUE SCRIPT
     {
         for (int i = 0; i < items.Count; i++)
         {
