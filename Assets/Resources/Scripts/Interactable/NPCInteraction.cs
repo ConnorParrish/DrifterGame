@@ -36,7 +36,7 @@ public class NPCInteraction : Interactable
 
     public override void Update()
     {
-        if (playerAgent != null && !playerAgent.pathPending)
+        if (playerAgent != null && !playerAgent.pathPending && this.pa_destination == new Vector2(playerAgent.destination.x, playerAgent.destination.z))
         {
             float speed = playerAgent.desiredVelocity.magnitude;
 

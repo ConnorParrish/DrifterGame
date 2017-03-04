@@ -66,6 +66,31 @@ public class Cop : NPCInteraction {
             
         }
 
-        base.Update();
+        if (playerAgent != null && !playerAgent.pathPending)//&& this.pa_destination == new Vector2(playerAgent.destination.x, playerAgent.destination.z))
+        {
+            float speed = playerAgent.desiredVelocity.magnitude;
+
+            if (playerAgent.remainingDistance <= playerAgent.stoppingDistance * 1f)
+            {
+                if (!hasInteracted)
+                {
+                    //playerAgent.transform.position = transform.position;
+
+                    //playerAgent = null;
+                    Interact();
+                    //Stopping(out speed);
+                    hasInteracted = true;
+
+                }
+            }
+            if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
+            {
+                //hasInteracted = false;
+                if (fDialog != null)
+                {
+                    fDialog.endDialogue();
+                }
+            }
+        }
     }
 }

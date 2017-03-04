@@ -26,7 +26,7 @@ public class Interactable : MonoBehaviour {
     /// </summary>
     /// <param name="pAgent"></param>
 	public virtual void MoveToInteraction(NavMeshAgent pAgent){
-        pAgent.destination = this.transform.position;
+        //pAgent.destination = this.transform.position;
 		this.playerAgent = pAgent;
 		this.pa_destination = new Vector2(transform.position.x, transform.position.z);
 
@@ -34,7 +34,7 @@ public class Interactable : MonoBehaviour {
 
     public virtual void Update()
     {
-		if (playerAgent != null && !playerAgent.pathPending && this.pa_destination == new Vector2(transform.position.x, transform.position.z))
+		if (playerAgent != null && !playerAgent.pathPending && this.pa_destination == new Vector2(playerAgent.destination.x, playerAgent.destination.z))
         {
             float speed = playerAgent.desiredVelocity.magnitude;
 
