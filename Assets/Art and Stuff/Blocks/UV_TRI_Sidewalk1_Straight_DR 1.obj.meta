@@ -13,7 +13,7 @@ ModelImporter:
     3300000: UV_Sidewalk1_Straight_DR:group218_UV_Sidewalk1_Straight_DR:pasted__group126_UV_Sidewalk1_Straight_DR:pasted__pasted__group45_UV_Sidewalk1_Straight_DR:pasted__pasted__pasted__group24_UV_Sidewalk1_Straight_DR:pasted__pasted__pasted__pasted__pCube2_UV_Sidewalk1_Straight_DR:polySurface1
     4300000: UV_Sidewalk1_Straight_DR:group218_UV_Sidewalk1_Straight_DR:pasted__group126_UV_Sidewalk1_Straight_DR:pasted__pasted__group45_UV_Sidewalk1_Straight_DR:pasted__pasted__pasted__group24_UV_Sidewalk1_Straight_DR:pasted__pasted__pasted__pasted__pCube2_UV_Sidewalk1_Straight_DR:polySurface1
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 1
     materialSearch: 1
   animations:
