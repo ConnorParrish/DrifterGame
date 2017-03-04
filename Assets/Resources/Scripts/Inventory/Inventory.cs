@@ -3,23 +3,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-/**
- * This is the script that needs to be referenced in order to add/subtract items from the player's inventory
- **/
-
+/// <summary>
+/// Inventory is the object that holds all the information for the player's current inventory.
+/// </summary>
 public class Inventory : MonoBehaviour {
-    GameObject inventoryMenu;
-    GameObject inventoryPanel;                                                  // Main UI Panel
-    GameObject slotPanel;                                                       // Reference to the panel with the slots
-    ItemDatabase database;                                                      // This is the list of all items
+    /// <summary>
+    /// The slot prefab.
+    /// </summary>
     public GameObject inventorySlot;                                            // Prefab of the slot itself
+    /// <summary>
+    /// The default item prefab.
+    /// </summary>
     public GameObject inventoryItem;                                            // Prefab that is the item
+    /// <summary>
+    /// Player's current amount of money.
+    /// </summary>
     public float Money;                                                         // NEEEEED TO IMPLEMENNTTTT (you did (: )
-    Text moneyText;
+    /// <summary>
+    /// Whether or not the inventory is full.
+    /// </summary>
     public bool fullInventory;                                                  // Keeps track of whether the inventory is full already
-    int slotAmount;                                                             // Max number of slots
+    /// <summary>
+    /// All of the player's current items.
+    /// </summary>
     public List<Item> items = new List<Item>();                                 // List of items in the inventory
+    /// <summary>
+    /// All item slots in the inventory slots panel.
+    /// </summary>
     public List<GameObject> slots = new List<GameObject>();                     // List of slots in the inventory
+
+    /// <summary>
+    /// The overall menu housing the different panels.
+    /// </summary>
+    GameObject inventoryMenu;
+    /// <summary>
+    /// The panel housing the inventory.
+    /// </summary>
+    GameObject inventoryPanel;                                                  // Main UI Panel
+    /// <summary>
+    /// The panel housing the items in inventory slots.
+    /// </summary>
+    GameObject slotPanel;                                                       // Reference to the panel with the slots
+    /// <summary>
+    /// The list of all possible items.
+    /// </summary>
+    ItemDatabase database;                                                      // This is the list of all items
+    DeletionDialog dDialog;
+     
+    Text moneyText;
+    int slotAmount;                                                             // Max number of slots
     
     void Start()
     {
@@ -29,6 +61,7 @@ public class Inventory : MonoBehaviour {
         inventoryMenu = GameObject.Find("Menu");
         moneyText = GameObject.Find("Money Text").transform.GetChild(0).GetComponent<Text>();
         slotPanel = inventoryPanel.transform.FindChild("Slot Panel").gameObject;
+        dDialog = transform.parent.GetChild(3).GetChild(6).GetComponent<DeletionDialog>();
 
         for (int i = 0; i < slotAmount; i++)
         {
@@ -49,6 +82,9 @@ public class Inventory : MonoBehaviour {
         inventoryMenu.SetActive(false);
     }
 
+    /// <summary>
+    /// Enables/Disables the inventory menu.
+    /// </summary>
     public void ShowInventory()
     {
         if (inventoryPanel.transform.parent.gameObject.activeSelf)
@@ -59,17 +95,11 @@ public class Inventory : MonoBehaviour {
             inventoryPanel.transform.parent.gameObject.SetActive(true);
         }
     }
-
-    public void HideInventory()
-    {
-        inventoryItem.transform.parent.gameObject.SetActive(true);
-    }
-
-    public void UpdateMoney()
-    {
-        moneyText.text = Money.ToString();
-    }
-
+    
+    /// <summary>
+    /// Adds money to the player's inventory.
+    /// </summary>
+    /// <param name="change"></param>
     public void AddMoney(float change)
     {
         Money += change;
@@ -77,6 +107,10 @@ public class Inventory : MonoBehaviour {
         inventoryMenu.transform.GetChild(4).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#.00");
     }
 
+    /// <summary>
+    /// Adds an item with the given ID to the inventory.
+    /// </summary>
+    /// <param name="id"></param>
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
@@ -120,6 +154,10 @@ public class Inventory : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Removes an item with a given ID from the inventory.
+    /// </summary>
+    /// <param name="id"></param>
     public void RemoveItem(int id)
     {
         Item itemToRemove = database.FetchItemByID(id);
@@ -128,34 +166,8 @@ public class Inventory : MonoBehaviour {
             Debug.Log("You don't have any " + itemToRemove.Title + " in your inventory!");
             return;
         }
-        if (itemToRemove.Stackable)
-        {
-            Debug.Log("Stackable...");
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].ID == id)
-                {
-                    ItemData data = GameObject.Find(itemToRemove.Title).GetComponent<ItemData>();
-                    if (data.amount > 1)
-                    {
-                        data.amount--;                                          // If there's more than one of the stacked item, we lower it
-                        data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
-                    }
-                    else
-                    {
-                        if (fullInventory)
-                        {
-                            fullInventory = false;
-                        }
-                        slots[i].name = "Slot(Clone)";                          // Returns the slot to it's default name
-                        items[i] = new Item();                                  // We're creating a new blank item that is in every 
-                        Destroy(data.gameObject);
-                        break;
-                    }
-                }
-            }
-        }
-        else
+
+        if (!itemToRemove.Stackable)
         {
             Debug.Log("Not stackable");
             for (int i = items.Count - 1; i > -1; i--)
@@ -174,10 +186,72 @@ public class Inventory : MonoBehaviour {
                 }
             }
         }
+        else
+        {
+            if (GameObject.Find(itemToRemove.Title).GetComponent<ItemData>().amount == 1)
+            {
+                Debug.Log("Not stackable");
+                for (int i = items.Count - 1; i > -1; i--)
+                {
+                    if (items[i].ID == id)
+                    {
+                        if (fullInventory)
+                        {
+                            fullInventory = false;
+                        }
+                        slots[i].name = "Slot(Clone)";
+                        items[i] = new Item();
+                        Destroy(GameObject.Find(itemToRemove.Title));
+                        break;
+
+                    }
+                }
+            }
+            else 
+                dDialog.OpenDialog(GameObject.Find(itemToRemove.Title).GetComponent<ItemData>());
+        }
     }
-    
+
+    public void RemoveItem(int id, int amountToDelete)
+    {
+        Item itemToRemove = database.FetchItemByID(id);
+
+        if (itemToRemove.Stackable)
+        {
+            Debug.Log("Stackable...");
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].ID == id)
+                {
+                    ItemData data = GameObject.Find(itemToRemove.Title).GetComponent<ItemData>();
+                    if (data.amount > amountToDelete)
+                    {
+                        //dDialog.OpenDialog(data);
+                        Debug.Log(amountToDelete + " can be deleted.");
+
+                        data.amount -= amountToDelete;                                          // If there's more than one of the stacked item, we lower it
+                        data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+                    }
+                    else
+                    {
+                        if (fullInventory)
+                        {
+                            fullInventory = false;
+                        }
+                        slots[i].name = "Slot(Clone)";                          // Returns the slot to it's default name
+                        items[i] = new Item();                                  // We're creating a new blank item that is in every 
+                        Destroy(data.gameObject);
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
+
     // This is used to make sure the item we are stacking is already in the inventory
-    bool ItemInInventoryCheck(Item item)
+    public bool ItemInInventoryCheck(Item item) // I MADE THIS PUBLIC TO USE IT IN THE DIALOGUE SCRIPT
     {
         for (int i = 0; i < items.Count; i++)
         {

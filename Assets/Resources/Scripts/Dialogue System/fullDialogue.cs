@@ -31,7 +31,8 @@ public class fullDialogue : MonoBehaviour
     {
         // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(Dialogue);
-		text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
+        canvas.transform.SetParent(transform);
+        text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
         image = canvas.transform.FindChild("Image").gameObject;
         Button button = image.GetComponent<Button>();
         button.onClick.AddListener(showNextMessage);
@@ -76,21 +77,47 @@ public class fullDialogue : MonoBehaviour
         StartCoroutine(growCanvas());
     }
 
-    public void purchaseItem()
+    public void showDialogue(string tag)
+    {
+        canvas.SetActive(true);
+        messageCycler = cycleMessages(tag);
+        StartCoroutine(growCanvas());
+    }
+
+    public void sellOrBuyItem() // linked to "yes" button for selling or buying items in dialogue
     {
         setButtonState(false);
-        if (inv.Money - currentCost < 0)
+        if (currentCost >= 0) // if the current cost is positive, buy the item
         {
-            currentText = "(You rifle through your pockets, and sadly realize you can't afford it)";
-            StopCoroutine(currentCoroutine);
-            currentCoroutine = writeMessage();
-            StartCoroutine(currentCoroutine);
+            if (inv.Money - currentCost < 0)
+            {
+                currentText = "(You rifle through your pockets, and sadly realize you can't afford it)";
+                StopCoroutine(currentCoroutine);
+                currentCoroutine = writeMessage();
+                StartCoroutine(currentCoroutine);
+            }
+            else
+            {
+                inv.AddItem(currentItem);
+                inv.AddMoney(-currentCost);
+                endDialogue();
+            }
         }
-        else
+        else // otherwise, we are selling an item to the NPC
         {
-            inv.AddItem(currentItem);
-            inv.AddMoney(-currentCost);
-            endDialogue();
+            if (inv.ItemInInventoryCheck(new Item() { ID = currentItem }))
+            {
+                inv.AddMoney(-currentCost);
+                inv.RemoveItem(currentItem);
+                endDialogue();
+            }
+            else
+            {
+                currentText = "(You dig through your backpack and sadly realize you don't have what they want...)";
+                StopCoroutine(currentCoroutine);
+                currentCoroutine = writeMessage();
+                StartCoroutine(currentCoroutine);
+            }
         }
     }
 
@@ -167,11 +194,31 @@ public class fullDialogue : MonoBehaviour
         endDialogue();
 	}
 
+    IEnumerator cycleMessages(string tag)
+    {
+        List<Dictionary<string, string>> messages = NPCData.DialogueFrames;
+        foreach (Dictionary<string,string> d in messages)
+        {
+            if (d["tag"] == tag)
+            {
+                currentText = d["text"];
+                if (Convert.ToInt32(d["itemID"]) != -1)
+                {
+                    setButtonState(true);
+                    currentCost = float.Parse(d["cost"]);
+                    currentItem = Convert.ToInt32(d["itemID"]);
+                }
+                yield return null;
+            }
+        }
+        endDialogue();
+    }
+
     private void setButtonState(bool state)
     {
         canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.AddListener(endDialogue);
         canvas.transform.FindChild("Decline").gameObject.SetActive(state);
-        canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(purchaseItem);
+        canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(sellOrBuyItem);
         canvas.transform.FindChild("Accept").gameObject.SetActive(state);
     }
 		

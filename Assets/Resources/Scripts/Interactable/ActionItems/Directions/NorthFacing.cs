@@ -8,7 +8,7 @@ public class NorthFacing : PanhandleActivator {
     // Use this for initialization
     public override void MoveToInteraction(NavMeshAgent playerAgent)
     {
-        base.pathToSet = 0;
+        //base.pathToSet = 0;
 
         base.MoveToInteraction(playerAgent);
     }

@@ -4,11 +4,20 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class PanhandleActivator : ActionItem {
+    /// <summary>
+    /// The SplineInterpolator object used to interpolate between the camera's starting
+    /// position and it's end position.
+    /// </summary>
     public SplineInterpolator splineInterpolator;
+    /// <summary>
+    /// The SplineController object used to manage the settings of the SplineInterpolator
+    /// </summary>
     public SplineController splineController;
+    /// <summary>
+    /// The parent object containing all the spline nodes for a path.
+    /// </summary>
     public GameObject splineRoots;
-    public int pathToSet;
-
+    
     private GameObject player;
 
     public override void MoveToInteraction(NavMeshAgent playerAgent)
@@ -16,7 +25,6 @@ public class PanhandleActivator : ActionItem {
         //gameObject.GetComponent<BoxCollider>().enabled = false;
         splineRoots = transform.GetChild(0).gameObject;
         player = GameObject.Find("Player");
-		Debug.Log ("twice?");
         //splineRoots.GetComponent<SimpleFollow>().toFollow = this.gameObject;
 
         base.MoveToInteraction(playerAgent);
@@ -26,7 +34,7 @@ public class PanhandleActivator : ActionItem {
     {
         if (true)
         {
-			Debug.Log ("Panhandle Interact()");
+
             SplineController splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
             //splineController.AutoClose = false;

@@ -7,7 +7,7 @@ using AC.TimeOfDaySystemFree;
 /// <summary>
 /// Component to keep track of player stats relative to the time of day managers timeline. Has
 /// public functions to check on the player stats and force a certain amount of time to pass.
-/// decay rates for states can be publically set. 
+/// decay rates for states can be publically set. Default max of any stat is 100. Default decay is 30 units per day cycle
 /// </summary>
 public class StatTracker : MonoBehaviour {
 
@@ -18,10 +18,18 @@ public class StatTracker : MonoBehaviour {
     public float hungerDecay = 30;
     public float warmthDecay = 30;
 
-    // section for the stats. They range from 0 to 100
-    public float hunger { set; get; }
-    public float warmth { set; get; }
-    public float happiness { set; get; }
+    // section for the stats. If a script tries to set them over their max, then they are chopped down to their max
+    public float Happiness { get { return happiness; } set { happiness = value;  if (happiness > maxHappiness) happiness = maxHappiness; } }
+    public float Hunger { get { return hunger; } set { hunger = value; if (hunger > maxHunger) hunger = maxHunger; } }
+    public float Warmth { get { return warmth; } set { warmth = value; if (warmth > maxWarmth) warmth = maxWarmth; } }
+
+    private float happiness = 100;
+    private float hunger = 100;
+    private float warmth = 100;
+    
+    public float maxHappiness = 100;
+    public float maxHunger = 100;
+    public float maxWarmth = 100;
 
     // private float for scaling time.deltaTime appropriately with the total day length
     private float scaler;
@@ -32,9 +40,6 @@ public class StatTracker : MonoBehaviour {
         scaler = 1 / (tdm.dayInSeconds / 100);
         hungerDecay = hungerDecay / 100;
         warmthDecay = warmthDecay / 100;
-        warmth = 100;
-        hunger = 100;
-        happiness = 100;
     }
 	
 	// Update is called once per frame
