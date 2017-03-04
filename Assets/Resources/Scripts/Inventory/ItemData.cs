@@ -19,11 +19,13 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Inventory inv;                                                      // The inventory object (with information on items/slots)
     private Tooltip tooltip;
     private Vector2 offset;                                                     // Distance between mouse and middle of sprite
+    private ItemPreviewScript ips;
 
     void Start()
     {
         inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
         tooltip = GetComponent<Tooltip>();
+        ips = GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -31,6 +33,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
         this.transform.position = eventData.position - offset;                  // Sets the sprite's position to look like it stays where the mouse picks it up
 
+        ips.ChangeActiveItem(item);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
