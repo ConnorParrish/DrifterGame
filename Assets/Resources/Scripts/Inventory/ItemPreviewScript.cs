@@ -16,7 +16,7 @@ public class ItemPreviewScript : MonoBehaviour {
         itemTitleText = transform.GetChild(2).GetComponent<Text>();
         itemTypeText = transform.GetChild(3).GetComponent<Text>();
         itemDescriptionText = transform.GetChild(4).GetComponent<Text>();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
 
     }
 
