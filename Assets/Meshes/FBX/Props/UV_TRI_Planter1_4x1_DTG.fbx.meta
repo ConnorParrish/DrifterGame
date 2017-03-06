@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 83dd6e3033b445c43ae0c9d505a2d3de
-timeCreated: 1488670902
+guid: 90a4e9274728c474ca4ac46fb2d13297
+timeCreated: 1488824754
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: UV_CornerColumn_Indent_DTG:IndentColum
+    4300000: Planter1
   materials:
     importMaterials: 0
     materialName: 0
