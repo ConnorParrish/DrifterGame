@@ -49,8 +49,8 @@ public class WorldInteraction : MonoBehaviour {
                         navMeshAgent.stoppingDistance = 0f;
                         //walking = true;
                         anim.SetBool("IsWalking", true);
-                        destinationMarker.SetActive(true);
-                        destinationMarker.transform.position = hit.point;
+                        //destinationMarker.SetActive(true);
+                        //destinationMarker.transform.position = hit.point;
                         navMeshAgent.destination = hit.point;
                         navMeshAgent.Resume();
 						interacted = false;
@@ -66,7 +66,7 @@ public class WorldInteraction : MonoBehaviour {
 			if (!navMeshAgent.hasPath || Mathf.Abs (navMeshAgent.velocity.sqrMagnitude) < float.Epsilon){
                 walking = false;
                 anim.SetBool("IsWalking", false);
-                destinationMarker.SetActive(false);
+                //destinationMarker.SetActive(false);
 			} else {
 				walking = true;
 				//anim.SetBool ("IsWalking", true);
