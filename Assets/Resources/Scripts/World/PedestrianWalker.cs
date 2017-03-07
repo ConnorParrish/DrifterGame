@@ -44,13 +44,36 @@ public class PedestrianWalker : MonoBehaviour {
                 }
                 else
                 {
-                    walkDirection = -walkDirection;
+                    int ccw = Random.Range(0, 1);
+                    if (ccw == 1)
+                    {
+                        if (walkDirection == Vector3.forward)
+                            walkDirection = Vector3.right;
+                        else if (walkDirection == Vector3.right)
+                            walkDirection = Vector3.back;
+                        else if (walkDirection == Vector3.back)
+                            walkDirection = Vector3.left;
+                        else if (walkDirection == Vector3.left)
+                            walkDirection = Vector3.forward;
+                    }
+                    else
+                    {
+                        if (walkDirection == Vector3.forward)
+                            walkDirection = Vector3.left;
+                        else if (walkDirection == Vector3.left)
+                            walkDirection = Vector3.back;
+                        else if (walkDirection == Vector3.back)
+                            walkDirection = Vector3.right;
+                        else if (walkDirection == Vector3.right)
+                            walkDirection = Vector3.forward;
+                    }
+                    //walkDirection = -walkDirection;
                     walkDestination = transform.position + Vector3.up + walkDirection * forwardDistance;
-                    navAgent.destination = walkDestination;
+                    //navAgent.destination = walkDestination;
                 }
 
             }
-            else
+            else // This turns the pedestrian around if they're on the edge of the world
             {
                 transform.Rotate(Vector3.back);
                 walkDirection = -walkDirection;
