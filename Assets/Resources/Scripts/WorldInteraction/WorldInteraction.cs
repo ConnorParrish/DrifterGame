@@ -5,25 +5,21 @@ using System;
 using System.Linq;
 
 public class WorldInteraction : MonoBehaviour {
-	public Sprite destinationSprite;
+    public GameObject destinationMarker;
     public bool canMove;
-	public UnityEngine.AI.NavMeshAgent navMeshAgent;
+	public NavMeshAgent navMeshAgent;
 	public bool walking;
     public bool beingInterrogated;
 	private bool clickedPanhandle;
 	private bool interacted;
-	private GameObject destinationMarker;
     private Animator anim;
 
 	// Use this for initialization
 	void Start () {
-		destinationMarker= new GameObject();
-		destinationMarker.AddComponent<SpriteRenderer>();
-		destinationMarker.GetComponent<SpriteRenderer>().sprite = destinationSprite;
         anim = GetComponentInChildren<Animator>();
 
 
-		navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+		navMeshAgent = GetComponent<NavMeshAgent>();
 	}
 	
 	// Update is called once per frame
