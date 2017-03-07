@@ -43,7 +43,7 @@ public class WorldInteraction : MonoBehaviour {
                         break;
 
                     }
-                    else if (canMove && hit.collider.gameObject.tag == "Walkable")
+                    else if (canMove && ( hit.collider.gameObject.tag == "Walkable" || hit.collider.gameObject.tag == "Sidewalk") )
                     {
 						
                         navMeshAgent.stoppingDistance = 0f;
