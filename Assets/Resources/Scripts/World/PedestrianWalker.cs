@@ -8,7 +8,7 @@ public class PedestrianWalker : MonoBehaviour {
     public float forwardDistance;
     public Vector3 walkDirection = Vector3.forward;
     private Vector3 walkDestination;
-    private NavMeshAgent navAgent;
+    public NavMeshAgent navAgent;
 
     private void OnDrawGizmos()
     {
@@ -19,7 +19,7 @@ public class PedestrianWalker : MonoBehaviour {
     {
         walkDestination = transform.position + Vector3.up*.5f + walkDirection * forwardDistance;
         navAgent = GetComponent<NavMeshAgent>();
-
+        GetComponentInChildren<Animator>().SetBool("isWalking", true);
 	}
 	
 	// Update is called once per frame

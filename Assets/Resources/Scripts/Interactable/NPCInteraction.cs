@@ -81,5 +81,8 @@ public class NPCInteraction : Interactable
         {
             sDialog.showDialogue("negative");           
         }
+
+        GetComponent<PedestrianWalker>().navAgent.Resume();
+        GetComponentInChildren<Animator>().SetBool("isWalking", true);
     }
 }
