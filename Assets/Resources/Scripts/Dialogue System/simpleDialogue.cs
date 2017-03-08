@@ -20,6 +20,10 @@ public class simpleDialogue : MonoBehaviour {
     RectTransform t;
 	public NPC NPCData;
 
+    public Texture2D curs1;
+    public Texture2D curs2;
+    public Texture2D curs3;
+
 	// Use this for initialization
 	void Start () {
         // fetch a couple components and game objects for future use
@@ -34,8 +38,19 @@ public class simpleDialogue : MonoBehaviour {
         canvas.GetComponent<SimpleFollow>().toFollow = gameObject;
     }
 
+    /// <summary>
+    /// method for debugging, disable when not in use
+    /// </summary>
+    //void OnMouseDown()
+    //{
+    //    canvas.SetActive(true);
+    //    text.text = "Test Test my man";
+    //    StartCoroutine(growCanvas());
+    //}
+
     void Update()
     {
+        // update the direction the dialogue bubble faces
         if (canvas.activeSelf)
         {
             canvas.transform.rotation = Camera.main.transform.rotation;
@@ -84,6 +99,9 @@ public class simpleDialogue : MonoBehaviour {
         float currentScale;
         float timePassed = 0f;
 
+        // start cycling the mouse pointer
+        StartCoroutine(cycleMousePointer());
+
         // this first loop grows the scale of the canvas
         while (waitTime > timePassed)
         {
@@ -108,5 +126,33 @@ public class simpleDialogue : MonoBehaviour {
 
         // this disabes the canvas and allows the coroutine to begin again
         canvas.SetActive(false);
+    }
+
+    IEnumerator cycleMousePointer()
+    {
+        float totalTime = messageBloomTime * 2 + messageDisplayTime;
+        float timepassed = 0f;
+        float cycleTime = .2f;
+        while (true)
+        {
+            Cursor.SetCursor(curs1, Vector2.zero, CursorMode.Auto);
+            yield return new WaitForSeconds(cycleTime);
+            timepassed += cycleTime;
+            if (timepassed > totalTime)
+                break;
+
+            Cursor.SetCursor(curs2, Vector2.zero, CursorMode.Auto);
+            yield return new WaitForSeconds(cycleTime);
+            timepassed += cycleTime;
+            if (timepassed > totalTime)
+                break;
+
+            Cursor.SetCursor(curs3, Vector2.zero, CursorMode.Auto);
+            yield return new WaitForSeconds(cycleTime);
+            timepassed += cycleTime;
+            if (timepassed > totalTime)
+                break;
+        }
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 }

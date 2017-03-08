@@ -5,25 +5,21 @@ using System;
 using System.Linq;
 
 public class WorldInteraction : MonoBehaviour {
-	public Sprite destinationSprite;
+    public GameObject destinationMarker;
     public bool canMove;
-	public UnityEngine.AI.NavMeshAgent navMeshAgent;
+	public NavMeshAgent navMeshAgent;
 	public bool walking;
     public bool beingInterrogated;
 	private bool clickedPanhandle;
 	private bool interacted;
-	private GameObject destinationMarker;
     private Animator anim;
 
 	// Use this for initialization
 	void Start () {
-		destinationMarker= new GameObject();
-		destinationMarker.AddComponent<SpriteRenderer>();
-		destinationMarker.GetComponent<SpriteRenderer>().sprite = destinationSprite;
         anim = GetComponentInChildren<Animator>();
 
 
-		navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+		navMeshAgent = GetComponent<NavMeshAgent>();
 	}
 	
 	// Update is called once per frame
@@ -47,14 +43,14 @@ public class WorldInteraction : MonoBehaviour {
                         break;
 
                     }
-                    else if (canMove && hit.collider.gameObject.tag == "Walkable")
+                    else if (canMove && ( hit.collider.gameObject.tag == "Walkable" || hit.collider.gameObject.tag == "Sidewalk") )
                     {
 						
                         navMeshAgent.stoppingDistance = 0f;
                         //walking = true;
                         anim.SetBool("IsWalking", true);
-                        destinationMarker.SetActive(true);
-                        destinationMarker.transform.position = hit.point;
+                        //destinationMarker.SetActive(true);
+                        //destinationMarker.transform.position = hit.point;
                         navMeshAgent.destination = hit.point;
                         navMeshAgent.Resume();
 						interacted = false;
@@ -70,7 +66,7 @@ public class WorldInteraction : MonoBehaviour {
 			if (!navMeshAgent.hasPath || Mathf.Abs (navMeshAgent.velocity.sqrMagnitude) < float.Epsilon){
                 walking = false;
                 anim.SetBool("IsWalking", false);
-                destinationMarker.SetActive(false);
+                //destinationMarker.SetActive(false);
 			} else {
 				walking = true;
 				//anim.SetBool ("IsWalking", true);

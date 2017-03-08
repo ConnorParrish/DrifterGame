@@ -14,7 +14,7 @@ public class NPCManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GameObject NPCsObject = GameObject.Find("NPCs");
+        GameObject NPCsObject = gameObject;
         for (int i = 0; i < NPCsObject.transform.GetChild(0).childCount; i++)
         {
             GameObject npc = NPCsObject.transform.GetChild(0).transform.GetChild(i).gameObject;

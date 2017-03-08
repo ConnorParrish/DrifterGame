@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 95eb925c0c7096c44a96a2118a9b791c
+timeCreated: 1488870701
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Fresco Stamp
+  fontNames:
+  - Fresco Stamp
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

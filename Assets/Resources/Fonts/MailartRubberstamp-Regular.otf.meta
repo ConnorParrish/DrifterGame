@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: bd93a4c12a6b6a34081dc56dec832bfe
+timeCreated: 1488870696
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Mailart Rubberstamp
+  fontNames:
+  - Mailart Rubberstamp
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

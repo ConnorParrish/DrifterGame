@@ -1,16 +1,17 @@
 fileFormatVersion: 2
-guid: 60e885a1e2301421e9fd00f77c4b5257
-timeCreated: 1488419528
+guid: d625ba17b84f7264ab4519762dc9e713
+timeCreated: 1488863139
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Window2
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: pCylinder1
-    9500000: //RootNode
+    400002: Window2
+    2300000: Window2
+    3300000: Window2
+    4300000: Window2
   materials:
     importMaterials: 1
     materialName: 0
