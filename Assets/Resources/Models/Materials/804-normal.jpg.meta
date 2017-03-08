@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: 7ec0d07b1c700f440b2da9d243a0fa9c
-timeCreated: 1489011911
+<<<<<<< HEAD:Assets/Resources/Models/Materials/804-normal.jpg.meta
+guid: 08b535db2e6a658448b46908fb8dd860
+timeCreated: 1488958898
+=======
+guid: dd396cf2b36e90b41beafafc1db766cb
+timeCreated: 1488967091
+>>>>>>> 0e8ae876ffe9e9cf5c5b40f6941491894830938f:Assets/Resources/Sprites/UI/Status Panel Frame001.png.meta
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -39,8 +44,8 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spriteBorder: {x: 9, y: 9, z: 9, w: 9}
+  spritePixelsToUnits: 200
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
