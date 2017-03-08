@@ -12,12 +12,12 @@ public class PedestrianWalker : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        Debug.DrawRay(transform.position + Vector3.up + walkDirection * forwardDistance, Vector3.down, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up *.5f + walkDirection * forwardDistance, Vector3.down, Color.red);
     }
 
     void Start ()
     {
-        walkDestination = transform.position + Vector3.up + walkDirection * forwardDistance;
+        walkDestination = transform.position + Vector3.up*.5f + walkDirection * forwardDistance;
         navAgent = GetComponent<NavMeshAgent>();
 
 	}
@@ -27,25 +27,21 @@ public class PedestrianWalker : MonoBehaviour {
         //navAgent.destination = walkDestination;
         if (!navAgent.hasPath)
         {
-            Ray sidewalkCheck = new Ray(transform.position + Vector3.up + walkDirection * forwardDistance, Vector3.down);
+            Ray sidewalkCheck = new Ray(transform.position + Vector3.up*.5f + walkDirection * forwardDistance, Vector3.down);
             RaycastHit hit = new RaycastHit();
 
             if (Physics.Raycast(sidewalkCheck, out hit))
             {
-                //Debug.DrawRay(transform.position + walkDirection * forwardDistance, Vector3.down, Color.red);
-                Debug.Log("Collider tag: " + hit.collider.tag);
-                //Debug.Break();
                 if (hit.collider.tag == "Sidewalk")
                 {
                     //walkDirection = Vector3.forward;
-                    walkDestination = transform.position + Vector3.up + walkDirection * forwardDistance;
+                    walkDestination = transform.position + Vector3.up*.5f + walkDirection * forwardDistance;
                     navAgent.destination = walkDestination;
                     return;
                 }
                 else
                 {
                     int ccw = Random.Range(0, 2);
-                    Debug.Log(ccw);
                     if (ccw == 1)
                     {
                         if (walkDirection == Vector3.forward)
@@ -69,7 +65,7 @@ public class PedestrianWalker : MonoBehaviour {
                             walkDirection = Vector3.forward;
                     }
                     //walkDirection = -walkDirection;
-                    walkDestination = transform.position + Vector3.up + walkDirection * forwardDistance;
+                    walkDestination = transform.position + Vector3.up*.5f + walkDirection * forwardDistance;
                     //navAgent.destination = walkDestination;
                 }
 
@@ -78,7 +74,7 @@ public class PedestrianWalker : MonoBehaviour {
             {
                 transform.Rotate(Vector3.back);
                 walkDirection = -walkDirection;
-                walkDestination = transform.position + Vector3.up + walkDirection * forwardDistance;
+                walkDestination = transform.position + Vector3.up*.5f + walkDirection * forwardDistance;
             }
         }
 	}

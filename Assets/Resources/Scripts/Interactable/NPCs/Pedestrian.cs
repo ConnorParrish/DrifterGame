@@ -16,7 +16,7 @@ public class Pedestrian : NPCInteraction {
             maxTimesBegged = 2;
 
         cops = GameObject.Find("NPCs").GetComponent<NPCManager>().Cops;
-        resultPS = transform.GetChild(2).GetComponent<ParticleSystem>();
+        resultPS = transform.GetChild(3).GetComponent<ParticleSystem>();
         base.Start();
 	}
 
