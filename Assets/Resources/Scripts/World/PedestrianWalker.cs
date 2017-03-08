@@ -44,7 +44,8 @@ public class PedestrianWalker : MonoBehaviour {
                 }
                 else
                 {
-                    int ccw = Random.Range(0, 1);
+                    int ccw = Random.Range(0, 2);
+                    Debug.Log(ccw);
                     if (ccw == 1)
                     {
                         if (walkDirection == Vector3.forward)
