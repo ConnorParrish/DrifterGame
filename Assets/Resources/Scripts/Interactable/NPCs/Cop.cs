@@ -7,7 +7,7 @@ public class Cop : NPCInteraction {
     public GameObject player;
     private Animator anim;
     private Vector3 originalPosition;
-    private bool isInterrogating;
+    public bool isInterrogating;
 
     public override void Start()
     {
@@ -35,34 +35,44 @@ public class Cop : NPCInteraction {
 
     public override void Interact()
     {
-        isInterrogating = true;
+        if (player.GetComponent<PanhandlingScript>().enabled)
+        {
+            isInterrogating = true;
 
-        player.GetComponent<WorldInteraction>().canMove = false;
+            player.GetComponent<WorldInteraction>().canMove = false;
 
 
-        anim.SetTrigger("hasArrived");
-        anim.SetBool("isRunning", false);
-        player.GetComponent<PanhandlingScript>().canPivot = false;
-        player.GetComponent<PanhandlingScript>().enabled = false;
+            anim.SetTrigger("hasArrived");
+            anim.SetBool("isRunning", false);
+            //player.GetComponent<PanhandlingScript>().canPivot = false;
+            player.GetComponent<PanhandlingScript>().enabled = false;
 
-        GameObject panhandlingActivatorGO = Camera.main.GetComponent<SplineController>().SplineRootHolder.transform.parent.gameObject;
-        Camera.main.GetComponent<SplineInterpolator>().mState = "Once";
-        Camera.main.GetComponent<SplineInterpolator>().ended = true;
-        Camera.main.GetComponent<SplineInterpolator>().mCurrentIdx++;
+            GameObject panhandlingActivatorGO = Camera.main.GetComponent<SplineController>().SplineRootHolder.transform.parent.gameObject;
+            Camera.main.GetComponent<SplineInterpolator>().mState = "Once";
+            Camera.main.GetComponent<SplineInterpolator>().ended = true;
+            Camera.main.GetComponent<SplineInterpolator>().mCurrentIdx++;
 
-        fDialog.showDialogue("negative");
+            fDialog.showDialogue("negative");
+        }
+        else
+        {
+            fDialog.showDialogue("negative");
+        }
     }
 
     public override void Update()
     {
         if (!fDialog.canvas.activeSelf && isInterrogating)
         {
+            Debug.Log(isInterrogating);
             isInterrogating = false;
+            Debug.Log(isInterrogating);
             player.GetComponent<WorldInteraction>().canMove = true;
             playerAgent.stoppingDistance = 0f;
             Debug.Log("playerAgent.destination: " + playerAgent.destination);
             playerAgent.destination = originalPosition;
             Debug.Log("playerAgent.destination: " + playerAgent.destination);
+            playerAgent.Resume();
             
         }
 
@@ -74,9 +84,12 @@ public class Cop : NPCInteraction {
             {
                 if (!hasInteracted)
                 {
-                    //playerAgent.transform.position = transform.position;
+                    playerAgent.Stop();
+                    Debug.Log(playerAgent.transform.position);
+                    Quaternion targetRotation = Quaternion.LookRotation(playerAgent.transform.position - transform.position);
+                    float strength = Mathf.Min(.5f * Time.deltaTime, 1f);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
 
-                    //playerAgent = null;
                     Interact();
                     //Stopping(out speed);
                     hasInteracted = true;

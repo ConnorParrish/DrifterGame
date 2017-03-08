@@ -17,6 +17,8 @@ public class PanhandleActivator : ActionItem {
     /// The parent object containing all the spline nodes for a path.
     /// </summary>
     public GameObject splineRoots;
+
+    public GameObject panhandleButton;
     
     private GameObject player;
 
@@ -34,7 +36,7 @@ public class PanhandleActivator : ActionItem {
     {
         if (true)
         {
-
+            panhandleButton.SetActive(true);
             SplineController splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
             //splineController.AutoClose = false;
@@ -48,5 +50,5 @@ public class PanhandleActivator : ActionItem {
 			playerAgent = null;
         }
     }
-
+    
 }
