@@ -36,6 +36,11 @@ public class WorldInteraction : MonoBehaviour {
                 {
 					if (hit.collider.gameObject.tag == "Interactable Object")
                     {
+                        if (hit.collider.gameObject.GetComponent<PedestrianWalker>() == true)
+                        {
+                            hit.collider.gameObject.GetComponent<PedestrianWalker>().navAgent.Stop();
+                            hit.collider.gameObject.GetComponentInChildren<Animator>().SetBool("isWalking", false);
+                        }
                         navMeshAgent.destination = hit.transform.position;
 						hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
                         
