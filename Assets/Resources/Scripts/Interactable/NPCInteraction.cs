@@ -44,9 +44,11 @@ public class NPCInteraction : Interactable
             {
                 if (!hasInteracted)
                 {
-                    //playerAgent.transform.position = transform.position;
+                    playerAgent.Stop();
 
-                    //playerAgent = null;
+                    Quaternion targetRotation = Quaternion.LookRotation(playerAgent.transform.position - transform.position);
+                    float strength = Mathf.Min(.5f * Time.deltaTime, 1f);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
                     Interact();
                     //Stopping(out speed);
                     hasInteracted = true;
@@ -81,5 +83,8 @@ public class NPCInteraction : Interactable
         {
             sDialog.showDialogue("negative");           
         }
+
+        GetComponent<PedestrianWalker>().navAgent.Resume();
+        GetComponentInChildren<Animator>().SetBool("isWalking", true);
     }
 }

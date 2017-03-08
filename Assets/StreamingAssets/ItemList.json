@@ -30,7 +30,7 @@
 		"id": 3,
 		"title": "Beer Bottle",
 		"description": "Shit, I wish there was still some in here for me...",
-		"slug": "beer_bottle",
+		"slug": "beerbottle",
 		"type": "Recyclable",
 		"stackable": false,
 		"resale": 10

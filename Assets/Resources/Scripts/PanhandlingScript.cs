@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 using System;
 
@@ -8,18 +9,23 @@ public class PanhandlingScript : MonoBehaviour {
     public bool canPivot = true;
 
     public SplineInterpolator splineInterp;
+    public float navMeshRadius = .5f;
 	private Inventory inventory;
-
+    private GameObject leaveButton;
     private void OnEnable()
     {
         splineInterp = Camera.main.GetComponent<SplineInterpolator>();
-
+        GetComponent<NavMeshAgent>().radius = 0;
+    }
+    private void OnDisable()
+    {
+        GetComponent<NavMeshAgent>().radius = .5f;
     }
 
     // Use this for initialization
     void Start () {
         splineInterp = Camera.main.GetComponent<SplineInterpolator>();
-		inventory = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
+        inventory = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
 	}
 	
 	// Update is called once per frame

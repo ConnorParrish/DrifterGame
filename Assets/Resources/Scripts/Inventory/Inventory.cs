@@ -104,7 +104,7 @@ public class Inventory : MonoBehaviour {
     {
         Money += change;
 
-        inventoryMenu.transform.GetChild(4).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#.00");
+        inventoryMenu.transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#.00");
     }
 
     /// <summary>
