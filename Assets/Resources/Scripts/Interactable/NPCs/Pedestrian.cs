@@ -50,27 +50,29 @@ public class Pedestrian : NPCInteraction {
     public void OnPanhandleClick(Inventory inv)
     {
 
-        if (timesBegged < maxTimesBegged && !sDialog.isActiveAndEnabled)
+        if (timesBegged < maxTimesBegged)
         {
             int chance = Random.Range(0, 5); // Chance the pedestrian will give you $$$
-
-            if (chance < 3)
+            if (true)
             {
-                Debug.Log("They cared enough"); 
-                sDialog.showDialogue("recieve");
-                resultPS.Play();
+                if (chance < 3)
+                {
+                    Debug.Log("They cared enough");
+                    sDialog.showDialogue("recieve");
+                    resultPS.Play();
 
-                int change = Random.Range(1, 100); // The possible money you will receive in cents
-                Debug.Log("Money Before: " + inv.Money);
-                inv.AddMoney(change * (0.01f));
-                Debug.Log("Money After: " + inv.Money);
+                    int change = Random.Range(1, 100); // The possible money you will receive in cents
+                    Debug.Log("Money Before: " + inv.Money);
+                    inv.AddMoney(change * (0.01f));
+                    Debug.Log("Money After: " + inv.Money);
+                }
+                else
+                {
+                    Debug.Log("They didn't care");
+                    sDialog.showDialogue("negative");
+                }
+                timesBegged++;
             }
-            else
-            {
-                Debug.Log("They didn't care");
-                sDialog.showDialogue("negative");
-            }
-            timesBegged++;
         }
         else
         {
