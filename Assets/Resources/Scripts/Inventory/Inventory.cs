@@ -78,6 +78,7 @@ public class Inventory : MonoBehaviour {
         AddItem(2);
         AddItem(2);
         AddItem(2);
+        AddItem(4);
 
         inventoryMenu.SetActive(false);
     }
