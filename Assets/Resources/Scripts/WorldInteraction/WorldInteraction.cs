@@ -13,19 +13,19 @@ public class WorldInteraction : MonoBehaviour {
 	private bool clickedPanhandle;
 	private bool interacted;
     private Animator anim;
+    private GameObject panhandleButton;
 
 	// Use this for initialization
 	void Start () {
         anim = GetComponentInChildren<Animator>();
-
-
+        panhandleButton = GameObject.Find("LeavePanhandling");
+        panhandleButton.SetActive(false);
 		navMeshAgent = GetComponent<NavMeshAgent>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButton("Fire2"))
         {
             //Debug.Break();
             Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -41,6 +41,8 @@ public class WorldInteraction : MonoBehaviour {
                             hit.collider.gameObject.GetComponent<PedestrianWalker>().navAgent.Stop();
                             hit.collider.gameObject.GetComponentInChildren<Animator>().SetBool("isWalking", false);
                         }
+                        if (hit.collider.gameObject.GetComponent<PanhandleActivator>() == true)
+                            hit.collider.gameObject.GetComponent<PanhandleActivator>().panhandleButton = panhandleButton;
                         navMeshAgent.destination = hit.transform.position;
 						hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
                         
