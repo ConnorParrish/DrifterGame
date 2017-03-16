@@ -1,80 +1,53 @@
 fileFormatVersion: 2
-guid: b8476f332ddf9764398bc813f13a5157
-timeCreated: 1489014709
+guid: 0a490e87bc77ab446be95ed949b66378
+timeCreated: 1489689436
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: pCube1
-    100004: pCube2
-    100006: pCube3
-    100008: pCube4
-    100010: pCube5
-    100012: pCube6
-    100014: pCylinder1
-    100016: pCylinder2
-    100018: pCylinder3
-    100020: pCylinder4
-    100022: pTorus1
-    100024: pTorus2
-    100026: pTorus3
-    100028: pTorus4
-    100030: transform1
-    100032: transform2
-    400000: //RootNode
-    400002: pCube1
-    400004: pCube2
-    400006: pCube3
-    400008: pCube4
-    400010: pCube5
-    400012: pCube6
-    400014: pCylinder1
-    400016: pCylinder2
-    400018: pCylinder3
-    400020: pCylinder4
-    400022: pTorus1
-    400024: pTorus2
-    400026: pTorus3
-    400028: pTorus4
-    400030: transform1
-    400032: transform2
-    2300000: pCube2
-    2300002: pCube3
-    2300004: pCube5
-    2300006: pCube6
-    2300008: pCylinder1
-    2300010: pCylinder2
-    2300012: pCylinder3
-    2300014: pCylinder4
-    2300016: pTorus1
-    2300018: pTorus2
-    2300020: pTorus3
-    2300022: pTorus4
-    3300000: pCube2
-    3300002: pCube3
-    3300004: pCube5
-    3300006: pCube6
-    3300008: pCylinder1
-    3300010: pCylinder2
-    3300012: pCylinder3
-    3300014: pCylinder4
-    3300016: pTorus1
-    3300018: pTorus2
-    3300020: pTorus3
-    3300022: pTorus4
-    4300000: pTorus1
-    4300002: pCylinder1
-    4300004: pCylinder2
-    4300006: pTorus2
-    4300008: pCube2
-    4300010: pCube3
-    4300012: pCylinder3
-    4300014: pCylinder4
-    4300016: pTorus3
-    4300018: pTorus4
-    4300020: pCube5
-    4300022: pCube6
+    100000: pasted__joint1
+    100002: pasted__joint11
+    100004: pasted__joint12
+    100006: pasted__joint13
+    100008: pasted__joint14
+    100010: pasted__joint15
+    100012: pasted__joint16
+    100014: pasted__joint17
+    100016: pasted__joint18
+    100018: pasted__joint19
+    100020: pasted__joint2
+    100022: pasted__joint20
+    100024: pasted__joint21
+    100026: pasted__joint22
+    100028: pasted__joint3
+    100030: pasted__joint4
+    100032: pasted__joint5
+    100034: pasted__joint6
+    100036: pasted__joint7
+    100038: //RootNode
+    100040: group2
+    400000: pasted__joint1
+    400002: pasted__joint11
+    400004: pasted__joint12
+    400006: pasted__joint13
+    400008: pasted__joint14
+    400010: pasted__joint15
+    400012: pasted__joint16
+    400014: pasted__joint17
+    400016: pasted__joint18
+    400018: pasted__joint19
+    400020: pasted__joint2
+    400022: pasted__joint20
+    400024: pasted__joint21
+    400026: pasted__joint22
+    400028: pasted__joint3
+    400030: pasted__joint4
+    400032: pasted__joint5
+    400034: pasted__joint6
+    400036: pasted__joint7
+    400038: //RootNode
+    400040: group2
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -120,7 +93,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     serializedVersion: 2
     human: []
@@ -137,8 +110,9 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8fa1153a79912214586171c0f49ba8ef,
+    type: 3}
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
