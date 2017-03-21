@@ -15,7 +15,7 @@ public class ClockUpdater : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        td = gameObject.transform.parent.parent.gameObject.GetComponent<TimeOfDayManager>();
+        td = GameObject.Find("Time Of Day Manager").GetComponent<TimeOfDayManager>();
         t = gameObject.GetComponent<Text>();
 	}
 	
