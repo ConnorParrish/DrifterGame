@@ -19,7 +19,6 @@ public class WorldInteraction : MonoBehaviour {
 	void Start () {
         anim = GetComponentInChildren<Animator>();
         panhandleButton = GameObject.Find("LeavePanhandling");
-        panhandleButton.SetActive(false);
 		navMeshAgent = GetComponent<NavMeshAgent>();
 	}
 	
