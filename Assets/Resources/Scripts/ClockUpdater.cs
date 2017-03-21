@@ -27,22 +27,22 @@ public class ClockUpdater : MonoBehaviour {
         if (td.Hour > 12)
         {
             newTime += td.Hour - 12;
-            m = " PM";
+            m = " pM";
         }
         else if (td.Hour == 0)
         {
             newTime += "12";
-            m = " AM";
+            m = " aM";
         }
         else if (td.Hour == 12)
         {
             newTime += "12";
-            m = " PM";
+            m = " pM";
         }
         else
         {
             newTime += td.Hour;
-            m = " AM";
+            m = " aM";
         }
 
         newTime += ":";
