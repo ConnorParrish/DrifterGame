@@ -41,6 +41,7 @@ public class PedestrianWalker : MonoBehaviour {
                 }
                 else
                 {
+                    Debug.Log("cant walk");
                     int ccw = Random.Range(0, 2);
                     if (ccw == 1)
                     {
