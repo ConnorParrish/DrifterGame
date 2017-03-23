@@ -23,13 +23,16 @@ public class StatTracker : MonoBehaviour {
     public float Hunger { get { return hunger; } set { hunger = value; if (hunger > maxHunger) hunger = maxHunger; } }
     public float Warmth { get { return warmth; } set { warmth = value; if (warmth > maxWarmth) warmth = maxWarmth; } }
 
-    private float happiness = 100;
-    private float hunger = 100;
-    private float warmth = 100;
-    
     public float maxHappiness = 100;
     public float maxHunger = 100;
     public float maxWarmth = 100;
+
+    public string Charging;
+
+    private float happiness = 100;
+    private float hunger = 100;
+    private float warmth = 100;
+
 
     // private float for scaling time.deltaTime appropriately with the total day length
     private float scaler;
@@ -44,10 +47,29 @@ public class StatTracker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        // adjust warmth, hunger, and happiness
         warmth -= (Time.deltaTime * scaler * warmthDecay);
         hunger -= (Time.deltaTime * scaler * hungerDecay);
         happiness = (warmth + hunger) / 2;
+
+        if (Charging != "")
+            Debug.Log("Charging " + Charging);
+
+        // adjust warmth, hunger, and happiness
+        if (Charging == "warmth")
+        {
+            warmth += 2 * (Time.deltaTime * scaler * warmthDecay);
+            return;
+        }
+        if (Charging == "hunger")
+        {
+            hunger += 2 * (Time.deltaTime * scaler * hungerDecay);
+            return;
+        }
+        if (Charging == "happiness")
+        {
+            happiness += 1;
+            return;
+        }
 	}
 
     /// <summary>
