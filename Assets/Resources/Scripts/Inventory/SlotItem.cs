@@ -19,7 +19,7 @@ public class SlotItem : MonoBehaviour, IDropHandler {
     public void OnDrop(PointerEventData eventData)
     {
         ItemData droppedItem = eventData.pointerDrag.GetComponent<ItemData>();  // Get's the item the mouse is dragging, then gets the component ItemData
-        Debug.Log(inv.items[slotID].ID);
+        //Debug.Log(inv.items[slotID].ID);
 
         if (gameObject.name == "Trash Slot" || gameObject.name == "Image")
         {

@@ -37,4 +37,14 @@ public class ItemPreviewScript : MonoBehaviour {
         itemTypeText.text = item.Type;
         itemDescriptionText.text = item.Description;
     }
+
+    public void ChangeActiveItem() //doesnt seem to work yet
+    {
+        gameObject.SetActive(false);
+        Destroy(itemModelPrefab);
+        itemModelPrefab = Instantiate( new GameObject());
+        itemTitleText.text = "";
+        itemTypeText.text = "";
+        itemDescriptionText.text = "";
+    }
 }
