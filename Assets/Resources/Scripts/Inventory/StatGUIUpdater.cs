@@ -30,8 +30,8 @@ public class StatGUIUpdater : MonoBehaviour {
         warmthSlider.maxValue = stats.maxWarmth;
 
         // get the inventory sliders
-        var temp = transform.parent.gameObject;
-        temp = temp.transform.FindChild("Menu").transform.FindChild("Stats Panel").transform.FindChild("Stats").gameObject;
+        var temp = transform.parent.parent.gameObject;
+        temp = temp.transform.FindChild("Inventory Menu").transform.FindChild("Stats Panel").transform.FindChild("Stats").gameObject;
         happinessSliderInventory = temp.transform.FindChild("HappinessSlider").gameObject.GetComponent<Slider>();
         hungerSliderInventory = temp.transform.FindChild("HungerSlider").gameObject.GetComponent<Slider>();
         warmthSliderInventory = temp.transform.FindChild("WarmthSlider").gameObject.GetComponent<Slider>();

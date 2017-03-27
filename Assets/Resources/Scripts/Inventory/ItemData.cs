@@ -32,9 +32,10 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
         this.transform.position = eventData.position - offset;                  // Sets the sprite's position to look like it stays where the mouse picks it up
-        Debug.Log(ips.name);
+        //Debug.Log(ips.name);
         ips.ChangeActiveItem(item);
     }
+
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -60,6 +61,9 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             this.transform.SetParent(inv.slots[slotID].transform);                // Brings the item down into the new slot
             this.transform.position = inv.slots[slotID].transform.position;       // Sets the item in the new parent's slot
             GetComponent<CanvasGroup>().blocksRaycasts = true;                  // Lets the player pick it back up
+
+            if (this.transform.name == "Trash Slot")
+                ips.ChangeActiveItem();
         }
     }
 
