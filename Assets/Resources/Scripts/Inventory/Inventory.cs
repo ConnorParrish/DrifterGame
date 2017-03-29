@@ -52,6 +52,7 @@ public class Inventory : MonoBehaviour {
      
     Text moneyText;
     int slotAmount;                                                             // Max number of slots
+	GameObject player;
     
     void Start()
     {
@@ -70,6 +71,8 @@ public class Inventory : MonoBehaviour {
             slots[i].GetComponent<SlotItem>().slotID = i;                           // This tells the slot it's ID in the slot panel
             slots[i].transform.SetParent(slotPanel.transform);                  // Sets the parent of the slot to the slot panel
         }
+
+		player = GameObject.FindGameObjectWithTag ("Player");
 
         AddItem(0);
         AddItem(2);
@@ -158,29 +161,34 @@ public class Inventory : MonoBehaviour {
     /// Removes an item with a given ID from the inventory.
     /// </summary>
     /// <param name="id"></param>
-    public void RemoveItem(int id)
+    public void RemoveItem(int slotID)
     {
-        Item itemToRemove = database.FetchItemByID(id);
+		Item itemToRemove = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
         if (ItemInInventoryCheck(itemToRemove) == false)
         {
             Debug.Log("You don't have any " + itemToRemove.Title + " in your inventory!");
             return;
         }
 
+		Debug.Log ("slots[slotID].name: " + slots [slotID].name);
+
         if (!itemToRemove.Stackable)
         {
             Debug.Log("Not stackable");
             for (int i = items.Count - 1; i > -1; i--)
             {
-                if (items[i].ID == id)
+				if (items[i].ID == itemToRemove.ID)
                 {
                     if (fullInventory)
                     {
                         fullInventory = false;
                     }
-                    slots[i].name = "Slot(Clone)";
-                    items[i] = new Item();
-                    Destroy(slots[i].transform.parent.GetChild(slots[i].transform.parent.childCount - 1).gameObject);
+					Debug.Log ("slots[slotID].name: " + slots [slotID].name);
+					Destroy (slots [slotID].transform.GetChild (0).gameObject);// THIS WORKED FOR TRASH CAN  .transform.parent.GetChild(slots[i].transform.parent.childCount - 1).gameObject);
+
+					slots[i].name = "Slot(Clone)";
+                    
+					items[i] = new Item();
                     break;
 
                 }
@@ -193,7 +201,7 @@ public class Inventory : MonoBehaviour {
                 Debug.Log("Not stackable");
                 for (int i = items.Count - 1; i > -1; i--)
                 {
-                    if (items[i].ID == id)
+					if (items[i].ID == itemToRemove.ID)
                     {
                         if (fullInventory)
                         {
@@ -247,8 +255,22 @@ public class Inventory : MonoBehaviour {
                 }
             }
         }
-
     }
+
+	/// <summary>
+	/// Uses the item.
+	/// </summary>
+	/// <param name="item">Item.</param>
+	public void UseItem(int slotID)
+	{
+		Item itemToUse = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
+
+		if (itemToUse.Type != "Consumable")
+			throw new UnityException ("The item isn't consumable");
+
+		player.GetComponent<StatTracker>().Hunger += 20;
+		RemoveItem (slotID);
+	}
 
     // This is used to make sure the item we are stacking is already in the inventory
     public bool ItemInInventoryCheck(Item item) // I MADE THIS PUBLIC TO USE IT IN THE DIALOGUE SCRIPT
