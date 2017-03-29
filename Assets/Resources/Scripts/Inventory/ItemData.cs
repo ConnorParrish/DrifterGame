@@ -14,8 +14,9 @@ using System;
 public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     public Item item;
     public int amount;                                                          // Used to track stackable item amounts
-    public int slotID;                                                          // Which slot the item is in
-    
+	public int slotID;                                                          // The current slot (Which slot the item is in)
+	private int prevSlotID;
+
     private Inventory inv;                                                      // The inventory object (with information on items/slots)
     private Tooltip tooltip;
     private Vector2 offset;                                                     // Distance between mouse and middle of sprite
@@ -33,7 +34,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
         this.transform.position = eventData.position - offset;                  // Sets the sprite's position to look like it stays where the mouse picks it up
         //Debug.Log(ips.name);
-        ips.ChangeActiveItem(item);
+        ips.ChangeActiveItem(this);
     }
 
 
@@ -42,6 +43,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if (item != null)
         {
             this.transform.SetParent(this.transform.parent.parent);             // Brings the sprite outside of it's slot so it will render above the inventory slots
+			prevSlotID = slotID;
             GetComponent<CanvasGroup>().blocksRaycasts = false;                 // Lets the drop recognize the slot underneath the sprite
         }
     }
@@ -53,6 +55,17 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             this.transform.position = eventData.position - offset;              // Keeps the item's position relative to the mouse
         }
     }
+	public void OED(){
+		if (slotID == -1) 
+		{
+			ips.ChangeActiveItem();
+			this.transform.SetParent (inv.slots [prevSlotID].transform);
+			this.transform.position = inv.slots[prevSlotID].transform.position;
+			slotID = prevSlotID;
+
+		}
+
+	}
 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -62,8 +75,6 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             this.transform.position = inv.slots[slotID].transform.position;       // Sets the item in the new parent's slot
             GetComponent<CanvasGroup>().blocksRaycasts = true;                  // Lets the player pick it back up
 
-            if (this.transform.name == "Trash Slot")
-                ips.ChangeActiveItem();
         }
     }
 

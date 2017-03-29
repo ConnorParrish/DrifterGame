@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Resources/Models/Materials/804-normal.jpg.meta
 guid: 08b535db2e6a658448b46908fb8dd860
 timeCreated: 1488958898
-=======
-guid: dd396cf2b36e90b41beafafc1db766cb
-timeCreated: 1488967091
->>>>>>> 0e8ae876ffe9e9cf5c5b40f6941491894830938f:Assets/Resources/Sprites/UI/Status Panel Frame001.png.meta
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}

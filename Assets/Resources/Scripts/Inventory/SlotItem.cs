@@ -24,20 +24,26 @@ public class SlotItem : MonoBehaviour, IDropHandler {
         if (gameObject.name == "Trash Slot" || gameObject.name == "Image")
         {
             Debug.Log("Deleting item: " + droppedItem.item.Title);
-            inv.RemoveItem(droppedItem.item.ID);
+
+			//inv.slots [droppedItem.slotID].gameObject.name = droppedItem.item.Title;
+			inv.items [droppedItem.slotID] = droppedItem.item;
+			droppedItem.slotID = -1;
+			droppedItem.OED();
+			Debug.Log ("droppedItem.slotID: " + droppedItem.slotID);
+			inv.RemoveItem(droppedItem.slotID);
             return;
         }
 
-        if (inv.items[slotID].ID == -1)                                             // If the slot is empty
-        {
-            inv.slots[droppedItem.slotID].gameObject.name = "Slot(Clone)";
-            inv.items[droppedItem.slotID] = new Item();                         // Sets the old slot to be an empty item (so we can return back to it)
-            inv.slots[slotID].gameObject.name = "Slot #" + slotID + " - " + droppedItem.item.Title;
-            inv.items[slotID] = droppedItem.item;                                   // The new slot's item will be the dropped item
-            droppedItem.slotID = slotID;                                            // Updates the item's slot id
-        } 
-        else if (droppedItem.slotID != slotID)
-        {
+		else if (inv.items [slotID].ID == -1) {                                             // If the slot is empty
+			Debug.Log("Slot is empty! -> Moving");
+			inv.slots [droppedItem.slotID].gameObject.name = "Slot(Clone)";
+			inv.items [droppedItem.slotID] = new Item ();                         // Sets the old slot to be an empty item (so we can return back to it)
+			inv.slots [slotID].gameObject.name = "Slot #" + slotID + " - " + droppedItem.item.Title;
+			inv.items [slotID] = droppedItem.item;                                   // The new slot's item will be the dropped item
+			droppedItem.slotID = slotID;                                            // Updates the item's slot id
+		} else if (droppedItem.slotID != slotID)
+        {	
+			Debug.Log ("slotID's do not match -> swapping");
             Transform itemTransform = this.transform.GetChild(0);
             itemTransform.GetComponent<ItemData>().slotID = droppedItem.slotID; // Might want to use a setter that sets the item then moves the other to the correct slot
             itemTransform.SetParent(inv.slots[droppedItem.slotID].transform);
