@@ -58,7 +58,7 @@ public class Inventory : MonoBehaviour {
         database = GetComponent<ItemDatabase>();
         slotAmount = 16;
         inventoryPanel = GameObject.Find("Inventory Panel");
-        inventoryMenu = GameObject.Find("Menu");
+        inventoryMenu = GameObject.Find("Inventory Menu");
         moneyText = GameObject.Find("Money Text").transform.GetChild(0).GetComponent<Text>();
         slotPanel = inventoryPanel.transform.FindChild("Slot Panel").gameObject;
         dDialog = transform.parent.GetChild(3).GetChild(6).GetComponent<DeletionDialog>();
@@ -180,7 +180,7 @@ public class Inventory : MonoBehaviour {
                     }
                     slots[i].name = "Slot(Clone)";
                     items[i] = new Item();
-                    Destroy(GameObject.Find(itemToRemove.Title));
+                    Destroy(slots[i].transform.parent.GetChild(slots[i].transform.parent.childCount - 1).gameObject);
                     break;
 
                 }

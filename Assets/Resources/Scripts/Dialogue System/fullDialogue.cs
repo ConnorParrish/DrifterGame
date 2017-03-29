@@ -43,7 +43,7 @@ public class fullDialogue : MonoBehaviour
         currentCoroutine = writeMessage();
 
         // get a reference to the inventory for adding items
-        inv = GameObject.Find("InventoriesCanvas").GetComponentInChildren<Inventory>();
+        inv = GameObject.Find("General UI Canvas").GetComponentInChildren<Inventory>();
 
     }
 
