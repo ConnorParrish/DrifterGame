@@ -69,6 +69,22 @@ public class simpleDialogue : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// used in other components to show custom dialogue messages
+    /// </summary>
+    /// <param name="customMessage"></param>
+    public void showCustomDialogue(string customMessage)
+    {
+        // we don't want to start the courtine again once it's already been started, so check if it's running
+        if (!canvas.activeSelf)
+        {
+            canvas.SetActive(true); // enable the canvas and the follow script on the canvas
+
+            text.text = customMessage;
+            StartCoroutine(growCanvas());
+        }
+    }
+
     public void showDialogue(string tag)
     {
         if (!canvas.activeSelf)

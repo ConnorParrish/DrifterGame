@@ -90,14 +90,16 @@ public class Inventory : MonoBehaviour {
     }
     
     /// <summary>
-    /// Adds money to the player's inventory.
+    /// Adds money to the player's inventory. Can't go below zero
     /// </summary>
     /// <param name="change"></param>
     public void AddMoney(float change)
     {
         Money += change;
+        if (Money < 0)
+            Money = 0f;
 
-        inventoryPanel.transform.parent.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#.00");
+        inventoryPanel.transform.parent.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#0.00");
     }
 
     /// <summary>
