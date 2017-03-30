@@ -2,6 +2,7 @@
   {
     "name": "Wealthy Pedestrian",
     "slug": "w_pedestrian",
+	"type": "pedestrian",
     "dFrames": [
       {
         "text": "Why don't you get a job, you creep!",
@@ -33,10 +34,11 @@
   {
     "name": "Drug Dealer",
     "slug": "drug_dealer",
+	"type": "merchant",
     "dFrames": [
       {
         "text": "Check out the good stuff I've got...",
-        "tag": "merchant",
+        "tag": "attention",
 		"itemID": -1,
         "cost": 0
       }
@@ -62,10 +64,11 @@
   {
     "name": "Shopkeeper",
     "slug": "shopkeeper",
+	"type": "merchant",
     "dFrames": [
       {
         "text": "I've got some items that may help you out there...",
-        "tag": "merchant",
+        "tag": "attention",
 		"itemID": -1,
         "cost": 0
       }
@@ -91,6 +94,7 @@
   {
     "name": "Police Officer",
     "slug": "cop",
+	"type": "cop",
     "dFrames": [
       {
         "text": "Sir, I'm going to have to ask you to leave.",

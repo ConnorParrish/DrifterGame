@@ -32,8 +32,9 @@ public class Merchant : NPCInteraction {
         {
             if (!fDialog.canvas.activeSelf)
             {
+                
                 merchantUI.SetActive(true);
-                fDialog.showDialogue("merchant");
+                fDialog.showDialogue("attention");
             }
             else
             {
