@@ -13,6 +13,7 @@ public class ItemPreviewScript : MonoBehaviour {
     private Text itemDescriptionText;
     private Vector3 itemModelPosition;
 	private GameObject useButton;
+    private GameObject buyButton;
 
 	private Inventory inv;
 
@@ -24,10 +25,12 @@ public class ItemPreviewScript : MonoBehaviour {
         itemTypeText = transform.GetChild(4).GetComponent<Text>();
         itemDescriptionText = transform.GetChild(5).GetComponent<Text>();
         
-		inv = GameObject.Find ("Inventory Manager").GetComponent<Inventory>();
+		inv = transform.parent.parent.GetChild(0).GetComponent<Inventory>();
 
 		useButton = transform.GetChild(6).gameObject;
-		useButton.SetActive (false);
+		useButton.SetActive(false);
+        //buyButton = transform.GetChild(7).gameObject;
+        //buyButton.SetActive(false);
 		//gameObject.SetActive(false); 
 
     }
@@ -55,10 +58,19 @@ public class ItemPreviewScript : MonoBehaviour {
         itemTypeText.text = itemData.item.Type;
         itemDescriptionText.text = itemData.item.Description;
 
-		if (itemData.item.Type == "Consumable")
-			useButton.SetActive (true);
-		else
-			useButton.SetActive (false);
+        if (inv.gameObject.name == "Inventory Manager")
+        {
+            if (itemData.item.Type == "Consumable")
+                useButton.SetActive(true);
+            else
+                useButton.SetActive(false);
+        }
+        else
+        {
+            useButton.SetActive(true);
+            //buyButton.SetActive(true);
+
+        }
     }
 
 	/// <summary>
@@ -73,7 +85,7 @@ public class ItemPreviewScript : MonoBehaviour {
         itemTypeText.text = "";
         itemDescriptionText.text = "";
 
-		useButton.SetActive (false);
+		useButton.SetActive(false);
 
     }
 
@@ -83,4 +95,9 @@ public class ItemPreviewScript : MonoBehaviour {
 		inv.UseItem (focusedItem.slotID);
 		ChangeActiveItem ();
 	}
+
+    public void BuyItem()
+    {
+        inv.BuyItem(focusedItem.slotID);
+    }
 }

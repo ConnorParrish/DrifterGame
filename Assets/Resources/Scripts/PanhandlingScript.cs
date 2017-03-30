@@ -10,8 +10,9 @@ public class PanhandlingScript : MonoBehaviour {
 
     public SplineInterpolator splineInterp;
     public float navMeshRadius = .5f;
-	private Inventory inventory;
+	public Inventory inv;
     private GameObject leaveButton;
+/*
     private void OnEnable()
     {
         splineInterp = Camera.main.GetComponent<SplineInterpolator>();
@@ -21,11 +22,12 @@ public class PanhandlingScript : MonoBehaviour {
     {
         GetComponent<NavMeshAgent>().radius = .5f;
     }
-
+    */
     // Use this for initialization
     void Start () {
-        splineInterp = Camera.main.GetComponent<SplineInterpolator>();
-        inventory = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
+        //splineInterp = Camera.main.GetComponent<SplineInterpolator>();
+        inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
+        this.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -50,7 +52,7 @@ public class PanhandlingScript : MonoBehaviour {
                         Debug.Log("begging");
                         if (!infiniteBegs)
                             begsRemaining--;
-                        hit.collider.gameObject.GetComponent<Pedestrian>().OnPanhandleClick(inventory);
+                        hit.collider.gameObject.GetComponent<Pedestrian>().OnPanhandleClick(inv);
  					} else {
 						Debug.Log("No more begs");
 					}

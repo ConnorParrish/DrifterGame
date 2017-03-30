@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour {
     /// The default item prefab.
     /// </summary>
     public GameObject inventoryItem;                                            // Prefab that is the item
+    
     /// <summary>
     /// Player's current amount of money.
     /// </summary>
@@ -39,6 +40,9 @@ public class Inventory : MonoBehaviour {
     /// <summary>
     /// The panel housing the items in inventory slots.
     /// </summary>
+    
+    public int MaxSlots;
+
     GameObject slotPanel;                                                       // Reference to the panel with the slots
     /// <summary>
     /// The list of all possible items.
@@ -50,10 +54,10 @@ public class Inventory : MonoBehaviour {
     int slotAmount;                                                             // Max number of slots
 	GameObject player;
     
-    void Start()
+    public virtual void Start()
     {
         database = GetComponent<ItemDatabase>();
-        slotAmount = 16;
+        slotAmount = MaxSlots;
         slotPanel = inventoryPanel.transform.GetChild(0).gameObject;
         aDialog = inventoryPanel.transform.GetChild(1).GetComponent<AmountDialog>();
 
@@ -67,15 +71,8 @@ public class Inventory : MonoBehaviour {
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 
-        AddItem(0);
-        AddItem(2);
-        AddItem(2);
-        AddItem(2);
-        AddItem(2);
-        AddItem(2);
-        AddItem(4);
-
-        inventoryPanel.transform.parent.gameObject.SetActive(false);
+        if (inventoryPanel.transform.parent.parent.name == "General UI Canvas")
+            inventoryPanel.transform.parent.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -177,8 +174,7 @@ public class Inventory : MonoBehaviour {
                         fullInventory = false;
                     }
 					Debug.Log ("slots[slotID].name: " + slots [slotID].name);
-					Destroy (slots [slotID].transform.GetChild (0).gameObject);// THIS WORKED FOR TRASH CAN  .transform.parent.GetChild(slots[i].transform.parent.childCount - 1).gameObject);
-
+					Destroy (slots [slotID].transform.GetChild (0).gameObject);
 					slots[i].name = "Slot(Clone)";
                     
 					items[i] = new Item();
@@ -264,6 +260,14 @@ public class Inventory : MonoBehaviour {
 		player.GetComponent<StatTracker>().Hunger += 20;
 		RemoveItem (slotID);
 	}
+
+    public void BuyItem(int slotID)
+    {
+        Item itemToBuy = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
+
+        player.GetComponent<PanhandlingScript>().inv.AddItem(itemToBuy.ID);
+        RemoveItem(slotID);
+    }
 
     // This is used to make sure the item we are stacking is already in the inventory
     public bool ItemInInventoryCheck(Item item) // I MADE THIS PUBLIC TO USE IT IN THE DIALOGUE SCRIPT

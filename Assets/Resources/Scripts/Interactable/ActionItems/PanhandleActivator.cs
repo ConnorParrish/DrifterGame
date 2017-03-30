@@ -22,6 +22,11 @@ public class PanhandleActivator : ActionItem {
     
     private GameObject player;
 
+    private void Start()
+    {
+        panhandleButton.SetActive(false);
+    }
+
     public override void MoveToInteraction(NavMeshAgent playerAgent)
     {
         //gameObject.GetComponent<BoxCollider>().enabled = false;
@@ -37,7 +42,7 @@ public class PanhandleActivator : ActionItem {
         if (true)
         {
             panhandleButton.SetActive(true);
-            SplineController splineController = Camera.main.gameObject.AddComponent<SplineController>();
+            splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
             //splineController.AutoClose = false;
             splineController.Duration = 3f;

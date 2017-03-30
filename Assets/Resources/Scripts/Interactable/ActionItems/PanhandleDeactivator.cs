@@ -26,7 +26,8 @@ public class PanhandleDeactivator : MonoBehaviour
 
         panhandlingActivatorGO.SetActive(true);
 
-
+        transform.gameObject.SetActive(false);
+        transform.parent.GetChild(1).gameObject.SetActive(false);
 		//Camera.main.GetComponent<CameraController>().enabled = true;
     }
 }

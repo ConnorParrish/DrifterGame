@@ -13,8 +13,8 @@ public class Tooltip : MonoBehaviour {
 
     void Start()
     {
-        tooltip = transform.parent.parent.parent.parent.GetChild(5).gameObject; // Why can't this find it with GameObject.Find("Tooltip")?
-        //Debug.Log(tooltip.name);
+        tooltip = transform.parent.parent.parent.parent.GetChild(transform.parent.parent.parent.parent.childCount - 1).gameObject; // Why can't this find it with GameObject.Find("Tooltip")?
+        Debug.Log(tooltip.name);
         tooltip.SetActive(false);
     }
 

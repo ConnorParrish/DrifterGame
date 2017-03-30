@@ -24,7 +24,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     void Start()
     {
-        inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
+        inv = transform.parent.parent.parent.parent.parent.GetChild(0).GetComponent<Inventory>();
         tooltip = GetComponent<Tooltip>();
         ips = GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>();
     }
@@ -62,6 +62,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 			this.transform.SetParent (inv.slots [prevSlotID].transform);
 			this.transform.position = inv.slots[prevSlotID].transform.position;
 			slotID = prevSlotID;
+            prevSlotID = -1;
 
 		}
 
@@ -86,7 +87,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnPointerEnter(PointerEventData eventData)
     {
         //GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>().ChangeActiveItem(item.ID);
-
+        Debug.Log("entering");
         tooltip.Activate(item);
     }
 

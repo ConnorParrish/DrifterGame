@@ -12,7 +12,10 @@ public class SlotItem : MonoBehaviour, IDropHandler {
     private Inventory inv;                                                      // Cache of the useful Inventory (with items and slots)
     void Start()
     {
-        inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
+        if (gameObject.name == "Trash Slot")
+            inv = transform.parent.parent.GetChild(0).GetComponent<Inventory>();
+        else
+            inv = transform.parent.parent.parent.parent.GetChild(0).GetComponent<Inventory>();
     }
 
     public void OnDrop(PointerEventData eventData)

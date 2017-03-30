@@ -20,6 +20,7 @@ public class fullDialogue : MonoBehaviour
     GameObject image;
 	public NPC NPCData;
     Inventory inv;
+    GameObject PlayerHUD;
 
     string currentText;
     int currentItem;
@@ -29,6 +30,8 @@ public class fullDialogue : MonoBehaviour
 
     void Start()
     {
+        PlayerHUD = GameObject.Find("General UI Canvas");
+
         // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(Dialogue);
         canvas.transform.SetParent(transform);
@@ -87,7 +90,8 @@ public class fullDialogue : MonoBehaviour
     public void OpenMerchantUI()
     {
         setButtonState(false, "merchant");
-
+        gameObject.GetComponent<Merchant>().Spline();
+//        GameObject.Find("General UI Canvas").SetActive(false);
     }
 
     public void sellOrBuyItem() // linked to "yes" button for selling or buying items in dialogue
