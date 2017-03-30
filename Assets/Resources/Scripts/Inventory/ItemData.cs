@@ -26,7 +26,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         inv = transform.parent.parent.parent.parent.parent.GetChild(0).GetComponent<Inventory>();
         tooltip = GetComponent<Tooltip>();
-        ips = GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>();
+        ips = transform.parent.parent.parent.parent.GetChild(transform.parent.parent.parent.parent.childCount - 2).GetComponent<ItemPreviewScript>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
