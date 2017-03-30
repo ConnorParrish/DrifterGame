@@ -27,7 +27,66 @@
         "itemID": -1,
         "cost": 0
       }
-    ]
+    ],
+	"items": [{"itemID": -1}]
+  },
+  {
+    "name": "Drug Dealer",
+    "slug": "drug_dealer",
+    "dFrames": [
+      {
+        "text": "Check out the good stuff I've got...",
+        "tag": "merchant",
+		"itemID": -1,
+        "cost": 0
+      }
+    ],
+	"items": [
+	  {
+		"itemID": 1,
+		"price": 1,
+		"amount": 3
+	  },
+	  {
+	  	"itemID": 2,
+		"price": 3,
+		"amount": 4
+	  },
+	  {
+	  	"itemID": 3,
+		"price": 3,
+		"amount": 1
+	  }
+	]
+  },
+  {
+    "name": "Shopkeeper",
+    "slug": "shopkeeper",
+    "dFrames": [
+      {
+        "text": "I've got some items that may help you out there...",
+        "tag": "merchant",
+		"itemID": -1,
+        "cost": 0
+      }
+    ],
+	"items": [
+	  {
+		"itemID": 1,
+		"price": 1,
+		"amount": 3
+	  },
+	  {
+	  	"itemID": 2,
+		"price": 3,
+		"amount": 4
+	  },
+	  {
+	  	"itemID": 3,
+		"price": 3,
+		"amount": 1
+	  }
+	]
   },
   {
     "name": "Police Officer",
@@ -57,6 +116,7 @@
 		"itemID": 1,
         "cost": 100
       }
-    ]
+    ],
+	"items": [{"itemID": -1}]
   }
 ]

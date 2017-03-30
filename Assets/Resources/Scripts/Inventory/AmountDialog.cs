@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeletionDialog : MonoBehaviour {
+public class AmountDialog : MonoBehaviour {
     ItemData itemData;
     Text quantityText;
     Slider slider;
@@ -16,7 +16,7 @@ public class DeletionDialog : MonoBehaviour {
         slider = transform.GetChild(2).gameObject.GetComponent<Slider>();
         quantityText = slider.transform.GetChild(3).GetComponent<Text>();
 
-        inv = transform.parent.parent.GetChild(0).GetComponent<Inventory>();
+        inv = transform.parent.parent.parent.GetChild(0).GetComponent<Inventory>();
         gameObject.SetActive(false);
     }
 
