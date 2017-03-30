@@ -33,13 +33,9 @@ public class Inventory : MonoBehaviour {
     public List<GameObject> slots = new List<GameObject>();                     // List of slots in the inventory
 
     /// <summary>
-    /// The overall menu housing the different panels.
-    /// </summary>
-    GameObject inventoryMenu;
-    /// <summary>
     /// The panel housing the inventory.
     /// </summary>
-    GameObject inventoryPanel;                                                  // Main UI Panel
+    public GameObject inventoryPanel;                                                  // Main UI Panel
     /// <summary>
     /// The panel housing the items in inventory slots.
     /// </summary>
@@ -48,9 +44,9 @@ public class Inventory : MonoBehaviour {
     /// The list of all possible items.
     /// </summary>
     ItemDatabase database;                                                      // This is the list of all items
-    DeletionDialog dDialog;
+    AmountDialog aDialog;
      
-    Text moneyText;
+    public Text moneyText;
     int slotAmount;                                                             // Max number of slots
 	GameObject player;
     
@@ -58,11 +54,8 @@ public class Inventory : MonoBehaviour {
     {
         database = GetComponent<ItemDatabase>();
         slotAmount = 16;
-        inventoryPanel = GameObject.Find("Inventory Panel");
-        inventoryMenu = GameObject.Find("Inventory Menu");
-        moneyText = GameObject.Find("Money Text").transform.GetChild(0).GetComponent<Text>();
-        slotPanel = inventoryPanel.transform.FindChild("Slot Panel").gameObject;
-        dDialog = transform.parent.GetChild(3).GetChild(6).GetComponent<DeletionDialog>();
+        slotPanel = inventoryPanel.transform.GetChild(0).gameObject;
+        aDialog = inventoryPanel.transform.GetChild(1).GetComponent<AmountDialog>();
 
         for (int i = 0; i < slotAmount; i++)
         {
@@ -82,7 +75,7 @@ public class Inventory : MonoBehaviour {
         AddItem(2);
         AddItem(4);
 
-        inventoryMenu.SetActive(false);
+        inventoryPanel.transform.parent.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -107,7 +100,7 @@ public class Inventory : MonoBehaviour {
     {
         Money += change;
 
-        inventoryMenu.transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#.00");
+        inventoryPanel.transform.parent.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#.00");
     }
 
     /// <summary>
@@ -216,7 +209,7 @@ public class Inventory : MonoBehaviour {
                 }
             }
             else 
-                dDialog.OpenDialog(GameObject.Find(itemToRemove.Title).GetComponent<ItemData>());
+                aDialog.OpenDialog(GameObject.Find(itemToRemove.Title).GetComponent<ItemData>());
         }
     }
 
@@ -235,7 +228,7 @@ public class Inventory : MonoBehaviour {
                     ItemData data = GameObject.Find(itemToRemove.Title).GetComponent<ItemData>();
                     if (data.amount > amountToDelete)
                     {
-                        //dDialog.OpenDialog(data);
+                        //aDialog.OpenDialog(data);
                         Debug.Log(amountToDelete + " can be deleted.");
 
                         data.amount -= amountToDelete;                                          // If there's more than one of the stacked item, we lower it

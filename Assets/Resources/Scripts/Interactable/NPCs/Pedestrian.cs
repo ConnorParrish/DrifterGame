@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pedestrian : NPCInteraction {
+public class Pedestrian : NPCInteraction { // see if animator work should be done here
     ParticleSystem resultPS;
     public int maxTimesBegged;
     public bool askingForHelp;
@@ -19,6 +19,14 @@ public class Pedestrian : NPCInteraction {
         resultPS = transform.GetChild(2).GetComponent<ParticleSystem>();
         base.Start();
 	}
+
+    public override void Interact()
+    {
+        base.Interact();
+ 
+        GetComponent<PedestrianWalker>().navAgent.Resume();
+        GetComponentInChildren<Animator>().SetBool("isWalking", true);
+    }
 
     /// <summary>
     /// This finds the closest cop for pedestrians in stress.

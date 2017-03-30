@@ -10,7 +10,6 @@ using System;
 public class SlotItem : MonoBehaviour, IDropHandler {
     public int slotID;                                                              // Used to keep track of it's location on the board
     private Inventory inv;                                                      // Cache of the useful Inventory (with items and slots)
-    private DeletionDialog dDialog;
     void Start()
     {
         inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();

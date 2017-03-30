@@ -2,6 +2,7 @@
   {
     "name": "Wealthy Pedestrian",
     "slug": "w_pedestrian",
+	"type": "pedestrian",
     "dFrames": [
       {
         "text": "Why don't you get a job, you creep!",
@@ -27,11 +28,73 @@
         "itemID": -1,
         "cost": 0
       }
-    ]
+    ],
+	"items": [{"itemID": -1}]
+  },
+  {
+    "name": "Drug Dealer",
+    "slug": "drug_dealer",
+	"type": "merchant",
+    "dFrames": [
+      {
+        "text": "Check out the good stuff I've got...",
+        "tag": "attention",
+		"itemID": -1,
+        "cost": 0
+      }
+    ],
+	"items": [
+	  {
+		"itemID": 1,
+		"price": 1,
+		"amount": 3
+	  },
+	  {
+	  	"itemID": 2,
+		"price": 3,
+		"amount": 4
+	  },
+	  {
+	  	"itemID": 3,
+		"price": 3,
+		"amount": 1
+	  }
+	]
+  },
+  {
+    "name": "Shopkeeper",
+    "slug": "shopkeeper",
+	"type": "merchant",
+    "dFrames": [
+      {
+        "text": "I've got some items that may help you out there...",
+        "tag": "attention",
+		"itemID": -1,
+        "cost": 0
+      }
+    ],
+	"items": [
+	  {
+		"itemID": 1,
+		"price": 1,
+		"amount": 3
+	  },
+	  {
+	  	"itemID": 2,
+		"price": 3,
+		"amount": 4
+	  },
+	  {
+	  	"itemID": 3,
+		"price": 3,
+		"amount": 1
+	  }
+	]
   },
   {
     "name": "Police Officer",
     "slug": "cop",
+	"type": "cop",
     "dFrames": [
       {
         "text": "Sir, I'm going to have to ask you to leave.",
@@ -57,6 +120,7 @@
 		"itemID": 1,
         "cost": 100
       }
-    ]
+    ],
+	"items": [{"itemID": -1}]
   }
 ]
