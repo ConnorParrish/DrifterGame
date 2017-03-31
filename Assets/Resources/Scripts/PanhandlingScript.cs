@@ -10,19 +10,27 @@ public class PanhandlingScript : MonoBehaviour {
 
     public SplineInterpolator splineInterp;
     public float navMeshRadius = .5f;
-	public Inventory inv;
+    public float panhandleRadius;
+    public Inventory inv;
     private GameObject leaveButton;
-/*
-    private void OnEnable()
+    /*
+        private void OnEnable()
+        {
+            splineInterp = Camera.main.GetComponent<SplineInterpolator>();
+            GetComponent<NavMeshAgent>().radius = 0;
+        }
+        private void OnDisable()
+        {
+            GetComponent<NavMeshAgent>().radius = .5f;
+        }
+        */
+
+    private void OnDrawGizmos()
     {
-        splineInterp = Camera.main.GetComponent<SplineInterpolator>();
-        GetComponent<NavMeshAgent>().radius = 0;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, panhandleRadius);
     }
-    private void OnDisable()
-    {
-        GetComponent<NavMeshAgent>().radius = .5f;
-    }
-    */
+
     // Use this for initialization
     void Start () {
         //splineInterp = Camera.main.GetComponent<SplineInterpolator>();
@@ -46,7 +54,7 @@ public class PanhandlingScript : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 100)){ // Returns true if the raycast hit something
+            if (Physics.Raycast(ray, out hit, panhandleRadius)){ // Returns true if the raycast hit something
 				if (hit.collider.gameObject.tag == "Interactable Object" && hit.collider.gameObject.GetComponent<Pedestrian>()){ // Checks to see if the player clicked a pedestrian
 					if (begsRemaining > 0){
                         Debug.Log("begging");
