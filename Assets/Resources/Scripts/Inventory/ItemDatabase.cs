@@ -19,7 +19,7 @@ public class ItemDatabase : MonoBehaviour {
             "/StreamingAssets/ItemList.json"));	                                 // Loads the JSON to the itemDatabase
 		ConstructItemDatabase();	                                             // Builds the item database from the JSON
 
-        Debug.Log(FetchItemByID(0).Description);
+        //Debug.Log(FetchItemByID(0).Description);
 	}
     
     // This grabs a specific item from the list of all possible items

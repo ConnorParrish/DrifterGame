@@ -20,6 +20,7 @@ public class fullDialogue : MonoBehaviour
     GameObject image;
 	public NPC NPCData;
     Inventory inv;
+    GameObject PlayerHUD;
 
     string currentText;
     int currentItem;
@@ -29,6 +30,8 @@ public class fullDialogue : MonoBehaviour
 
     void Start()
     {
+        PlayerHUD = GameObject.Find("General UI Canvas");
+
         // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(Dialogue);
         canvas.transform.SetParent(transform);
@@ -82,6 +85,13 @@ public class fullDialogue : MonoBehaviour
         canvas.SetActive(true);
         messageCycler = cycleMessages(tag);
         StartCoroutine(growCanvas());
+    }
+
+    public void OpenMerchantUI()
+    {
+        setButtonState(false, "merchant");
+        gameObject.GetComponent<Merchant>().Spline();
+//        GameObject.Find("General UI Canvas").SetActive(false);
     }
 
     public void sellOrBuyItem() // linked to "yes" button for selling or buying items in dialogue
@@ -194,7 +204,7 @@ public class fullDialogue : MonoBehaviour
         endDialogue();
 	}
 
-    IEnumerator cycleMessages(string tag)
+    IEnumerator cycleMessages(string tag) // try to bring this and cycleMessages() closer together
     {
         List<Dictionary<string, string>> messages = NPCData.DialogueFrames;
         foreach (Dictionary<string,string> d in messages)
@@ -207,6 +217,10 @@ public class fullDialogue : MonoBehaviour
                     setButtonState(true);
                     currentCost = float.Parse(d["cost"]);
                     currentItem = Convert.ToInt32(d["itemID"]);
+                }
+                else if(NPCData.Type == "merchant")
+                {
+                    setButtonState(true, "merchant");
                 }
                 yield return null;
             }
@@ -221,5 +235,14 @@ public class fullDialogue : MonoBehaviour
         canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(sellOrBuyItem);
         canvas.transform.FindChild("Accept").gameObject.SetActive(state);
     }
-		
+
+    private void setButtonState(bool state, string type)
+    {
+        canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.AddListener(endDialogue);
+        canvas.transform.FindChild("Decline").gameObject.SetActive(state);
+        if (type == "merchant")
+            canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.AddListener(OpenMerchantUI);
+        canvas.transform.FindChild("Accept").gameObject.SetActive(state);
+    }
+
 }
