@@ -15,7 +15,11 @@ public class ItemPreviewScript : MonoBehaviour {
 	private GameObject useButton;
     private GameObject buyButton;
 
-	private Inventory inv;
+    private Sprite nonFocusedSprite;
+    private Sprite focusedSprite;
+
+
+    private Inventory inv;
 
 	void Start()
     {
@@ -31,16 +35,22 @@ public class ItemPreviewScript : MonoBehaviour {
 		useButton.SetActive(false);
         //buyButton = transform.GetChild(7).gameObject;
         //buyButton.SetActive(false);
-		//gameObject.SetActive(false); 
+        //gameObject.SetActive(false); 
+
+        nonFocusedSprite = Resources.Load<Sprite>("Sprites/UI/Item Slot Graphic");
+        focusedSprite = Resources.Load<Sprite>("Sprites/UI/Item Slot Graphic selected");
+
 
     }
 
-	/// <summary>
-	/// Changes the active item.
-	/// </summary>
-	/// <param name="item">Item.</param>
+    /// <summary>
+    /// Changes the active item.
+    /// </summary>
+    /// <param name="item">Item.</param>
     public void ChangeActiveItem(ItemData itemData)
     {
+        itemData.transform.parent.gameObject.GetComponent<Image>().sprite = focusedSprite;
+
         gameObject.SetActive(true);
 
 		focusedItem = itemData;
