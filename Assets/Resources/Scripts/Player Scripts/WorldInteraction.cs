@@ -14,11 +14,16 @@ public class WorldInteraction : MonoBehaviour {
 	private bool interacted;
     private Animator anim;
     private GameObject panhandleButton;
+    private GameObject merchantButton;
 
 	// Use this for initialization
 	void Start () {
         anim = GetComponentInChildren<Animator>();
         panhandleButton = GameObject.Find("LeavePanhandling");
+        merchantButton = GameObject.Find("LeaveMerchant");
+
+        panhandleButton.SetActive(false);
+        merchantButton.SetActive(false);
 		navMeshAgent = GetComponent<NavMeshAgent>();
 	}
 	
@@ -42,6 +47,8 @@ public class WorldInteraction : MonoBehaviour {
                         }
                         if (hit.collider.gameObject.GetComponent<PanhandleActivator>() == true)
                             hit.collider.gameObject.GetComponent<PanhandleActivator>().panhandleButton = panhandleButton;
+                        if (hit.collider.gameObject.GetComponent<Merchant>() == true)
+                            hit.collider.gameObject.GetComponent<Merchant>().merchantButton = merchantButton;
                         navMeshAgent.destination = hit.transform.position;
 						hit.collider.gameObject.GetComponent<Interactable>().MoveToInteraction(navMeshAgent);
                         

@@ -9,17 +9,21 @@ public class Merchant : NPCInteraction {
     public GameObject splineRoots;
 
     private GameObject PlayerHUD;
-    public GameObject merchantLeaver;
+    public GameObject merchantButton;
     private GameObject merchantUI;
     private Animator anim; // for idle animation/reacting to purchases? (maybe)
 
 	// Use this for initialization
 	public override void Start () {
         merchantUI = GameObject.Find("Expanded Buy_Sell");
-        merchantUI.SetActive(false);
         PlayerHUD = GameObject.Find("General UI Canvas");
-        merchantLeaver.SetActive(false);
-        splineRoots = transform.GetChild(1).gameObject;
+
+        merchantUI.SetActive(false);
+
+
+        //merchantButton = GameObject.Find("LeaveMerchant");
+        //merchantButton.SetActive(false);
+        splineRoots = transform.GetChild(0).gameObject;
 
         anim = transform.GetChild(0).GetComponent<Animator>();
             
@@ -35,14 +39,12 @@ public class Merchant : NPCInteraction {
             if (splineInterpolator.mState == "Stopped" && !splineInterpolator.ended)
             {
                 merchantUI.SetActive(true);
-                merchantLeaver.SetActive(true);
+                merchantButton.SetActive(true);
 
             }
             else if (splineInterpolator.mState == "Stopped" && splineInterpolator.ended)
             {
-                merchantUI.SetActive(false);
-                merchantLeaver.SetActive(false);
-                PlayerHUD.SetActive(true);
+                
             }
         }
     }

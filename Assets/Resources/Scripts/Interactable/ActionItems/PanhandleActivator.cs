@@ -24,7 +24,8 @@ public class PanhandleActivator : ActionItem {
 
     private void Start()
     {
-        panhandleButton.SetActive(false);
+        //panhandleButton = GameObject.Find("LeavePanhandling");
+        //panhandleButton.SetActive(false);
     }
 
     public override void MoveToInteraction(NavMeshAgent playerAgent)
@@ -41,13 +42,12 @@ public class PanhandleActivator : ActionItem {
     {
         if (true)
         {
-            panhandleButton.SetActive(true);
             splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
             //splineController.AutoClose = false;
             splineController.Duration = 3f;
-            //SplineInterpolator splineInterpolator = Camera.main.gameObject.AddComponent<SplineInterpolator>();
-            gameObject.SetActive(false);
+            splineInterpolator = Camera.main.gameObject.GetComponent<SplineInterpolator>();
+            //transform.GetChild(1).gameObject.SetActive(false);
             player.GetComponent<WorldInteraction>().canMove = false;
             player.GetComponent<PanhandlingScript>().enabled = true;
             Camera.main.gameObject.GetComponent<CameraController>().enabled = false;
@@ -55,5 +55,22 @@ public class PanhandleActivator : ActionItem {
 			playerAgent = null;
         }
     }
-    
+
+    public override void Update()
+    {
+        base.Update();
+        if (splineController != null)
+        {
+            Debug.Log("sI.mState: " + splineInterpolator.mState);
+            if (splineInterpolator.mState == "Stopped")
+            {
+                if (!splineInterpolator.ended)
+                    panhandleButton.SetActive(true);
+                else
+                    Camera.main.GetComponent<CameraController>().enabled = true;
+
+            }
+        }
+    }
+
 }
