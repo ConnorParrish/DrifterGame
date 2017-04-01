@@ -22,8 +22,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Tooltip tooltip;
     private Vector2 offset;                                                     // Distance between mouse and middle of sprite
     private ItemPreviewScript ips;
-    private Sprite nonFocusedSprite;
-    private Sprite focusedSprite;
+
 
     void Start()
     {
@@ -31,8 +30,6 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         tooltip = GetComponent<Tooltip>();
         ips = transform.parent.parent.parent.parent.GetChild(transform.parent.parent.parent.parent.childCount - 2).GetComponent<ItemPreviewScript>();
 
-        nonFocusedSprite = Resources.Load<Sprite>("Sprites/UI/Item Slot Graphic");
-        focusedSprite = Resources.Load<Sprite>("Sprites/UI/Item Slot Graphic selected");
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -40,12 +37,6 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
         this.transform.position = eventData.position - offset;                  // Sets the sprite's position to look like it stays where the mouse picks it up
         //Debug.Log(ips.name);
-
-        foreach (Image img in transform.parent.parent.GetComponentsInChildren<Image>())
-            if (img.gameObject.GetComponent<SlotItem>())
-                if (img.sprite.name != "Item Slot Graphic")
-                    img.sprite = nonFocusedSprite;
-
         ips.ChangeActiveItem(this);
 
     }

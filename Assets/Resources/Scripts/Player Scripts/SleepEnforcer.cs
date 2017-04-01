@@ -48,6 +48,7 @@ public class SleepEnforcer : MonoBehaviour {
             wakeTime = 6;
         // get a copy of the inventory
         inv = GameObject.Find("General UI Canvas").GetComponentInChildren<Inventory>();
+        timi = GameObject.Find("Time Of Day Manager").GetComponent<TimeOfDayManager>();
     }
 	
 	// Update is called once per frame

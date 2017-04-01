@@ -15,7 +15,7 @@ public class Pedestrian : NPCInteraction { // see if animator work should be don
         if (maxTimesBegged == 0)
             maxTimesBegged = 2;
 
-        cops = GameObject.Find("NPCs").GetComponent<NPCManager>().Cops;
+        cops = GameObject.Find("NPC Manager").GetComponent<NPCManager>().Cops;
         resultPS = transform.GetChild(2).GetComponent<ParticleSystem>();
         base.Start();
 	}
