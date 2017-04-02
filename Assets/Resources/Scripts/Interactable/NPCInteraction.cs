@@ -19,7 +19,8 @@ public class NPCInteraction : Interactable
         if (fDialog != null)
         {
             fDialog.NPCData = this.NPCData;
-        } else if (sDialog != null)
+        }
+        if (sDialog != null)
         {
             sDialog.NPCData = this.NPCData;
         }

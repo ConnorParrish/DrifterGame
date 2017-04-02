@@ -7,6 +7,7 @@ using UnityEngine.UI;
 /// Inventory is the object that holds all the information for the player's current inventory.
 /// </summary>
 public class Inventory : MonoBehaviour {
+    
     /// <summary>
     /// The slot prefab.
     /// </summary>
@@ -15,11 +16,11 @@ public class Inventory : MonoBehaviour {
     /// The default item prefab.
     /// </summary>
     public GameObject inventoryItem;                                            // Prefab that is the item
-    
+
     /// <summary>
     /// Player's current amount of money.
     /// </summary>
-    public float Money;                                                         // NEEEEED TO IMPLEMENNTTTT (you did (: )
+    public float Money;
     /// <summary>
     /// Whether or not the inventory is full.
     /// </summary>
@@ -40,6 +41,7 @@ public class Inventory : MonoBehaviour {
     
     public int MaxSlots;
 
+
     GameObject slotPanel;                                                       // Reference to the panel with the slots
     /// <summary>
     /// The list of all possible items.
@@ -50,16 +52,28 @@ public class Inventory : MonoBehaviour {
      
     public Text moneyText;
     int slotAmount;                                                             // Max number of slots
-    
+
+    private void OnValidate()
+    {
+        transform.parent.GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#0.00");
+    }
+
     public virtual void Start()
     {
         inventoryMenu = transform.parent.GetChild(1).gameObject;
         database = GetComponent<ItemDatabase>();
         slotAmount = MaxSlots;
         if (transform.parent.name == "General UI Canvas")
+        {
+            moneyText = inventoryMenu.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>();
             slotPanel = inventoryMenu.transform.GetChild(1).GetChild(0).gameObject;
+
+        }
         else
+        {
             slotPanel = inventoryMenu.transform.GetChild(0).GetChild(0).gameObject;
+            moneyText = inventoryMenu.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<Text>();
+        }
         aDialog = slotPanel.transform.parent.GetChild(1).GetComponent<AmountDialog>();
         ips = inventoryMenu.transform.GetChild(inventoryMenu.transform.childCount - 2).GetComponent<ItemPreviewScript>();
 
@@ -98,8 +112,7 @@ public class Inventory : MonoBehaviour {
         Money += change;
         if (Money < 0)
             Money = 0f;
-
-        inventoryMenu.transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#0.00");
+        moneyText.text = Money.ToString("#0.00");
     }
 
     /// <summary>

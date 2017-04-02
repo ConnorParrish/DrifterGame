@@ -15,7 +15,7 @@ public class Merchant : NPCInteraction {
 
 	// Use this for initialization
 	public override void Start () {
-        merchantUI = GameObject.Find("Expanded Buy_Sell");
+        merchantUI = GameObject.Find("Merchant Inventory");
         PlayerHUD = GameObject.Find("General UI Canvas");
 
         merchantUI.SetActive(false);
@@ -53,6 +53,7 @@ public class Merchant : NPCInteraction {
     {
         playerAgent.Stop();
         PlayerHUD.SetActive(false);
+        splineRoots.transform.GetChild(0).GetChild(0).rotation = Camera.main.transform.rotation;
         splineRoots.transform.GetChild(0).GetChild(0).position = Camera.main.transform.position;
         if (fDialog != null)
         {

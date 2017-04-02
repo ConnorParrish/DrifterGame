@@ -42,6 +42,6 @@
     "slug": "syringe",
     "type": "Drug",
     "stackable": false,
-    "resale": 0
+    "resale": 1
   }
 ]

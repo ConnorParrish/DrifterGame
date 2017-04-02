@@ -41,7 +41,13 @@
         "tag": "attention",
 		"itemID": -1,
         "cost": 0
-      }
+      },
+	  {
+        "text": "Man, you know that's not enough...",
+        "tag": "notenough",
+		"itemID": -1,
+        "cost": 0	  
+	  }
     ],
 	"items": [
 	  {

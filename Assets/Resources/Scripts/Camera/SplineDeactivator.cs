@@ -42,7 +42,7 @@ public class SplineDeactivator : MonoBehaviour
 
     public void DeactivateMerchant()
     {
-        GameObject merchantUI = GameObject.Find("Expanded Buy_Sell");
+        GameObject merchantUI = GameObject.Find("Merchant Inventory"); // TODO this needs to change for having more merchants (buttons within each UI canvas?)
         merchantUI.SetActive(false);
 
         PlayerHUD.SetActive(true);

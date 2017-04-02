@@ -106,9 +106,18 @@ public class ItemPreviewScript : MonoBehaviour {
 
     public void BuyItem()
     {
-        currentInv.BuyItem(focusedItem.slotID, Player.Instance.Inventory);
-        ChangeActiveItem();
-        Debug.Log(Player.Instance.Inventory.items[0]);
+        if (Player.Instance.Inventory.Money >= focusedItem.item.Resale)
+        {
+            currentInv.BuyItem(focusedItem.slotID, Player.Instance.Inventory);
+            Player.Instance.Inventory.AddMoney(-focusedItem.item.Resale);
+            currentInv.AddMoney(focusedItem.item.Resale);
+            ChangeActiveItem();
+        }
+        else
+        {
+            transform.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough");
+        }
+        //Debug.Log(Player.Instance.Inventory.items[0]);
 
     }
 
