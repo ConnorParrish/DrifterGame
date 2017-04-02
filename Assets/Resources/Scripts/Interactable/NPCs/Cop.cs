@@ -35,17 +35,17 @@ public class Cop : NPCInteraction {
 
     public override void Interact()
     {
-        if (player.GetComponent<PanhandlingScript>().enabled)
+        if (Player.Instance.PanhandlingScript.enabled)
         {
             isInterrogating = true;
 
-            player.GetComponent<WorldInteraction>().canMove = false;
+            Player.Instance.WorldInteraction.canMove = false;
 
 
             anim.SetTrigger("hasArrived");
             anim.SetBool("isRunning", false);
             //player.GetComponent<PanhandlingScript>().canPivot = false;
-            player.GetComponent<PanhandlingScript>().enabled = false;
+            Player.Instance.PanhandlingScript.enabled = false;
 
             GameObject panhandlingActivatorGO = Camera.main.GetComponent<SplineController>().SplineRootHolder.transform.parent.gameObject;
             Camera.main.GetComponent<SplineInterpolator>().mState = "Once";
@@ -67,7 +67,7 @@ public class Cop : NPCInteraction {
             Debug.Log(isInterrogating);
             isInterrogating = false;
             Debug.Log(isInterrogating);
-            player.GetComponent<WorldInteraction>().canMove = true;
+            Player.Instance.WorldInteraction.canMove = true;
             playerAgent.stoppingDistance = 0f;
             Debug.Log("playerAgent.destination: " + playerAgent.destination);
             playerAgent.destination = originalPosition;

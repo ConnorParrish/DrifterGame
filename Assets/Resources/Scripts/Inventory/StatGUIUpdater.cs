@@ -13,21 +13,16 @@ public class StatGUIUpdater : MonoBehaviour {
     Slider hungerSliderInventory;
     Slider warmthSliderInventory;
 
-    StatTracker stats;
-
-
 	// Use this for initialization
 	void Start () {
-        stats = GameObject.Find("Player").GetComponent<StatTracker>();
-
         // get the external sliders
         happinessSlider = transform.GetChild(0).GetComponent<Slider>();
         hungerSlider = transform.GetChild(1).GetComponent<Slider>();
         warmthSlider = transform.GetChild(2).GetComponent<Slider>();
 
-        happinessSlider.maxValue = stats.maxHappiness;
-        hungerSlider.maxValue = stats.maxHunger;
-        warmthSlider.maxValue = stats.maxWarmth;
+        happinessSlider.maxValue = Player.Instance.Stats.maxHappiness;
+        hungerSlider.maxValue = Player.Instance.Stats.maxHunger;
+        warmthSlider.maxValue = Player.Instance.Stats.maxWarmth;
 
         // get the inventory sliders
         var temp = transform.parent.parent.gameObject;
@@ -36,19 +31,19 @@ public class StatGUIUpdater : MonoBehaviour {
         hungerSliderInventory = temp.transform.FindChild("HungerSlider").gameObject.GetComponent<Slider>();
         warmthSliderInventory = temp.transform.FindChild("WarmthSlider").gameObject.GetComponent<Slider>();
 
-        happinessSliderInventory.maxValue = stats.maxHappiness;
-        hungerSliderInventory.maxValue = stats.maxHunger;
-        warmthSliderInventory.maxValue = stats.maxWarmth;
+        happinessSliderInventory.maxValue = Player.Instance.Stats.maxHappiness;
+        hungerSliderInventory.maxValue = Player.Instance.Stats.maxHunger;
+        warmthSliderInventory.maxValue = Player.Instance.Stats.maxWarmth;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        happinessSlider.value = stats.Happiness;
-        hungerSlider.value = stats.Hunger;
-        warmthSlider.value = stats.Warmth;
+        happinessSlider.value = Player.Instance.Stats.Happiness;
+        hungerSlider.value = Player.Instance.Stats.Hunger;
+        warmthSlider.value = Player.Instance.Stats.Warmth;
 
-        happinessSliderInventory.value = stats.Happiness;
-        hungerSliderInventory.value = stats.Hunger;
-        warmthSliderInventory.value = stats.Warmth;
+        happinessSliderInventory.value = Player.Instance.Stats.Happiness;
+        hungerSliderInventory.value = Player.Instance.Stats.Hunger;
+        warmthSliderInventory.value = Player.Instance.Stats.Warmth;
     }
 }

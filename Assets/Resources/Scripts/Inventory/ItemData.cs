@@ -91,8 +91,6 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //GameObject.Find("ItemPreview Panel").GetComponent<ItemPreviewScript>().ChangeActiveItem(item.ID);
-        Debug.Log("entering");
         tooltip.Activate(item);
     }
 
