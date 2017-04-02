@@ -55,7 +55,7 @@ public class Pedestrian : NPCInteraction { // see if animator work should be don
     /// Called when the player clicks a pedestrian while panhandling.
     /// </summary>
     /// <param name="inv"></param>
-    public void OnPanhandleClick(Inventory inv)
+    public void OnPanhandleClick()
     {
 
         if (timesBegged < maxTimesBegged)
@@ -70,9 +70,9 @@ public class Pedestrian : NPCInteraction { // see if animator work should be don
                     resultPS.Play();
 
                     int change = Random.Range(1, 100); // The possible money you will receive in cents
-                    Debug.Log("Money Before: " + inv.Money);
-                    inv.AddMoney(change * (0.01f));
-                    Debug.Log("Money After: " + inv.Money);
+                    Debug.Log("Money Before: " + Player.Instance.Inventory.Money);
+                    Player.Instance.Inventory.AddMoney(change * (0.01f));
+                    Debug.Log("Money After: " + Player.Instance.Inventory.Money);
                 }
                 else
                 {
@@ -92,7 +92,7 @@ public class Pedestrian : NPCInteraction { // see if animator work should be don
         if (askingForHelp)
         {
             Debug.Log("Callin cops");
-            GetClosestCop().GetComponent<Cop>().RunToPlayer(GameObject.FindWithTag("Player").transform);
+            GetClosestCop().GetComponent<Cop>().RunToPlayer(Player.Instance.transform);
         }
 
     }

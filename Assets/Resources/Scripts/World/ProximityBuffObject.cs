@@ -9,15 +9,7 @@ public class ProximityBuffObject : MonoBehaviour {
     public Type BuffType;
     //public float AreaOfEffectRadius;
 
-    private StatTracker stats;
-    private GameObject player;
     private Collider radiusTrigger;
-
-    public void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        stats = player.GetComponent<StatTracker>();
-    }
 
     private void OnTriggerEnter(Collider col)
     {
@@ -25,17 +17,17 @@ public class ProximityBuffObject : MonoBehaviour {
         if (col.gameObject.tag == "Player")
         {
             if (BuffType == Type.Happiness)
-                stats.Charging = "happiness";
+                Player.Instance.Stats.Charging = "happiness";
             else if (BuffType == Type.Hunger)
-                stats.Charging = "hunger";
+                Player.Instance.Stats.Charging = "hunger";
             else if (BuffType == Type.Warmth)
-                stats.Charging = "warmth";
+                Player.Instance.Stats.Charging = "warmth";
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        stats.Charging = "";
+        Player.Instance.Stats.Charging = "";
     }
 
     /**

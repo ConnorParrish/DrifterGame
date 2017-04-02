@@ -7,14 +7,12 @@ using UnityEngine.AI;
  **/
 
 public class PickupItem : Interactable {
-    public Inventory inv;                                                           // Used to add items to the inventory
     public ItemDatabase itemDB;                                                     // Needed to grab the item's information
     public int itemID;                                                              // itemDB needs this to grab its name
 
     public void Start()
     {
-        inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
-        itemDB = inv.GetComponent<ItemDatabase>();
+        itemDB = Player.Instance.Inventory.GetComponent<ItemDatabase>();
         FloatingTextController.Initialize();
     }
 
@@ -29,7 +27,7 @@ public class PickupItem : Interactable {
 
         string itemName = itemDB.FetchItemByID(itemID).Title;
         FloatingTextController.CreateFloatingText("+1 " + itemName, transform);
-        inv.AddItem(itemID);
+        Player.Instance.Inventory.AddItem(itemID);
         Destroy(gameObject);
         base.Interact();
     }

@@ -20,8 +20,6 @@ public class PanhandleActivator : ActionItem {
 
     public GameObject panhandleButton;
     
-    private GameObject player;
-
     private void Start()
     {
         //panhandleButton = GameObject.Find("LeavePanhandling");
@@ -32,7 +30,6 @@ public class PanhandleActivator : ActionItem {
     {
         //gameObject.GetComponent<BoxCollider>().enabled = false;
         splineRoots = transform.GetChild(0).gameObject;
-        player = GameObject.Find("Player");
         //splineRoots.GetComponent<SimpleFollow>().toFollow = this.gameObject;
 
         base.MoveToInteraction(playerAgent);
@@ -48,10 +45,10 @@ public class PanhandleActivator : ActionItem {
             splineController.Duration = 3f;
             splineInterpolator = Camera.main.gameObject.GetComponent<SplineInterpolator>();
             //transform.GetChild(1).gameObject.SetActive(false);
-            player.GetComponent<WorldInteraction>().canMove = false;
-            player.GetComponent<PanhandlingScript>().enabled = true;
+            Player.Instance.WorldInteraction.canMove = false;
+            Player.Instance.PanhandlingScript.enabled = true;
             Camera.main.gameObject.GetComponent<CameraController>().enabled = false;
-            player.transform.forward = gameObject.transform.forward;
+            Player.Instance.transform.forward = gameObject.transform.forward;
 			playerAgent = null;
         }
     }

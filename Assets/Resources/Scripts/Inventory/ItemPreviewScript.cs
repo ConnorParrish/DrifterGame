@@ -15,7 +15,7 @@ public class ItemPreviewScript : MonoBehaviour {
 	private GameObject useButton;
     private GameObject buyButton;
 
-    private Inventory inv;
+    private Inventory currentInv;
     private Sprite nonFocusedSprite;
     private Sprite focusedSprite;
 
@@ -27,7 +27,7 @@ public class ItemPreviewScript : MonoBehaviour {
         itemTypeText = transform.GetChild(4).GetComponent<Text>();
         itemDescriptionText = transform.GetChild(5).GetComponent<Text>();
         
-		inv = transform.parent.parent.GetChild(0).GetComponent<Inventory>();
+		currentInv = transform.parent.parent.GetChild(0).GetComponent<Inventory>();
 
 		useButton = transform.GetChild(6).gameObject;
 		useButton.SetActive(false);
@@ -69,7 +69,7 @@ public class ItemPreviewScript : MonoBehaviour {
         itemTypeText.text = itemData.item.Type;
         itemDescriptionText.text = itemData.item.Description;
 
-        if (inv.gameObject.name == "Inventory Manager")
+        if (currentInv.gameObject.name == "Inventory Manager")
         {
             if (itemData.item.Type == "Consumable")
                 useButton.SetActive(true);
@@ -100,13 +100,16 @@ public class ItemPreviewScript : MonoBehaviour {
 	public void UseItem()
 	{
 		//Debug.Break ();
-		inv.UseItem (focusedItem.slotID);
+		currentInv.UseItem (focusedItem.slotID);
 		ChangeActiveItem ();
 	}
 
     public void BuyItem()
     {
-        inv.BuyItem(focusedItem.slotID);
+        currentInv.BuyItem(focusedItem.slotID, Player.Instance.Inventory);
         ChangeActiveItem();
+        Debug.Log(Player.Instance.Inventory.items[0]);
+
     }
+
 }

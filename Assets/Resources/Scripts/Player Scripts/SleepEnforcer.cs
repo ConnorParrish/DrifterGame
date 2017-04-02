@@ -9,11 +9,8 @@ public class SleepEnforcer : MonoBehaviour {
 
     public Animator ani;
     public TimeOfDayManager timi;
-    public StatTracker stats;
     public NavMeshAgent agent;
-    public WorldInteraction interaction;
     public simpleDialogue dio;
-    private Inventory inv;
 
     /// <summary>
     /// Time player must sleep in 24 hour format, default midnight
@@ -47,7 +44,6 @@ public class SleepEnforcer : MonoBehaviour {
         if (wakeTime > 24 || wakeTime < 0)
             wakeTime = 6;
         // get a copy of the inventory
-        inv = GameObject.Find("General UI Canvas").GetComponentInChildren<Inventory>();
         timi = GameObject.Find("Time Of Day Manager").GetComponent<TimeOfDayManager>();
     }
 	
@@ -89,10 +85,10 @@ public class SleepEnforcer : MonoBehaviour {
         var ran = new System.Random();
 
         int temp = ran.Next(0, 100);
-        mugged = (temp <= mugChance && inv.Money != 0);
+        mugged = (temp <= mugChance && Player.Instance.Inventory.Money != 0);
         if (mugged)
         {
-            inv.AddMoney(-ran.Next(0, maxMugLoss));
+            Player.Instance.Inventory.AddMoney(-ran.Next(0, maxMugLoss));
         }
     }
 
@@ -111,7 +107,7 @@ public class SleepEnforcer : MonoBehaviour {
     IEnumerator Sleep(bool safe)
     {
         // stop the player from moving
-        interaction.canMove = false;
+        Player.Instance.WorldInteraction.canMove = false;
         agent.Stop();
         // trigger sleep animation
         ani.SetBool("IsWalking", false);
@@ -126,9 +122,9 @@ public class SleepEnforcer : MonoBehaviour {
         if (!safe) // if sleep is safe, no stat decay
         {
             if (timi.timeline < wakeTime)
-                stats.passTime(wakeTime - timi.timeline);
+                Player.Instance.Stats.passTime(wakeTime - timi.timeline);
             else
-                stats.passTime((24 - timi.timeline) + wakeTime);
+                Player.Instance.Stats.passTime((24 - timi.timeline) + wakeTime);
         }
 
         // set time to wakeTime
@@ -149,7 +145,7 @@ public class SleepEnforcer : MonoBehaviour {
         yield return new WaitForSeconds(3);
 
         // re-enable walking
-        interaction.canMove = true;
+        Player.Instance.WorldInteraction.canMove = true;
         ani.SetBool("IsWalking", false);
 
         // display muggin anouncement if necessary

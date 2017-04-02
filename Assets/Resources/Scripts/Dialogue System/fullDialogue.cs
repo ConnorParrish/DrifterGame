@@ -19,7 +19,6 @@ public class fullDialogue : MonoBehaviour
     Text text;
     GameObject image;
 	public NPC NPCData;
-    Inventory inv;
     GameObject PlayerHUD;
 
     string currentText;
@@ -44,10 +43,7 @@ public class fullDialogue : MonoBehaviour
 
         // this is just to avoid a null reference error, ignore it.
         currentCoroutine = writeMessage();
-
-        // get a reference to the inventory for adding items
-        inv = GameObject.Find("General UI Canvas").GetComponentInChildren<Inventory>();
-
+        
     }
 
 	public void endDialogue()
@@ -99,7 +95,7 @@ public class fullDialogue : MonoBehaviour
         setButtonState(false);
         if (currentCost >= 0) // if the current cost is positive, buy the item
         {
-            if (inv.Money - currentCost < 0)
+            if (Player.Instance.Inventory.Money - currentCost < 0)
             {
                 currentText = "(You rifle through your pockets, and sadly realize you can't afford it)";
                 StopCoroutine(currentCoroutine);
@@ -108,17 +104,17 @@ public class fullDialogue : MonoBehaviour
             }
             else
             {
-                inv.AddItem(currentItem);
-                inv.AddMoney(-currentCost);
+                Player.Instance.Inventory.AddItem(currentItem);
+                Player.Instance.Inventory.AddMoney(-currentCost);
                 endDialogue();
             }
         }
         else // otherwise, we are selling an item to the NPC
         {
-            if (inv.ItemInInventoryCheck(new Item() { ID = currentItem }))
+            if (Player.Instance.Inventory.ItemInInventoryCheck(new Item() { ID = currentItem }))
             {
-                inv.AddMoney(-currentCost);
-                inv.RemoveItem(currentItem);
+                Player.Instance.Inventory.AddMoney(-currentCost);
+                Player.Instance.Inventory.RemoveItem(currentItem);
                 endDialogue();
             }
             else

@@ -5,12 +5,10 @@ using UnityEngine.AI;
 
 public class SplineDeactivator : MonoBehaviour
 {
-    GameObject player;
     GameObject PlayerHUD;
 
     void Start()
     {
-        player = GameObject.Find("Player");
         PlayerHUD = GameObject.Find("General UI Canvas");
         Debug.Log("Hi");
     }
@@ -28,7 +26,7 @@ public class SplineDeactivator : MonoBehaviour
             rootHolder.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
         }
 
-        player.GetComponent<WorldInteraction>().canMove = true;
+        Player.Instance.WorldInteraction.canMove = true;
 
         gameObject.SetActive(false);
         
@@ -36,7 +34,7 @@ public class SplineDeactivator : MonoBehaviour
 
     public void DeactivatePanhandling()
     {
-        player.GetComponent<PanhandlingScript>().enabled = false;
+        Player.Instance.PanhandlingScript.enabled = false;
         DeactivateSpline();
 
         //transform.parent.GetChild(1).gameObject.SetActive(false);

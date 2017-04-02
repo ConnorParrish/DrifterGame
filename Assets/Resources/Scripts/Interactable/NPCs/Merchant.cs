@@ -70,7 +70,7 @@ public class Merchant : NPCInteraction {
         }
         //else if (sDialog != null)
         //    sDialog.showDialogue("merchant");
-        playerAgent.GetComponent<WorldInteraction>().canMove = false;
+        Player.Instance.WorldInteraction.canMove = false;
     }
     
     public void Spline()

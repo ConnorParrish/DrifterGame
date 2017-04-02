@@ -36,10 +36,7 @@ public class Inventory : MonoBehaviour {
     /// <summary>
     /// The panel housing the inventory.
     /// </summary>
-    public GameObject inventoryPanel;                                                  // Main UI Panel
-    /// <summary>
-    /// The panel housing the items in inventory slots.
-    /// </summary>
+    public GameObject inventoryMenu;
     
     public int MaxSlots;
 
@@ -49,17 +46,22 @@ public class Inventory : MonoBehaviour {
     /// </summary>
     ItemDatabase database;                                                      // This is the list of all items
     AmountDialog aDialog;
+    ItemPreviewScript ips;
      
     public Text moneyText;
     int slotAmount;                                                             // Max number of slots
-	GameObject player;
     
     public virtual void Start()
     {
+        inventoryMenu = transform.parent.GetChild(1).gameObject;
         database = GetComponent<ItemDatabase>();
         slotAmount = MaxSlots;
-        slotPanel = inventoryPanel.transform.GetChild(0).gameObject;
-        aDialog = inventoryPanel.transform.GetChild(1).GetComponent<AmountDialog>();
+        if (transform.parent.name == "General UI Canvas")
+            slotPanel = inventoryMenu.transform.GetChild(1).GetChild(0).gameObject;
+        else
+            slotPanel = inventoryMenu.transform.GetChild(0).GetChild(0).gameObject;
+        aDialog = slotPanel.transform.parent.GetChild(1).GetComponent<AmountDialog>();
+        ips = inventoryMenu.transform.GetChild(inventoryMenu.transform.childCount - 2).GetComponent<ItemPreviewScript>();
 
         for (int i = 0; i < slotAmount; i++)
         {
@@ -69,10 +71,8 @@ public class Inventory : MonoBehaviour {
             slots[i].transform.SetParent(slotPanel.transform);                  // Sets the parent of the slot to the slot panel
         }
 
-		player = GameObject.FindGameObjectWithTag ("Player");
-
-        if (inventoryPanel.transform.parent.parent.name == "General UI Canvas")
-            inventoryPanel.transform.parent.gameObject.SetActive(false);
+        if (transform.parent.name == "General UI Canvas")
+            inventoryMenu.SetActive(false);
     }
 
     /// <summary>
@@ -80,12 +80,12 @@ public class Inventory : MonoBehaviour {
     /// </summary>
     public void ShowInventory()
     {
-        if (inventoryPanel.transform.parent.gameObject.activeSelf)
+        if (inventoryMenu.activeSelf)
         {
-            inventoryPanel.transform.parent.gameObject.SetActive(false);
+            inventoryMenu.SetActive(false);
         } else
         {
-            inventoryPanel.transform.parent.gameObject.SetActive(true);
+            inventoryMenu.SetActive(true);
         }
     }
     
@@ -99,7 +99,7 @@ public class Inventory : MonoBehaviour {
         if (Money < 0)
             Money = 0f;
 
-        inventoryPanel.transform.parent.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#0.00");
+        inventoryMenu.transform.GetChild(3).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#0.00");
     }
 
     /// <summary>
@@ -156,14 +156,14 @@ public class Inventory : MonoBehaviour {
     public void RemoveItem(int slotID)
     {
 		Item itemToRemove = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
+        ips.ChangeActiveItem();
         if (ItemInInventoryCheck(itemToRemove) == false)
         {
             Debug.Log("You don't have any " + itemToRemove.Title + " in your inventory!");
             return;
         }
 
-		Debug.Log ("slots[slotID].name: " + slots [slotID].name);
-
+		
         if (!itemToRemove.Stackable)
         {
             Debug.Log("Not stackable");
@@ -189,7 +189,7 @@ public class Inventory : MonoBehaviour {
         {
             if (GameObject.Find(itemToRemove.Title).GetComponent<ItemData>().amount == 1)
             {
-                Debug.Log("Not stackable");
+                Debug.Log("Only one left (Pretending its not stackable)");
                 for (int i = items.Count - 1; i > -1; i--)
                 {
 					if (items[i].ID == itemToRemove.ID)
@@ -259,15 +259,15 @@ public class Inventory : MonoBehaviour {
 		if (itemToUse.Type != "Consumable")
 			throw new UnityException ("The item isn't consumable");
 
-		player.GetComponent<StatTracker>().Hunger += 20;
+		Player.Instance.Stats.Hunger += 20;
 		RemoveItem (slotID);
 	}
 
-    public void BuyItem(int slotID)
+    public void BuyItem(int slotID, Inventory buyerInv)
     {
         Item itemToBuy = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
 
-        player.GetComponent<PanhandlingScript>().inv.AddItem(itemToBuy.ID);
+        buyerInv.AddItem(itemToBuy.ID);
         RemoveItem(slotID);
     }
 

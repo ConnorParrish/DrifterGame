@@ -11,7 +11,6 @@ public class PanhandlingScript : MonoBehaviour {
     public SplineInterpolator splineInterp;
     public float navMeshRadius = .5f;
     public float panhandleRadius;
-    public Inventory inv;
     private GameObject leaveButton;
     /*
         private void OnEnable()
@@ -34,7 +33,6 @@ public class PanhandlingScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //splineInterp = Camera.main.GetComponent<SplineInterpolator>();
-        inv = GameObject.Find("Inventory Manager").GetComponent<Inventory>();
         this.enabled = false;
 	}
 	
@@ -60,7 +58,7 @@ public class PanhandlingScript : MonoBehaviour {
                         Debug.Log("begging");
                         if (!infiniteBegs)
                             begsRemaining--;
-                        hit.collider.gameObject.GetComponent<Pedestrian>().OnPanhandleClick(inv);
+                        hit.collider.gameObject.GetComponent<Pedestrian>().OnPanhandleClick();
  					} else {
 						Debug.Log("No more begs");
 					}
