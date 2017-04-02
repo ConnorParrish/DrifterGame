@@ -3,6 +3,7 @@
     "name": "Wealthy Pedestrian",
     "slug": "w_pedestrian",
 	"type": "pedestrian",
+	"money": 1000,
     "dFrames": [
       {
         "text": "Why don't you get a job, you creep!",
@@ -35,13 +36,26 @@
     "name": "Drug Dealer",
     "slug": "drug_dealer",
 	"type": "merchant",
+	"money": 20,
     "dFrames": [
       {
         "text": "Check out the good stuff I've got...",
         "tag": "attention",
 		"itemID": -1,
         "cost": 0
-      }
+      },
+      {
+        "text": "It's a pleasure doing business with you.",
+        "tag": "success",
+		"itemID": -1,
+        "cost": 0
+      },
+	  {
+        "text": "Man, you know that's not enough...",
+        "tag": "notenough",
+		"itemID": -1,
+        "cost": 0	  
+	  }
     ],
 	"items": [
 	  {
@@ -62,9 +76,53 @@
 	]
   },
   {
+    "name": "Fast Food",
+    "slug": "fast_food",
+	"type": "merchant",
+	"money": 100,
+    "dFrames": [
+      {
+        "text": "Welcome to Boogie Burger!!",
+        "tag": "attention",
+		"itemID": -1,
+        "cost": 0
+      },
+	  {
+		"text": "Here's your order!",
+		"tag": "success",
+		"itemID": -1,
+		"cost": 0
+	  },
+	  {
+        "text": "Man, you know that's not enough...",
+        "tag": "notenough",
+		"itemID": -1,
+        "cost": 0	  
+	  }
+    ],
+	"items": [
+	  {
+		"itemID": 0,
+		"price": 1,
+		"amount": 3
+	  },
+	  {
+	  	"itemID": 1,
+		"price": 3,
+		"amount": 4
+	  },
+	  {
+	  	"itemID": 3,
+		"price": 3,
+		"amount": 1
+	  }
+	]
+  },
+  {
     "name": "Shopkeeper",
     "slug": "shopkeeper",
 	"type": "merchant",
+	"money": 75,
     "dFrames": [
       {
         "text": "I've got some items that may help you out there...",
@@ -95,6 +153,7 @@
     "name": "Police Officer",
     "slug": "cop",
 	"type": "cop",
+	"money": 150,
     "dFrames": [
       {
         "text": "Sir, I'm going to have to ask you to leave.",
