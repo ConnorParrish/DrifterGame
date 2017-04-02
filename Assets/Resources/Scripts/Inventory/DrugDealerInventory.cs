@@ -9,6 +9,7 @@ public class DrugDealerInventory : Inventory {
     {
         base.Start();
 
+        /*
         AddItem(4);
         AddItem(4);
         AddItem(4);
@@ -24,6 +25,6 @@ public class DrugDealerInventory : Inventory {
         AddItem(4);
         AddItem(4);
         AddItem(4);
-
+        */
     }
 }

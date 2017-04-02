@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour {
 
     private void OnValidate()
     {
-        transform.parent.GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("#0.00");
+        transform.parent.GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("$#0.00");
     }
 
     public virtual void Start()
@@ -112,7 +112,7 @@ public class Inventory : MonoBehaviour {
         Money += change;
         if (Money < 0)
             Money = 0f;
-        moneyText.text = Money.ToString("#0.00");
+        moneyText.text = Money.ToString("$#0.00");
     }
 
     /// <summary>

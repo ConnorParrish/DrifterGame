@@ -216,7 +216,10 @@ public class fullDialogue : MonoBehaviour
                 }
                 else if(NPCData.Type == "merchant")
                 {
-                    setButtonState(true, "merchant");
+                    if (tag == "notenough" || tag == "success")
+                        setButtonState(false);
+                    else
+                        setButtonState(true, "merchant");
                 }
                 yield return null;
             }
@@ -224,7 +227,7 @@ public class fullDialogue : MonoBehaviour
         endDialogue();
     }
 
-    private void setButtonState(bool state)
+    public void setButtonState(bool state)
     {
         canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.AddListener(endDialogue);
         canvas.transform.FindChild("Decline").gameObject.SetActive(state);

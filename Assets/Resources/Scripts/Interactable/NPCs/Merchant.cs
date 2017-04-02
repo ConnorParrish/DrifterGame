@@ -11,6 +11,7 @@ public class Merchant : NPCInteraction {
     private GameObject PlayerHUD;
     public GameObject merchantButton;
     private GameObject merchantUI;
+    private Inventory merchantInv;
     private Animator anim; // for idle animation/reacting to purchases? (maybe)
 
 	// Use this for initialization
@@ -20,9 +21,13 @@ public class Merchant : NPCInteraction {
 
         merchantUI.SetActive(false);
 
+        merchantInv = merchantUI.transform.GetChild(0).GetComponent<Inventory>();
+        merchantInv.AddMoney(NPCData.Money);
 
-        //merchantButton = GameObject.Find("LeaveMerchant");
-        //merchantButton.SetActive(false);
+        foreach (Dictionary<string, float> itemToSell in NPCData.ItemsForSale)
+            for (int i = 0; i < itemToSell["amount"]; i++)
+                merchantInv.AddItem(int.Parse(itemToSell["itemID"].ToString()));
+
         splineRoots = transform.GetChild(0).gameObject;
 
         anim = transform.GetChild(0).GetComponent<Animator>();
