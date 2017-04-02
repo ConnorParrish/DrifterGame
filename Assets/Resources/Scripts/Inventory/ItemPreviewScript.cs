@@ -91,12 +91,9 @@ public class ItemPreviewScript : MonoBehaviour {
     {
         gameObject.SetActive(false);
         Destroy(itemModelPrefab);
-        itemModelPrefab = Instantiate( new GameObject());
-        itemTitleText.text = "";
-        itemTypeText.text = "";
-        itemDescriptionText.text = "";
 
-		useButton.SetActive(false);
+        if (focusedItem != null)
+            focusedItem.transform.parent.GetComponent<Image>().sprite = nonFocusedSprite;
 
     }
 
@@ -110,5 +107,6 @@ public class ItemPreviewScript : MonoBehaviour {
     public void BuyItem()
     {
         inv.BuyItem(focusedItem.slotID);
+        ChangeActiveItem();
     }
 }
