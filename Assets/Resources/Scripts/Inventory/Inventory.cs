@@ -55,7 +55,9 @@ public class Inventory : MonoBehaviour {
 
     private void OnValidate()
     {
-        transform.parent.GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("$#0.00");
+        if (Application.isPlaying)
+            if (transform.parent.name == "General UI Canvas")
+                transform.parent.GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("$#0.00");
     }
 
     public virtual void Start()
