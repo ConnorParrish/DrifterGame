@@ -15,6 +15,7 @@ public class StatGUIUpdater : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log(gameObject.name);
         // get the external sliders
         happinessSlider = transform.GetChild(0).GetComponent<Slider>();
         hungerSlider = transform.GetChild(1).GetComponent<Slider>();
@@ -26,7 +27,7 @@ public class StatGUIUpdater : MonoBehaviour {
 
         // get the inventory sliders
         var temp = transform.parent.parent.gameObject;
-        temp = temp.transform.FindChild("Inventory Menu").transform.FindChild("Stats Panel").transform.FindChild("Stats").gameObject;
+        temp = temp.transform.GetChild(1).GetChild(3).GetChild(3).gameObject;
         happinessSliderInventory = temp.transform.FindChild("HappinessSlider").gameObject.GetComponent<Slider>();
         hungerSliderInventory = temp.transform.FindChild("HungerSlider").gameObject.GetComponent<Slider>();
         warmthSliderInventory = temp.transform.FindChild("WarmthSlider").gameObject.GetComponent<Slider>();
