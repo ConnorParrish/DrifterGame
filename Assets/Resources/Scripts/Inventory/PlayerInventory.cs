@@ -14,6 +14,7 @@ public class PlayerInventory : Inventory {
         AddItem(2);
         AddItem(2);
         AddItem(2);
+        AddItem(3);
         AddItem(4);
     }
 }

@@ -19,7 +19,6 @@ public class NPCDatabase : MonoBehaviour {
 		JsonData dioDatabase = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
 			"/StreamingAssets/NPCList.json"));
 		ConstructNPCDatabase (dioDatabase);
-        
 	}
 	
 	void ConstructNPCDatabase(JsonData data){
@@ -30,13 +29,34 @@ public class NPCDatabase : MonoBehaviour {
 	}
 }
 
+/// <summary>
+/// This class stores NPC's data.
+/// </summary>
 public class NPC
 {
+    /// <summary>
+    /// Name of an NPC
+    /// </summary>
 	public string Name { get; set; }
-	public string Slug { get; set; }
+	/// <summary>
+    /// Name used in filesystem.
+    /// </summary>
+    public string Slug { get; set; }
+    /// <summary>
+    /// The type of NPC (pedestrian, cop, merchant)
+    /// </summary>
     public string Type { get; set; }
+    /// <summary>
+    /// The starting money the NPC has.
+    /// </summary>
     public float Money { get; set; }
+    /// <summary>
+    /// Dialog of the NPC
+    /// </summary>
     public List<Dictionary<string, string>> DialogueFrames = new List<Dictionary<string, string>>();
+    /// <summary>
+    /// The list of items sold by NPC
+    /// </summary>
     public List<Dictionary<string, float>> ItemsForSale = new List<Dictionary<string, float>>();
 
 	public NPC(string name, string slug, string type, float money, JsonData frames, JsonData items){

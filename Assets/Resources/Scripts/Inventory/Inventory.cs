@@ -278,12 +278,18 @@ public class Inventory : MonoBehaviour {
 		RemoveItem (slotID);
 	}
 
-    public void BuyItem(int slotID, Inventory buyerInv)
+    public void SellItem(int slotID, Inventory buyerInv, float price)
     {
         Item itemToBuy = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
 
-        buyerInv.AddItem(itemToBuy.ID);
+        AddMoney(price);
+        buyerInv.AddMoney(-price);
+
         RemoveItem(slotID);
+        if (buyerInv == Player.Instance.Inventory)
+            buyerInv.AddItem(itemToBuy.ID);
+        else
+            buyerInv.RemoveItem(slotID);
     }
 
     // This is used to make sure the item we are stacking is already in the inventory

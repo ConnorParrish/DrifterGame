@@ -82,16 +82,27 @@ public class ItemPreviewScript : MonoBehaviour {
         }
         else
         {
+            if (currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale.Count == 0)
+                itemValueText.text = itemData.item.Resale.ToString("$#0.00");
+            else
+            {
+                foreach (Dictionary<string,float> itemInfo in currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale)
+                    Debug.Log(itemInfo["itemID"]);
+
+                Dictionary<string, float> ifs = new Dictionary<string, float>();
+
+                foreach (Dictionary<string, float> itemForSale in currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale)
+                    if (itemForSale["itemID"] == focusedItem.item.ID)
+                        ifs = itemForSale;
+
+                itemValueText.text = ifs["price"].ToString("$#0.00");
+
+            }
+
             useButton.SetActive(true);
 
-            Dictionary<string, float> ifs = new Dictionary<string, float>();
+            
 
-            foreach (Dictionary<string, float> itemForSale in currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale)
-                if (itemForSale["itemID"] == focusedItem.item.ID)
-                    ifs = itemForSale;
-
-
-            itemValueText.text = ifs["price"].ToString("$#0.00");
             //buyButton.SetActive(true);
 
         }
@@ -119,27 +130,36 @@ public class ItemPreviewScript : MonoBehaviour {
 
     public void BuyItem()
     {
-        if (Player.Instance.Inventory.Money >= focusedItem.item.Resale)
+        if (currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale.Count == 0)
         {
-            currentInv.BuyItem(focusedItem.slotID, Player.Instance.Inventory);
-            Dictionary<string, float> ifs = new Dictionary<string, float>();
-            foreach (Dictionary<string, float> itemForSale in currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale)
-                if (itemForSale["itemID"] == focusedItem.item.ID)
-                    ifs = itemForSale;
-
-            Player.Instance.Inventory.AddMoney(-ifs["price"]);
-
-            transform.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
-
-            currentInv.AddMoney(ifs["price"]);
+            Player.Instance.Inventory.SellItem(focusedItem.slotID, currentInv, focusedItem.item.Resale);
+            //currentInv.RemoveItem(focusedItem.slotID)
             ChangeActiveItem();
         }
         else
         {
-            transform.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough");
+            if (Player.Instance.Inventory.Money >= focusedItem.item.Resale)
+            {
+                Dictionary<string, float> ifs = new Dictionary<string, float>();
+
+                foreach (Dictionary<string, float> itemForSale in currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale)
+                    if (itemForSale["itemID"] == focusedItem.item.ID)
+                        ifs = itemForSale;
+
+                currentInv.SellItem(focusedItem.slotID, Player.Instance.Inventory, ifs["price"]);
+
+                transform.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
+
+                ChangeActiveItem();
+            }
+            else
+            {
+                transform.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough");
+            }
+            //Debug.Log(Player.Instance.Inventory.items[0]);
+
         }
-        //Debug.Log(Player.Instance.Inventory.items[0]);
 
     }
-
+    
 }
