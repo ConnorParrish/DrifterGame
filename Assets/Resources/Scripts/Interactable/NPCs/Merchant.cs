@@ -28,6 +28,7 @@ public class Merchant : NPCInteraction {
         if (NPCData.ItemsForSale.Count == 0)
             foreach (ItemData itemData in Player.Instance.Inventory.inventoryMenu.GetComponentsInChildren<ItemData>().Where(i => i.item.ID != -1))
             {
+                if (itemData.item.Type == NPCData.Filter)
                 for (int i = 0; i < itemData.amount; i++)
                     merchantInv.AddItem(itemData.item.ID);
             }

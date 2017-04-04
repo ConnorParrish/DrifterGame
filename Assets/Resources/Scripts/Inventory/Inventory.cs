@@ -130,7 +130,7 @@ public class Inventory : MonoBehaviour {
             fullInventory = true;
             return;
         }
-        if (itemToAdd.Stackable && ItemInInventoryCheck(itemToAdd))
+        if (itemToAdd.Stackable && ItemInInventoryCheck(itemToAdd) != -1)
         {
             for (int i = 0; i < items.Count; i++)
             {
@@ -173,7 +173,7 @@ public class Inventory : MonoBehaviour {
     {
 		ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
         ips.ChangeActiveItem();
-        if (ItemInInventoryCheck(data.item) == false)
+        if (ItemInInventoryCheck(data.item) == -1)
         {
             Debug.Log("You don't have any " + data.item.Title + " in your inventory!");
             return;
@@ -257,9 +257,9 @@ public class Inventory : MonoBehaviour {
 		RemoveItem (slotID);
 	}
 
-    public void SellItem(int slotID, Inventory buyerInv, float price)
+    public void SellItem(ItemData data, Inventory buyerInv, float price)
     {
-        Item itemToBuy = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
+        Item itemToBuy = data.item;
 
         AddMoney(price);
         buyerInv.AddMoney(-price);
@@ -269,22 +269,23 @@ public class Inventory : MonoBehaviour {
             buyerInv.AddItem(itemToBuy.ID);
         else
         {
-            buyerInv.RemoveItem(slotID);
-            //RemoveItem(slotID);
+            buyerInv.RemoveItem(data.slotID);
+            if (data.amount == 1)
+                RemoveItem(Player.Instance.Inventory.ItemInInventoryCheck(data.item));
             //Player.Instance.Inventory.ChangeItemAmount(slotID);
         }
     }
 
     // This is used to make sure the item we are stacking is already in the inventory
-    public bool ItemInInventoryCheck(Item item) // I MADE THIS PUBLIC TO USE IT IN THE DIALOGUE SCRIPT
+    public int ItemInInventoryCheck(Item item) // I MADE THIS PUBLIC TO USE IT IN THE DIALOGUE SCRIPT
     {
         for (int i = 0; i < items.Count; i++)
         {
             if (items[i].ID == item.ID)
             {
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 }

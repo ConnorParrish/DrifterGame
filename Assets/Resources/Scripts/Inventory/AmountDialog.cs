@@ -23,8 +23,6 @@ public class AmountDialog : MonoBehaviour {
     public void OpenDialog(ItemData itemData)
     {
         this.itemData = itemData;
-        Debug.Log("amount" + itemData.amount);
-        Debug.Log("slider.name " + slider.name);
         sprite = transform.GetChild(1).GetComponent<Image>().sprite = itemData.item.Sprite;
         slider.maxValue = itemData.amount;
         gameObject.SetActive(true);
@@ -32,8 +30,7 @@ public class AmountDialog : MonoBehaviour {
 
     public void DestroyStack()
     {
-        Debug.Log("quantity text: " + Convert.ToInt32(quantityText.text));
-        currentInv.ChangeItemAmount(itemData.slotID, Convert.ToInt32(quantityText.text));
+        currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
         
         gameObject.SetActive(false);
     }
@@ -41,7 +38,7 @@ public class AmountDialog : MonoBehaviour {
     public void BuyStack()
     {
         currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
-        Player.Instance.Inventory.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
+        Player.Instance.Inventory.ChangeItemAmount(Player.Instance.Inventory.ItemInInventoryCheck(itemData.item), -Convert.ToInt32(quantityText.text));
         gameObject.SetActive(false);
     }
 

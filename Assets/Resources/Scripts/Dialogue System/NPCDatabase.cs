@@ -51,6 +51,10 @@ public class NPC
     /// </summary>
     public float Money { get; set; }
     /// <summary>
+    /// The filter on what a Merchant will buy from the player.
+    /// </summary>
+    public string Filter { get; set; }
+    /// <summary>
     /// Dialog of the NPC
     /// </summary>
     public List<Dictionary<string, string>> DialogueFrames = new List<Dictionary<string, string>>();
@@ -64,7 +68,9 @@ public class NPC
 		Slug = slug;
         Type = type;
         Money = money;
-		for (int i = 0; i < frames.Count; i++) {
+        Filter = items[0]["filter"].ToString();
+
+        for (int i = 0; i < frames.Count; i++) {
 			Dictionary<string, string> temp = new Dictionary<string, string> ();
 			temp["text"] = frames[i]["text"].ToString();
             temp["tag"] = frames[i]["tag"].ToString();
@@ -72,8 +78,7 @@ public class NPC
 			temp["cost"] = frames[i]["cost"].ToString();
 			DialogueFrames.Add(temp);
 		}
-
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 1; i < items.Count; i++)
         {
             Dictionary<string, float> temp = new Dictionary<string, float>();
             if (items[i]["itemID"].ToString() == "-1")

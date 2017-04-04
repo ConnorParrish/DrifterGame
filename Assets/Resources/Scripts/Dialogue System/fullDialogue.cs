@@ -111,7 +111,7 @@ public class fullDialogue : MonoBehaviour
         }
         else // otherwise, we are selling an item to the NPC
         {
-            if (Player.Instance.Inventory.ItemInInventoryCheck(new Item() { ID = currentItem }))
+            if (Player.Instance.Inventory.ItemInInventoryCheck(new Item() { ID = currentItem }) != -1)
             {
                 Player.Instance.Inventory.AddMoney(-currentCost);
                 Player.Instance.Inventory.RemoveItem(currentItem);

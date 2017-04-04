@@ -132,7 +132,7 @@ public class ItemPreviewScript : MonoBehaviour {
     {
         if (currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale.Count == 0)
         {
-            Player.Instance.Inventory.SellItem(focusedItem.slotID, currentInv, focusedItem.item.Resale);
+            Player.Instance.Inventory.SellItem(focusedItem, currentInv, focusedItem.item.Resale);
             //currentInv.RemoveItem(focusedItem.slotID)
             ChangeActiveItem();
         }
@@ -146,7 +146,7 @@ public class ItemPreviewScript : MonoBehaviour {
                     if (itemForSale["itemID"] == focusedItem.item.ID)
                         ifs = itemForSale;
 
-                currentInv.SellItem(focusedItem.slotID, Player.Instance.Inventory, ifs["price"]);
+                currentInv.SellItem(focusedItem, Player.Instance.Inventory, ifs["price"]);
 
                 transform.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
 
