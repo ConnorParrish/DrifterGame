@@ -47,11 +47,13 @@ public class Inventory : MonoBehaviour {
     /// The list of all possible items.
     /// </summary>
     ItemDatabase database;                                                      // This is the list of all items
-    AmountDialog aDialog;
+    public AmountDialog aDialog;
     ItemPreviewScript ips;
      
     public Text moneyText;
     int slotAmount;                                                             // Max number of slots
+    int lastChangedAmountDifference;
+    public float lastSellPrice;
 
     private void OnValidate()
     {
@@ -202,6 +204,7 @@ public class Inventory : MonoBehaviour {
         ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
 
         data.amount += amount;
+        lastChangedAmountDifference = amount;
 
         data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
 
@@ -260,19 +263,32 @@ public class Inventory : MonoBehaviour {
     public void SellItem(ItemData data, Inventory buyerInv, float price)
     {
         Item itemToBuy = data.item;
-
-        AddMoney(price);
-        buyerInv.AddMoney(-price);
-
+        lastSellPrice = price;
+        
 
         if (buyerInv == Player.Instance.Inventory)
+        {
             buyerInv.AddItem(itemToBuy.ID);
+            RemoveItem(data.slotID);
+            AddMoney(price);
+            buyerInv.AddMoney(-price);
+        }
         else
         {
-            buyerInv.RemoveItem(data.slotID);
-            if (data.amount == 1)
-                RemoveItem(Player.Instance.Inventory.ItemInInventoryCheck(data.item));
-            //Player.Instance.Inventory.ChangeItemAmount(slotID);
+            if (buyerInv.Money > price)
+            {
+                buyerInv.RemoveItem(data.slotID);
+                if (data.amount == 1)
+                {
+                    buyerInv.transform.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
+                    RemoveItem(Player.Instance.Inventory.ItemInInventoryCheck(data.item));
+                    AddMoney(price);
+                    buyerInv.AddMoney(-price);
+                }
+            }
+            else
+                buyerInv.transform.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough");
+            
         }
     }
 

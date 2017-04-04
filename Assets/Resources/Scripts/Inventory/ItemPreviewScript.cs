@@ -20,6 +20,7 @@ public class ItemPreviewScript : MonoBehaviour {
     private Sprite nonFocusedSprite;
     private Sprite focusedSprite;
 
+
     void Start()
     {
         itemModelPrefab = transform.GetChild(0).GetChild(1).gameObject;
@@ -39,7 +40,6 @@ public class ItemPreviewScript : MonoBehaviour {
 
         nonFocusedSprite = Resources.Load<Sprite>("Sprites/UI/Item Slot Graphic");
         focusedSprite = Resources.Load<Sprite>("Sprites/UI/Item Slot Graphic selected");
-
     }
 
     /// <summary>
@@ -132,6 +132,8 @@ public class ItemPreviewScript : MonoBehaviour {
     {
         if (currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale.Count == 0)
         {
+            Player.Instance.Inventory.lastSellPrice = focusedItem.item.Resale;
+
             Player.Instance.Inventory.SellItem(focusedItem, currentInv, focusedItem.item.Resale);
             //currentInv.RemoveItem(focusedItem.slotID)
             ChangeActiveItem();

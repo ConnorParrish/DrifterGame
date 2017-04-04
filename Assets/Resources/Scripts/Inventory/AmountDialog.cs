@@ -24,7 +24,20 @@ public class AmountDialog : MonoBehaviour {
     {
         this.itemData = itemData;
         sprite = transform.GetChild(1).GetComponent<Image>().sprite = itemData.item.Sprite;
-        slider.maxValue = itemData.amount;
+        if (currentInv == Player.Instance.Inventory)
+            slider.maxValue = itemData.amount;
+        else
+        {
+            int maxPurchase = 0;
+            for (int i = 0; i <= itemData.amount; i++)
+            {
+                if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * i)
+                    maxPurchase = i;
+            }
+
+            slider.maxValue = maxPurchase;
+
+        }
         gameObject.SetActive(true);
     }
 
@@ -37,9 +50,34 @@ public class AmountDialog : MonoBehaviour {
 
     public void BuyStack()
     {
-        currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
-        Player.Instance.Inventory.ChangeItemAmount(Player.Instance.Inventory.ItemInInventoryCheck(itemData.item), -Convert.ToInt32(quantityText.text));
+        if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text))
+        {
+            currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
+            Player.Instance.Inventory.ChangeItemAmount(Player.Instance.Inventory.ItemInInventoryCheck(itemData.item), -Convert.ToInt32(quantityText.text));
+            Player.Instance.Inventory.AddMoney(Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text));
+            currentInv.AddMoney(-Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text));
+
+            transform.parent.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
+
+        }
+        else
+        {
+            int maxPurchase = 0;
+            for (int i = 0; i < itemData.amount; i++)
+            {
+                if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * i)
+                    maxPurchase = i;
+            }
+            // Not gonna end up using this -- i think that it's a better user story to limit the slider ~Connor
+            //transform.parent.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough_stack", maxPurchase.ToString());
+
+        }
+
+
+
+
         gameObject.SetActive(false);
+        //return Convert.ToInt32(quantityText.text);
     }
 
     public void CloseDialog()

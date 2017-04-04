@@ -141,6 +141,12 @@
         "tag": "notenough",
 		"itemID": -1,
         "cost": 0	  
+	  },
+	  {
+        "text": "Sorry man, I only have enough money to buy {0} of those from you.",
+        "tag": "notenough_stack",
+		"itemID": -1,
+        "cost": 0	  
 	  }
     ],
 	"items": [{"filter": "Recyclable"},{"itemID":-1}]
