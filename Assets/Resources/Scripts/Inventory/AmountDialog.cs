@@ -9,14 +9,14 @@ public class AmountDialog : MonoBehaviour {
     Text quantityText;
     Slider slider;
     Sprite sprite;
-    Inventory inv;
+    Inventory currentInv;
     void Start()
     {
         sprite = transform.GetChild(1).GetComponent<Image>().sprite;
         slider = transform.GetChild(2).gameObject.GetComponent<Slider>();
         quantityText = slider.transform.GetChild(3).GetComponent<Text>();
 
-        inv = transform.parent.parent.parent.GetChild(0).GetComponent<Inventory>();
+        currentInv = transform.parent.parent.parent.GetChild(0).GetComponent<Inventory>();
         gameObject.SetActive(false);
     }
 
@@ -33,7 +33,15 @@ public class AmountDialog : MonoBehaviour {
     public void DestroyStack()
     {
         Debug.Log("quantity text: " + Convert.ToInt32(quantityText.text));
-        inv.RemoveItem(itemData.item.ID, Convert.ToInt32(quantityText.text));
+        currentInv.ChangeItemAmount(itemData.slotID, Convert.ToInt32(quantityText.text));
+        
+        gameObject.SetActive(false);
+    }
+
+    public void BuyStack()
+    {
+        currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
+        Player.Instance.Inventory.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
         gameObject.SetActive(false);
     }
 
