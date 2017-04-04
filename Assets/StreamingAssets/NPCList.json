@@ -1,7 +1,7 @@
 [
   {
     "name": "Wealthy Pedestrian",
-    "slug": "w_pedestrian",
+    "slug": "wealthypedestrian_m",
 	"type": "pedestrian",
 	"money": 1000,
     "dFrames": [
