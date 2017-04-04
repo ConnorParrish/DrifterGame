@@ -25,8 +25,8 @@ public class NPCBuilderScript : MonoBehaviour {
         if (SpawnNPC == NPCs.Pedestrian) //&& NPCWealth == Wealth.Wealthy)
         {
             obj = Resources.Load<GameObject>("Prefabs/NPCs/WealthyPedestrian_M");
-            obj.transform.GetChild(0).GetChild(6).GetComponent<SkinnedMeshRenderer>().material = Skin;
-            if (Hat == Hats.Tophat)
+            //obj.transform.GetChild(0).GetChild(6).GetComponent<SkinnedMeshRenderer>().material = Skin;
+            /*if (Hat == Hats.Tophat)
             {
                 GameObject hat = Resources.Load<GameObject>("Prefabs/Accessories/TopHat");
                 Instantiate(hat, obj.transform.GetChild(0).GetChild(3).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1));
@@ -36,7 +36,7 @@ public class NPCBuilderScript : MonoBehaviour {
             {
                 GameObject lHand = Resources.Load<GameObject>("Prefabs/Accessories/Watch");
                 Instantiate(lHand, obj.transform.GetChild(0).GetChild(3).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0));
-            }
+            }*/
             p = transform.GetChild(0);
         }
         else if (SpawnNPC == NPCs.PoliceOfficer)
