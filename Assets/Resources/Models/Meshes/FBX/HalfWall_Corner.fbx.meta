@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 49720c8374227df44ae5a2570d92239d
-timeCreated: 1491199380
-=======
-guid: 98ddbfec0d451c94bba1308acdee0b7d
-timeCreated: 1491254819
->>>>>>> 180cfd70c45dd608670e0cd2c6d82ce85c15d43f
-licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -15,6 +8,7 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: HalfWall_Corner
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -39,11 +33,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-<<<<<<< HEAD
     globalScale: 100
-=======
-    globalScale: 1
->>>>>>> 180cfd70c45dd608670e0cd2c6d82ce85c15d43f
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -81,7 +71,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
