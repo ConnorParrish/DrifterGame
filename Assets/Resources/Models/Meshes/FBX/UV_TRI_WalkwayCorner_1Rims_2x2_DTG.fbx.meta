@@ -1,57 +1,17 @@
 fileFormatVersion: 2
-guid: bb34d8d61d3363e4caf3bc23dc8f37b3
-timeCreated: 1488670902
+guid: 63bcc7a0ddadab448a1a5eb5e7d1d8da
+timeCreated: 1491352665
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: group
-    100002: group214
-    100004: group218
-    100006: pasted__group126
-    100008: pasted__group218
-    100010: pasted__group4
-    100012: pasted__pasted__group126
-    100014: pasted__pasted__group45
-    100016: pasted__pasted__pasted__group24
-    100018: pasted__pasted__pasted__group45
-    100020: pasted__pasted__pasted__pasted__group24
-    100022: pasted__Sidewalk1_Straight_2x4
-    100024: pasted__Sidewalk1_Straight_2x4 1
-    100026: Sidewalk1_Corner_4x4
-    100028: Sidewalk1_Corner_4x4 1
-    100030: Sidewalk1_Straight_2x4
-    100032: transform1
-    100034: transform2
-    100036: transform3
-    100038: transform4
-    100040: //RootNode
-    400000: group
-    400002: group214
-    400004: group218
-    400006: pasted__group126
-    400008: pasted__group218
-    400010: pasted__group4
-    400012: pasted__pasted__group126
-    400014: pasted__pasted__group45
-    400016: pasted__pasted__pasted__group24
-    400018: pasted__pasted__pasted__group45
-    400020: pasted__pasted__pasted__pasted__group24
-    400022: pasted__Sidewalk1_Straight_2x4
-    400024: pasted__Sidewalk1_Straight_2x4 1
-    400026: Sidewalk1_Corner_4x4
-    400028: Sidewalk1_Corner_4x4 1
-    400030: Sidewalk1_Straight_2x4
-    400032: transform1
-    400034: transform2
-    400036: transform3
-    400038: transform4
-    400040: //RootNode
-    2300000: Sidewalk1_Corner_4x4
-    3300000: Sidewalk1_Corner_4x4
-    4300000: Sidewalk1_Corner_4x4
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: WalkwayCorner_NoRim
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -74,7 +34,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
