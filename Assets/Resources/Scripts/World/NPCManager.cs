@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour {
+
     /// <summary>
     /// List of all pedestrians in the scene.
     /// </summary>
@@ -17,8 +18,9 @@ public class NPCManager : MonoBehaviour {
     /// </summary>
     public List<GameObject> Merchants;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         for (int i = 0; i < transform.GetChild(0).childCount; i++)
         {
             GameObject npc = transform.GetChild(0).transform.GetChild(i).gameObject;

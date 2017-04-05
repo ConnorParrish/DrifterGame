@@ -83,6 +83,13 @@ public class fullDialogue : MonoBehaviour
         StartCoroutine(growCanvas());
     }
 
+    public void showDialogue(string tag, string formatting)
+    {
+        canvas.SetActive(true);
+        messageCycler = cycleMessages(tag, formatting);
+        StartCoroutine(growCanvas());
+    }
+
     public void OpenMerchantUI()
     {
         setButtonState(false, "merchant");
@@ -111,7 +118,7 @@ public class fullDialogue : MonoBehaviour
         }
         else // otherwise, we are selling an item to the NPC
         {
-            if (Player.Instance.Inventory.ItemInInventoryCheck(new Item() { ID = currentItem }))
+            if (Player.Instance.Inventory.ItemInInventoryCheck(new Item() { ID = currentItem }) != -1)
             {
                 Player.Instance.Inventory.AddMoney(-currentCost);
                 Player.Instance.Inventory.RemoveItem(currentItem);
@@ -225,6 +232,36 @@ public class fullDialogue : MonoBehaviour
             }
         }
         endDialogue();
+    }
+
+    IEnumerator cycleMessages(string tag, string formatting)
+    {
+        List<Dictionary<string, string>> messages = NPCData.DialogueFrames;
+        foreach (Dictionary<string, string> d in messages)
+        {
+            if (d["tag"] == tag)
+            {
+                if (tag.Contains("_stack"))
+                    currentText = String.Format(d["text"], formatting);
+                
+                if (Convert.ToInt32(d["itemID"]) != -1)
+                {
+                    setButtonState(true);
+                    currentCost = float.Parse(d["cost"]);
+                    currentItem = Convert.ToInt32(d["itemID"]);
+                }
+                else if (NPCData.Type == "merchant")
+                {
+                    if (tag.Contains("notenough") || tag == "success")
+                        setButtonState(false);
+                    else
+                        setButtonState(true, "merchant");
+                }
+                yield return null;
+            }
+        }
+        endDialogue();
+
     }
 
     public void setButtonState(bool state)

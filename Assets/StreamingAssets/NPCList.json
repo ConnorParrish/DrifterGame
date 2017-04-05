@@ -1,7 +1,7 @@
 [
   {
     "name": "Wealthy Pedestrian",
-    "slug": "w_pedestrian",
+    "slug": "wealthypedestrian_m",
 	"type": "pedestrian",
 	"money": 1000,
     "dFrames": [
@@ -30,7 +30,7 @@
         "cost": 0
       }
     ],
-	"items": [{"itemID": -1}]
+	"items": [{"filter": ""},{"itemID": -1}]
   },
   {
     "name": "Drug Dealer",
@@ -57,7 +57,7 @@
         "cost": 0	  
 	  }
     ],
-	"items": [
+	"items": [{"filter": "Drug"},
 	  {
 		"itemID": 1,
 		"price": 1,
@@ -100,7 +100,7 @@
         "cost": 0	  
 	  }
     ],
-	"items": [
+	"items": [{"filter": "food"},
 	  {
 		"itemID": 0,
 		"price": 1,
@@ -119,6 +119,39 @@
 	]
   },
   {
+    "name": "Recyclable Buyer",
+    "slug": "recycle_buyer",
+	"type": "merchant",
+	"money": 20,
+    "dFrames": [
+      {
+        "text": "I'll buy those recyclables from you...",
+        "tag": "attention",
+		"itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "It's a pleasure doing business with you.",
+        "tag": "success",
+		"itemID": -1,
+        "cost": 0
+      },
+	  {
+        "text": "Sorry man, I don't have enough money to buy that from you.",
+        "tag": "notenough",
+		"itemID": -1,
+        "cost": 0	  
+	  },
+	  {
+        "text": "Sorry man, I only have enough money to buy {0} of those from you.",
+        "tag": "notenough_stack",
+		"itemID": -1,
+        "cost": 0	  
+	  }
+    ],
+	"items": [{"filter": "Recyclable"},{"itemID":-1}]
+  },
+  {
     "name": "Shopkeeper",
     "slug": "shopkeeper",
 	"type": "merchant",
@@ -131,7 +164,7 @@
         "cost": 0
       }
     ],
-	"items": [
+	"items": [{"filter": "recycle"},
 	  {
 		"itemID": 1,
 		"price": 1,
@@ -180,6 +213,6 @@
         "cost": 100
       }
     ],
-	"items": [{"itemID": -1}]
+	"items": [{"filter": ""},{"itemID": -1}]
   }
 ]

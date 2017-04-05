@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Merchant : NPCInteraction {
@@ -16,7 +17,7 @@ public class Merchant : NPCInteraction {
 
 	// Use this for initialization
 	public override void Start () {
-        merchantUI = GameObject.Find("Merchant Inventory");
+        merchantUI = transform.GetChild(1).gameObject;
         PlayerHUD = GameObject.Find("General UI Canvas");
 
         merchantUI.SetActive(false);
@@ -24,9 +25,17 @@ public class Merchant : NPCInteraction {
         merchantInv = merchantUI.transform.GetChild(0).GetComponent<Inventory>();
         merchantInv.AddMoney(NPCData.Money);
 
-        foreach (Dictionary<string, float> itemToSell in NPCData.ItemsForSale)
-            for (int i = 0; i < itemToSell["amount"]; i++)
-                merchantInv.AddItem(int.Parse(itemToSell["itemID"].ToString()));
+        if (NPCData.ItemsForSale.Count == 0)
+            foreach (ItemData itemData in Player.Instance.Inventory.inventoryMenu.GetComponentsInChildren<ItemData>().Where(i => i.item.ID != -1))
+            {
+                if (itemData.item.Type == NPCData.Filter)
+                for (int i = 0; i < itemData.amount; i++)
+                    merchantInv.AddItem(itemData.item.ID);
+            }
+        else
+            foreach (Dictionary<string, float> itemToSell in NPCData.ItemsForSale)
+                for (int i = 0; i < itemToSell["amount"]; i++)
+                    merchantInv.AddItem(int.Parse(itemToSell["itemID"].ToString()));
 
         splineRoots = transform.GetChild(0).gameObject;
 

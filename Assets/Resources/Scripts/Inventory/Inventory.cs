@@ -47,11 +47,13 @@ public class Inventory : MonoBehaviour {
     /// The list of all possible items.
     /// </summary>
     ItemDatabase database;                                                      // This is the list of all items
-    AmountDialog aDialog;
+    public AmountDialog aDialog;
     ItemPreviewScript ips;
      
     public Text moneyText;
     int slotAmount;                                                             // Max number of slots
+    int lastChangedAmountDifference;
+    public float lastSellPrice;
 
     private void OnValidate()
     {
@@ -128,8 +130,9 @@ public class Inventory : MonoBehaviour {
         {
             Debug.Log("Your Inventory is full!");
             fullInventory = true;
+            return;
         }
-        if (itemToAdd.Stackable && ItemInInventoryCheck(itemToAdd))
+        if (itemToAdd.Stackable && ItemInInventoryCheck(itemToAdd) != -1)
         {
             for (int i = 0; i < items.Count; i++)
             {
@@ -170,104 +173,83 @@ public class Inventory : MonoBehaviour {
     /// <param name="id"></param>
     public void RemoveItem(int slotID)
     {
-		Item itemToRemove = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
+		ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
         ips.ChangeActiveItem();
-        if (ItemInInventoryCheck(itemToRemove) == false)
+        if (ItemInInventoryCheck(data.item) == -1)
         {
-            Debug.Log("You don't have any " + itemToRemove.Title + " in your inventory!");
+            Debug.Log("You don't have any " + data.item.Title + " in your inventory!");
             return;
         }
 
 		
-        if (!itemToRemove.Stackable)
+        if (!data.item.Stackable || data.amount == 1)
         {
-            Debug.Log("Not stackable");
-            for (int i = items.Count - 1; i > -1; i--)
+            if (fullInventory)
             {
-				if (items[i].ID == itemToRemove.ID)
-                {
-                    if (fullInventory)
-                    {
-                        fullInventory = false;
-                    }
-					Debug.Log ("slots[slotID].name: " + slots [slotID].name);
-					Destroy (slots [slotID].transform.GetChild (0).gameObject);
-					slots[i].name = "Slot(Clone)";
-                    
-					items[i] = new Item();
-                    break;
-
-                }
+                fullInventory = false;
             }
+			Destroy (slots [slotID].transform.GetChild (0).gameObject);
+			slots[slotID].name = "Slot(Clone)";
+                    
+			items[slotID] = new Item();            
         }
         else
         {
-            if (GameObject.Find(itemToRemove.Title).GetComponent<ItemData>().amount == 1)
-            {
-                Debug.Log("Only one left (Pretending its not stackable)");
-                for (int i = items.Count - 1; i > -1; i--)
-                {
-					if (items[i].ID == itemToRemove.ID)
-                    {
-                        if (fullInventory)
-                        {
-                            fullInventory = false;
-                        }
-                        slots[i].name = "Slot(Clone)";
-                        items[i] = new Item();
-                        Destroy(GameObject.Find(itemToRemove.Title));
-                        break;
-
-                    }
-                }
-            }
-            else 
-                aDialog.OpenDialog(GameObject.Find(itemToRemove.Title).GetComponent<ItemData>());
+            aDialog.OpenDialog(data);
         }
     }
 
-    public void RemoveItem(int id, int amountToDelete)
+    public void ChangeItemAmount(int slotID, int amount)
     {
-        Item itemToRemove = database.FetchItemByID(id);
+        ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
 
-        if (itemToRemove.Stackable)
+        data.amount += amount;
+        lastChangedAmountDifference = amount;
+
+        data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+
+        if (data.amount == 0)
         {
-            Debug.Log("Stackable...");
-
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].ID == id)
-                {
-                    ItemData data = GameObject.Find(itemToRemove.Title).GetComponent<ItemData>();
-                    if (data.amount > amountToDelete)
-                    {
-                        //aDialog.OpenDialog(data);
-                        Debug.Log(amountToDelete + " can be deleted.");
-
-                        data.amount -= amountToDelete;                                          // If there's more than one of the stacked item, we lower it
-                        data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
-                    }
-                    else
-                    {
-                        if (fullInventory)
-                        {
-                            fullInventory = false;
-                        }
-                        slots[i].name = "Slot(Clone)";                          // Returns the slot to it's default name
-                        items[i] = new Item();                                  // We're creating a new blank item that is in every 
-                        Destroy(data.gameObject);
-                        break;
-                    }
-                }
-            }
+            data.amount = 1;
+            RemoveItem(data.slotID);
         }
     }
 
-	/// <summary>
-	/// Uses the item.
-	/// </summary>
-	/// <param name="item">Item.</param>
-	public void UseItem(int slotID)
+    public void RemoveItem(int slotID, int amountToDelete)
+    {
+        ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
+
+        if (data.item.Stackable)
+        {
+            if (data.amount > amountToDelete)
+            {
+                //aDialog.OpenDialog(data);
+                Debug.Log(amountToDelete + " can be deleted.");
+
+                data.amount -= amountToDelete;                                          // If there's more than one of the stacked item, we lower it
+                data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+            }
+            else
+            {
+                if (fullInventory)
+                {
+                    fullInventory = false;
+                }
+                slots[slotID].name = "Slot(Clone)";                          // Returns the slot to it's default name
+                items[slotID] = new Item();                                  // We're creating a new blank item that is in every 
+                Destroy(data.gameObject);
+            }
+        }
+        else
+            throw new UnityException("Item needs to be stackable");
+
+    }
+
+    /// <summary>
+    /// Uses the item.
+    /// </summary>
+    /// <param name="item">Item.</param>
+    public void UseItem(int slotID)
 	{
 		Item itemToUse = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
 
@@ -278,24 +260,48 @@ public class Inventory : MonoBehaviour {
 		RemoveItem (slotID);
 	}
 
-    public void BuyItem(int slotID, Inventory buyerInv)
+    public void SellItem(ItemData data, Inventory buyerInv, float price)
     {
-        Item itemToBuy = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
+        Item itemToBuy = data.item;
+        lastSellPrice = price;
+        
 
-        buyerInv.AddItem(itemToBuy.ID);
-        RemoveItem(slotID);
+        if (buyerInv == Player.Instance.Inventory)
+        {
+            buyerInv.AddItem(itemToBuy.ID);
+            RemoveItem(data.slotID);
+            AddMoney(price);
+            buyerInv.AddMoney(-price);
+        }
+        else
+        {
+            if (buyerInv.Money > price)
+            {
+                buyerInv.RemoveItem(data.slotID);
+                if (data.amount == 1)
+                {
+                    buyerInv.transform.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
+                    RemoveItem(Player.Instance.Inventory.ItemInInventoryCheck(data.item));
+                    AddMoney(price);
+                    buyerInv.AddMoney(-price);
+                }
+            }
+            else
+                buyerInv.transform.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough");
+            
+        }
     }
 
     // This is used to make sure the item we are stacking is already in the inventory
-    public bool ItemInInventoryCheck(Item item) // I MADE THIS PUBLIC TO USE IT IN THE DIALOGUE SCRIPT
+    public int ItemInInventoryCheck(Item item) // I MADE THIS PUBLIC TO USE IT IN THE DIALOGUE SCRIPT
     {
         for (int i = 0; i < items.Count; i++)
         {
             if (items[i].ID == item.ID)
             {
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 }

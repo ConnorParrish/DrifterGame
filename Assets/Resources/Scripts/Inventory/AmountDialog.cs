@@ -9,32 +9,75 @@ public class AmountDialog : MonoBehaviour {
     Text quantityText;
     Slider slider;
     Sprite sprite;
-    Inventory inv;
+    Inventory currentInv;
     void Start()
     {
         sprite = transform.GetChild(1).GetComponent<Image>().sprite;
         slider = transform.GetChild(2).gameObject.GetComponent<Slider>();
         quantityText = slider.transform.GetChild(3).GetComponent<Text>();
 
-        inv = transform.parent.parent.parent.GetChild(0).GetComponent<Inventory>();
+        currentInv = transform.parent.parent.parent.GetChild(0).GetComponent<Inventory>();
         gameObject.SetActive(false);
     }
 
     public void OpenDialog(ItemData itemData)
     {
         this.itemData = itemData;
-        Debug.Log("amount" + itemData.amount);
-        Debug.Log("slider.name " + slider.name);
         sprite = transform.GetChild(1).GetComponent<Image>().sprite = itemData.item.Sprite;
-        slider.maxValue = itemData.amount;
+        if (currentInv == Player.Instance.Inventory)
+            slider.maxValue = itemData.amount;
+        else
+        {
+            int maxPurchase = 0;
+            for (int i = 0; i <= itemData.amount; i++)
+            {
+                if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * i)
+                    maxPurchase = i;
+            }
+
+            slider.maxValue = maxPurchase;
+
+        }
         gameObject.SetActive(true);
     }
 
     public void DestroyStack()
     {
-        Debug.Log("quantity text: " + Convert.ToInt32(quantityText.text));
-        inv.RemoveItem(itemData.item.ID, Convert.ToInt32(quantityText.text));
+        currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
+        
         gameObject.SetActive(false);
+    }
+
+    public void BuyStack()
+    {
+        if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text))
+        {
+            currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
+            Player.Instance.Inventory.ChangeItemAmount(Player.Instance.Inventory.ItemInInventoryCheck(itemData.item), -Convert.ToInt32(quantityText.text));
+            Player.Instance.Inventory.AddMoney(Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text));
+            currentInv.AddMoney(-Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text));
+
+            transform.parent.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
+
+        }
+        else
+        {
+            int maxPurchase = 0;
+            for (int i = 0; i < itemData.amount; i++)
+            {
+                if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * i)
+                    maxPurchase = i;
+            }
+            // Not gonna end up using this -- i think that it's a better user story to limit the slider ~Connor
+            //transform.parent.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough_stack", maxPurchase.ToString());
+
+        }
+
+
+
+
+        gameObject.SetActive(false);
+        //return Convert.ToInt32(quantityText.text);
     }
 
     public void CloseDialog()
