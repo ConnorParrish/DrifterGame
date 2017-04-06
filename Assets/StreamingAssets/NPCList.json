@@ -59,19 +59,9 @@
     ],
 	"items": [{"filter": "Drug"},
 	  {
-		"itemID": 1,
-		"price": 1,
-		"amount": 3
-	  },
-	  {
-	  	"itemID": 2,
-		"price": 3,
-		"amount": 4
-	  },
-	  {
-	  	"itemID": 3,
-		"price": 3,
-		"amount": 1
+		"itemID": 4,
+		"price": 5,
+		"amount": 10
 	  }
 	]
   },
