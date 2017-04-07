@@ -1,0 +1,172 @@
+fileFormatVersion: 2
+guid: d2f0aac0e9354b345973c4a7d1b328f7
+timeCreated: 1491552789
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Character1_Reference
+    100002: group
+    100004: group1
+    100006: group2
+    100008: ikHandle1
+    100010: ikHandle11
+    100012: ikHandle12
+    100014: ikHandle13
+    100016: ikHandle14
+    100018: ikHandle15
+    100020: ikHandle19
+    100022: ikHandle2
+    100024: ikHandle20
+    100026: ikHandle21
+    100028: ikHandle22
+    100030: ikHandle7
+    100032: nurbsCircle1
+    100034: nurbsCircle10
+    100036: nurbsCircle13
+    100038: nurbsCircle2
+    100040: nurbsCircle3
+    100042: nurbsCircle6
+    100044: nurbsCircle7
+    100046: nurbsCircle8
+    100048: nurbsCircle9
+    100050: pasted__joint1
+    100052: pasted__joint11
+    100054: pasted__joint12
+    100056: pasted__joint13
+    100058: pasted__joint14
+    100060: pasted__joint15
+    100062: pasted__joint16
+    100064: pasted__joint17
+    100066: pasted__joint18
+    100068: pasted__joint19
+    100070: pasted__joint2
+    100072: pasted__joint20
+    100074: pasted__joint21
+    100076: pasted__joint22
+    100078: pasted__joint3
+    100080: pasted__joint4
+    100082: pasted__joint5
+    100084: pasted__joint6
+    100086: pasted__joint7
+    100088: pSphere6
+    100090: pSphere7
+    100092: //RootNode
+    100094: transform7
+    400000: Character1_Reference
+    400002: group
+    400004: group1
+    400006: group2
+    400008: ikHandle1
+    400010: ikHandle11
+    400012: ikHandle12
+    400014: ikHandle13
+    400016: ikHandle14
+    400018: ikHandle15
+    400020: ikHandle19
+    400022: ikHandle2
+    400024: ikHandle20
+    400026: ikHandle21
+    400028: ikHandle22
+    400030: ikHandle7
+    400032: nurbsCircle1
+    400034: nurbsCircle10
+    400036: nurbsCircle13
+    400038: nurbsCircle2
+    400040: nurbsCircle3
+    400042: nurbsCircle6
+    400044: nurbsCircle7
+    400046: nurbsCircle8
+    400048: nurbsCircle9
+    400050: pasted__joint1
+    400052: pasted__joint11
+    400054: pasted__joint12
+    400056: pasted__joint13
+    400058: pasted__joint14
+    400060: pasted__joint15
+    400062: pasted__joint16
+    400064: pasted__joint17
+    400066: pasted__joint18
+    400068: pasted__joint19
+    400070: pasted__joint2
+    400072: pasted__joint20
+    400074: pasted__joint21
+    400076: pasted__joint22
+    400078: pasted__joint3
+    400080: pasted__joint4
+    400082: pasted__joint5
+    400084: pasted__joint6
+    400086: pasted__joint7
+    400088: pSphere6
+    400090: pSphere7
+    400092: //RootNode
+    400094: transform7
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
