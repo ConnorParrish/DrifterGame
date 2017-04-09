@@ -5,24 +5,41 @@ using UnityEngine;
 public class Cutscene : MonoBehaviour {
 
 
-    public GameObject playerPrefab;
-    public GameObject maincamera;
-    public GameObject Buscamera; 
+    public GameObject player;
+    public GameObject MainCam;
+    public GameObject Title;
+    //FadeManager Fader; 
+
+    private void Retarget(GameObject target)
+    {
+        MainCam.GetComponent<CameraController>().target = target.transform;
+    }
+
+//   public void fade( bool showing, int duration)
+//   {
+//       Fader.Fade(showing, duration);
+//   }
+
+    public void RetargetTitle()
+    {
+        Retarget(Title); 
+    }
+
+    public void RetargetBus()
+    {
+        Retarget(gameObject); 
+    }
 
     public void DropOffPlayer()
     {
-        Instantiate(playerPrefab, transform);
-        Buscamera.SetActive(false);
-        maincamera.SetActive(true);
-
+        Retarget(player);
+        player.transform.position = new Vector3 (transform.position.x, transform.position.y + 6.4f, transform.position.z - 4.45f);
     }
-
 
     public void EndOfCutscene()
 
     {
-        Destroy(gameObject);
-        
+        Destroy(gameObject); 
     }
 
 }
