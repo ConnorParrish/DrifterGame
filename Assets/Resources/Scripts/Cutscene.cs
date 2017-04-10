@@ -8,17 +8,16 @@ public class Cutscene : MonoBehaviour {
     public GameObject player;
     public GameObject MainCam;
     public GameObject Title;
-    //FadeManager Fader; 
 
     private void Retarget(GameObject target)
     {
         MainCam.GetComponent<CameraController>().target = target.transform;
     }
 
-//   public void fade( bool showing, int duration)
-//   {
-//       Fader.Fade(showing, duration);
-//   }
+   public void FadeIn(int duration)
+   {
+        GetComponent<FadeManager>().Fade(false, duration);
+   }
 
     public void RetargetTitle()
     {
