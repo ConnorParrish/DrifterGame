@@ -9,10 +9,6 @@ public class StatGUIUpdater : MonoBehaviour {
     Slider hungerSlider;
     Slider warmthSlider;
 
-    Slider happinessSliderInventory;
-    Slider hungerSliderInventory;
-    Slider warmthSliderInventory;
-
 	// Use this for initialization
 	void Start () {
         Debug.Log(gameObject.name);
@@ -24,17 +20,6 @@ public class StatGUIUpdater : MonoBehaviour {
         happinessSlider.maxValue = Player.Instance.Stats.maxHappiness;
         hungerSlider.maxValue = Player.Instance.Stats.maxHunger;
         warmthSlider.maxValue = Player.Instance.Stats.maxWarmth;
-
-        // get the inventory sliders
-        var temp = transform.parent.parent.gameObject;
-        temp = temp.transform.GetChild(1).GetChild(3).GetChild(3).gameObject;
-        happinessSliderInventory = temp.transform.FindChild("HappinessSlider").gameObject.GetComponent<Slider>();
-        hungerSliderInventory = temp.transform.FindChild("HungerSlider").gameObject.GetComponent<Slider>();
-        warmthSliderInventory = temp.transform.FindChild("WarmthSlider").gameObject.GetComponent<Slider>();
-
-        happinessSliderInventory.maxValue = Player.Instance.Stats.maxHappiness;
-        hungerSliderInventory.maxValue = Player.Instance.Stats.maxHunger;
-        warmthSliderInventory.maxValue = Player.Instance.Stats.maxWarmth;
     }
 	
 	// Update is called once per frame
@@ -42,9 +27,5 @@ public class StatGUIUpdater : MonoBehaviour {
         happinessSlider.value = Player.Instance.Stats.Happiness;
         hungerSlider.value = Player.Instance.Stats.Hunger;
         warmthSlider.value = Player.Instance.Stats.Warmth;
-
-        happinessSliderInventory.value = Player.Instance.Stats.Happiness;
-        hungerSliderInventory.value = Player.Instance.Stats.Hunger;
-        warmthSliderInventory.value = Player.Instance.Stats.Warmth;
     }
 }
