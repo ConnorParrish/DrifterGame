@@ -78,12 +78,12 @@ public class ItemPreviewScript : MonoBehaviour {
             else
                 useButton.SetActive(false);
 
-            itemValueText.text = itemData.item.Resale.ToString("$#0.00");
+            itemValueText.text = itemData.item.Value.ToString("$#0.00");
         }
         else
         {
             if (currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale.Count == 0)
-                itemValueText.text = itemData.item.Resale.ToString("$#0.00");
+                itemValueText.text = itemData.item.Value.ToString("$#0.00");
             else
             {
                 foreach (Dictionary<string,float> itemInfo in currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale)
@@ -116,8 +116,12 @@ public class ItemPreviewScript : MonoBehaviour {
         gameObject.SetActive(false);
         Destroy(itemModelPrefab);
 
-        if (focusedItem != null)
-            focusedItem.transform.parent.GetComponent<Image>().sprite = nonFocusedSprite;
+        if (true)
+        {
+            currentInv.slots[focusedItem.slotID].GetComponent<Image>().sprite = nonFocusedSprite;
+//            focusedItem.transform.parent.GetComponent<Image>().sprite = nonFocusedSprite;
+            Debug.Log("hi");
+        }
 
     }
 
@@ -132,15 +136,15 @@ public class ItemPreviewScript : MonoBehaviour {
     {
         if (currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale.Count == 0)
         {
-            Player.Instance.Inventory.lastSellPrice = focusedItem.item.Resale;
+            Player.Instance.Inventory.lastSellPrice = focusedItem.item.Value;
 
-            Player.Instance.Inventory.SellItem(focusedItem, currentInv, focusedItem.item.Resale);
+            Player.Instance.Inventory.SellItem(focusedItem, currentInv, focusedItem.item.Value);
             //currentInv.RemoveItem(focusedItem.slotID)
             ChangeActiveItem();
         }
         else
         {
-            if (Player.Instance.Inventory.Money >= focusedItem.item.Resale)
+            if (Player.Instance.Inventory.Money >= focusedItem.item.Value)
             {
                 Dictionary<string, float> ifs = new Dictionary<string, float>();
 

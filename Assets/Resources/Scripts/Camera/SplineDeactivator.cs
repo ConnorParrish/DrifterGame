@@ -28,7 +28,7 @@ public class SplineDeactivator : MonoBehaviour
 
         Player.Instance.WorldInteraction.canMove = true;
 
-        gameObject.SetActive(false);
+        
         
     }
 
@@ -36,14 +36,15 @@ public class SplineDeactivator : MonoBehaviour
     {
         Player.Instance.PanhandlingScript.enabled = false;
         DeactivateSpline();
+        transform.GetChild(0).gameObject.SetActive(false);
 
-        //transform.parent.GetChild(1).gameObject.SetActive(false);
     }
 
     public void DeactivateMerchant()
     {
         GameObject merchantUI = GameObject.Find("Merchant Inventory"); // TODO this needs to change for having more merchants (buttons within each UI canvas?)
         merchantUI.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
 
         PlayerHUD.SetActive(true);
 
