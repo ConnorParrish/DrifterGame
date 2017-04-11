@@ -116,8 +116,12 @@ public class ItemPreviewScript : MonoBehaviour {
         gameObject.SetActive(false);
         Destroy(itemModelPrefab);
 
-        if (focusedItem != null)
-            focusedItem.transform.parent.GetComponent<Image>().sprite = nonFocusedSprite;
+        if (true)
+        {
+            currentInv.slots[focusedItem.slotID].GetComponent<Image>().sprite = nonFocusedSprite;
+//            focusedItem.transform.parent.GetComponent<Image>().sprite = nonFocusedSprite;
+            Debug.Log("hi");
+        }
 
     }
 

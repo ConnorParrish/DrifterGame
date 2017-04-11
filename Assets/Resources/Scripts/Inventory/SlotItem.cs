@@ -23,15 +23,13 @@ public class SlotItem : MonoBehaviour, IDropHandler {
         ItemData droppedItem = eventData.pointerDrag.GetComponent<ItemData>();  // Get's the item the mouse is dragging, then gets the component ItemData
         //Debug.Log(inv.items[slotID].ID);
 
-        if (gameObject.name == "Trash Slot" || gameObject.name == "Image")
+        if (slotID == -1)
         {
             Debug.Log("Deleting item: " + droppedItem.item.Title);
 
-			//inv.slots [droppedItem.slotID].gameObject.name = droppedItem.item.Title;
 			currentInv.items [droppedItem.slotID] = droppedItem.item;
-			droppedItem.slotID = -1;
-			droppedItem.OED();
-			Debug.Log ("droppedItem.slotID: " + droppedItem.slotID);
+
+            droppedItem.transform.SetParent(currentInv.slots[droppedItem.slotID].transform);
 			currentInv.RemoveItem(droppedItem.slotID);
             return;
         }
@@ -43,6 +41,7 @@ public class SlotItem : MonoBehaviour, IDropHandler {
 			currentInv.slots [slotID].gameObject.name = "Slot #" + slotID + " - " + droppedItem.item.Title;
 			currentInv.items [slotID] = droppedItem.item;                                   // The new slot's item will be the dropped item
 			droppedItem.slotID = slotID;                                            // Updates the item's slot id
+            //droppedItem.OED();
 		} else if (droppedItem.slotID != slotID)
         {	
 			Debug.Log ("slotID's do not match -> swapping");
@@ -60,6 +59,7 @@ public class SlotItem : MonoBehaviour, IDropHandler {
 
             currentInv.slots[slotID].gameObject.name = "Slot #" + slotID + " - " + droppedItem.item.Title;
             currentInv.items[slotID] = droppedItem.item;
+            
         }
     }
 }
