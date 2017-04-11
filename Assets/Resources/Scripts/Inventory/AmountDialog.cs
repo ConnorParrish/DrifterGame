@@ -60,21 +60,6 @@ public class AmountDialog : MonoBehaviour {
             transform.parent.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
 
         }
-        else
-        {
-            int maxPurchase = 0;
-            for (int i = 0; i < itemData.amount; i++)
-            {
-                if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * i)
-                    maxPurchase = i;
-            }
-            // Not gonna end up using this -- i think that it's a better user story to limit the slider ~Connor
-            //transform.parent.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough_stack", maxPurchase.ToString());
-
-        }
-
-
-
 
         gameObject.SetActive(false);
         //return Convert.ToInt32(quantityText.text);
