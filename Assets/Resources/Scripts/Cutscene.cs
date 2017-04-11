@@ -14,10 +14,16 @@ public class Cutscene : MonoBehaviour {
         MainCam.GetComponent<CameraController>().target = target.transform;
     }
 
-   public void FadeIn(int duration)
-   {
+    public void FadeIn(float duration)
+    {
         GetComponent<FadeManager>().Fade(false, duration);
-   }
+    }
+
+    public void FadeOut(float duration)
+    {
+        GetComponent<FadeManager>().Fade(true, duration);
+    }
+ 
 
     public void RetargetTitle()
     {
@@ -31,8 +37,8 @@ public class Cutscene : MonoBehaviour {
 
     public void DropOffPlayer()
     {
+        player.transform.position = new Vector3(transform.position.x, transform.position.y + 6.4f, transform.position.z - 4.45f);
         Retarget(player);
-        player.transform.position = new Vector3 (transform.position.x, transform.position.y + 6.4f, transform.position.z - 4.45f);
     }
 
     public void EndOfCutscene()
