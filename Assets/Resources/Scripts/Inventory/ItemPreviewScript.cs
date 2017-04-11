@@ -73,7 +73,7 @@ public class ItemPreviewScript : MonoBehaviour {
 
         if (currentInv.gameObject.name == "Inventory Manager")
         {
-            if (itemData.item.Type == "Consumable")
+            if (itemData.item.Type == "Consumable" || itemData.item.Type == "Drug")
                 useButton.SetActive(true);
             else
                 useButton.SetActive(false);
@@ -116,12 +116,7 @@ public class ItemPreviewScript : MonoBehaviour {
         gameObject.SetActive(false);
         Destroy(itemModelPrefab);
 
-        if (true)
-        {
-            currentInv.slots[focusedItem.slotID].GetComponent<Image>().sprite = nonFocusedSprite;
-//            focusedItem.transform.parent.GetComponent<Image>().sprite = nonFocusedSprite;
-            Debug.Log("hi");
-        }
+        currentInv.slots[focusedItem.slotID].GetComponent<Image>().sprite = nonFocusedSprite;
 
     }
 

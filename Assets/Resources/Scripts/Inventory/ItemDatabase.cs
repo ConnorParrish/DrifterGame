@@ -37,8 +37,8 @@ public class ItemDatabase : MonoBehaviour {
 	void ConstructItemDatabase(){
 		for (int i = 0; i < itemDatabase.Count; i++){
 			database.Add(new Item((int)itemDatabase[i]["id"], itemDatabase[i]["title"].ToString(), itemDatabase[i]["description"].ToString(),
-                itemDatabase[i]["slug"].ToString(), itemDatabase[i]["type"].ToString(), bool.Parse(itemDatabase[i]["stackable"].ToString()), 
-                float.Parse(itemDatabase[i]["value"].ToString())));
+                itemDatabase[i]["slug"].ToString(), itemDatabase[i]["type"].ToString(), float.Parse(itemDatabase[i]["strength"].ToString()), 
+                bool.Parse(itemDatabase[i]["stackable"].ToString()), float.Parse(itemDatabase[i]["value"].ToString())));
 		}
 	}
 }
@@ -49,16 +49,18 @@ public class Item {
 	public string Description { get; set; }
     public string Slug { get; set; }
     public string Type { get; set; }
+    public float Strength { get; set; }
     public bool Stackable { get; set; }
     public float Value { get; set; }
     public Sprite Sprite { get; set; }
 
-	public Item(int id, string title, string description, string slug, string type, bool stackable, float value) {
+	public Item(int id, string title, string description, string slug, string type, float strength, bool stackable, float value) {
 		this.ID = id;
 		this.Title = title;
 		this.Description = description;
         this.Slug = slug;
         this.Type = type;
+        this.Strength = strength;
         this.Stackable = stackable;
         this.Value = value;
         this.Sprite = Resources.Load<Sprite>("Sprites/Items/" + slug);

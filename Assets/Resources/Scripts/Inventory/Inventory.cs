@@ -58,7 +58,7 @@ public class Inventory : MonoBehaviour {
     private void OnValidate()
     {
         if (Application.isPlaying)
-            if (transform.parent.name == "General UI Canvas")
+            if (transform.parent.parent.name == "General UI Canvas")
                 transform.parent.GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("$#0.00");
     }
 
@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour {
         inventoryMenu = transform.parent.GetChild(1).gameObject;
         database = GetComponent<ItemDatabase>();
         slotAmount = MaxSlots;
-        if (transform.parent.name == "General UI Canvas")
+        if (transform.parent.parent.name == "General UI Canvas")
         {
             moneyText = inventoryMenu.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>();
             slotPanel = inventoryMenu.transform.GetChild(1).GetChild(0).gameObject;
@@ -252,12 +252,19 @@ public class Inventory : MonoBehaviour {
     public void UseItem(int slotID)
 	{
 		Item itemToUse = slots[slotID].transform.GetChild(0).GetComponent<ItemData>().item;
+        Debug.Log(itemToUse.Type);
 
-		if (itemToUse.Type != "Consumable")
-			throw new UnityException ("The item isn't consumable");
+        if (itemToUse.Type != "Consumable" && itemToUse.Type != "Drug")
+			throw new UnityException ("The item isn't consumable or a drug");
 
-		Player.Instance.Stats.Hunger += 20;
-		RemoveItem (slotID);
+        if (itemToUse.Type == "Consumable")
+            Player.Instance.Stats.Hunger += itemToUse.Strength;
+
+        else if (itemToUse.Type == "Drug")
+        {
+            Player.Instance.Stats.isDrugged = true;
+        }
+        RemoveItem (slotID);
 	}
 
     public void SellItem(ItemData data, Inventory buyerInv, float price)

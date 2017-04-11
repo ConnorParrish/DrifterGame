@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using AC.TimeOfDaySystemFree;
-
+using UnityEngine.UI;
 
 /// <summary>
 /// Component to keep track of player stats relative to the time of day managers timeline. Has
@@ -27,12 +27,31 @@ public class StatTracker : MonoBehaviour {
     public float maxHunger = 100;
     public float maxWarmth = 100;
 
+    [Range(0,100)]
+    public int HappinessThreshold;
+    [Range(0,100)]
+    public int HungerThreshold;
+    [Range(0,100)]
+    public int WarmthThreshold;
+
+    public bool isSad;
+    public bool isHungry;
+    public bool isFreezing;
+    public bool isDrugged;
+
     public string Charging;
 
     private float happiness = 100;
     private float hunger = 100;
     private float warmth = 100;
 
+    private Transform statusEffectOverlayTransform;
+    private GameObject SadnessOverlay;
+    private GameObject HungryOverlay;
+    private GameObject FreezingOverlay;
+    public Sprite SadnessOverlaySprite;
+    public Sprite HungryOverlaySprite;
+    public Sprite FreezingOverlaySprite;
 
     // private float for scaling time.deltaTime appropriately with the total day length
     private float scaler;
@@ -43,16 +62,33 @@ public class StatTracker : MonoBehaviour {
         scaler = 1 / (tdm.dayInSeconds / 100);
         hungerDecay = hungerDecay / 100;
         warmthDecay = warmthDecay / 100;
+
+        statusEffectOverlayTransform = Player.Instance.Inventory.transform.parent.parent.GetChild(0);
+        SadnessOverlay = statusEffectOverlayTransform.GetChild(0).gameObject;
+        HungryOverlay = statusEffectOverlayTransform.GetChild(1).gameObject;
+        FreezingOverlay = statusEffectOverlayTransform.GetChild(2).gameObject;
+
+        SadnessOverlay.GetComponent<Image>().sprite = SadnessOverlaySprite;
+        HungryOverlay.GetComponent<Image>().sprite = HungryOverlaySprite;
+        FreezingOverlay.GetComponent<Image>().sprite = FreezingOverlaySprite;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         warmth -= (Time.deltaTime * scaler * warmthDecay);
         hunger -= (Time.deltaTime * scaler * hungerDecay);
         happiness = (warmth + hunger) / 2;
+        
+        isSad = (happiness < HappinessThreshold);
+        isHungry = (hunger < HungerThreshold);
+        isFreezing = (warmth < WarmthThreshold);
 
-        if (Charging != "")
-            Debug.Log("Charging " + Charging);
+        if (SadnessOverlay.activeSelf != isSad)
+            SadnessOverlay.SetActive(isSad);
+        if (HungryOverlay.activeSelf != isHungry)
+            HungryOverlay.SetActive(isHungry);
+        if (FreezingOverlay.activeSelf != isFreezing)
+            FreezingOverlay.SetActive(isFreezing);
 
         // adjust warmth, hunger, and happiness
         if (Charging == "warmth")

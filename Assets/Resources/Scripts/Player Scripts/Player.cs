@@ -25,7 +25,7 @@ public class Player : MonoBehaviour {
 
     private void Start()
     {
-        Inventory = GameObject.Find("General UI Canvas").transform.GetChild(0).GetComponent<Inventory>();
+        Inventory = GameObject.Find("General UI Canvas").transform.GetChild(1).GetChild(0).GetComponent<Inventory>();
         Stats = GetComponent<StatTracker>();
         PanhandlingScript = GetComponent<PanhandlingScript>();
         WorldInteraction = GetComponent<WorldInteraction>();

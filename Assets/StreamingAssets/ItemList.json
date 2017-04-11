@@ -5,6 +5,7 @@
 		"description": "Eat this beefy shit to regain your hunger",
 		"slug": "burger",
 		"type": "Consumable",
+		"strength": "20",
 		"stackable": false,
 		"value": "3"
 	},
@@ -14,6 +15,7 @@
 		"description": "Eat this chicken shit to regain your hunger",
 		"slug": "chicken_sandwich",
 		"type": "Consumable",
+		"strength": "20",
 		"stackable": false,
 		"value": "3"
 	},
@@ -23,6 +25,7 @@
 		"description": "Is this fallout?",
 		"slug": "bottlecap",
 		"type": "Recyclable",
+		"strength": "0",
 		"stackable": true,
 		"value": "0.5"
 	},
@@ -32,6 +35,7 @@
 		"description": "Shit, I wish there was still some in here for me...",
 		"slug": "beerbottle",
 		"type": "Recyclable",
+		"strength": "0",
 		"stackable": false,
 		"value": "10"
 	},
@@ -41,6 +45,7 @@
 		"description": "This looks pointy, and unsanitary...",
 		"slug": "syringe",
 		"type": "Drug",
+		"strength": "20",
 		"stackable": false,
 		"value": "5"
 	}
