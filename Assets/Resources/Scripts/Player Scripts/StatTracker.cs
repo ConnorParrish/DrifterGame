@@ -39,6 +39,8 @@ public class StatTracker : MonoBehaviour {
     public bool isFreezing;
     public bool isDrugged;
 
+    public float drugDuration = 0f;
+
     public string Charging;
 
     private float happiness = 100;
@@ -49,9 +51,13 @@ public class StatTracker : MonoBehaviour {
     private GameObject SadnessOverlay;
     private GameObject HungryOverlay;
     private GameObject FreezingOverlay;
+    private GameObject DruggedOverlay;
     public Sprite SadnessOverlaySprite;
     public Sprite HungryOverlaySprite;
     public Sprite FreezingOverlaySprite;
+    public Sprite DruggedOverlaySprite;
+
+    public float cleanAtTime;
 
     // private float for scaling time.deltaTime appropriately with the total day length
     private float scaler;
@@ -67,10 +73,12 @@ public class StatTracker : MonoBehaviour {
         SadnessOverlay = statusEffectOverlayTransform.GetChild(0).gameObject;
         HungryOverlay = statusEffectOverlayTransform.GetChild(1).gameObject;
         FreezingOverlay = statusEffectOverlayTransform.GetChild(2).gameObject;
+        DruggedOverlay = statusEffectOverlayTransform.GetChild(3).gameObject;
 
         SadnessOverlay.GetComponent<Image>().sprite = SadnessOverlaySprite;
         HungryOverlay.GetComponent<Image>().sprite = HungryOverlaySprite;
         FreezingOverlay.GetComponent<Image>().sprite = FreezingOverlaySprite;
+        DruggedOverlay.GetComponent<Image>().sprite = DruggedOverlaySprite;
     }
 
     // Update is called once per frame
@@ -82,13 +90,65 @@ public class StatTracker : MonoBehaviour {
         isSad = (happiness < HappinessThreshold);
         isHungry = (hunger < HungerThreshold);
         isFreezing = (warmth < WarmthThreshold);
+        isDrugged = (drugDuration > 0f);
 
         if (SadnessOverlay.activeSelf != isSad)
+        {
+            if (isSad)
+            {
+                Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
+            }
             SadnessOverlay.SetActive(isSad);
+
+        }
         if (HungryOverlay.activeSelf != isHungry)
+        {
+            if (isHungry)
+            {
+                Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
+            }
             HungryOverlay.SetActive(isHungry);
+
+        }
         if (FreezingOverlay.activeSelf != isFreezing)
+        {
+            if (isHungry)
+            {
+                Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
+            }
             FreezingOverlay.SetActive(isFreezing);
+
+        }
+
+        if (DruggedOverlay.activeSelf != isDrugged)
+        {
+            Debug.Log("drugged state changed: " + tdm.timeline);
+            if (isDrugged)
+            {
+                Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * 2f;
+                warmthDecay = warmthDecay * 1.3f;
+                hungerDecay = hungerDecay * 1.3f;
+                cleanAtTime = tdm.timeline + drugDuration;
+                if (cleanAtTime != 0f) Debug.Log("Clean at: " + cleanAtTime);
+
+            }
+            else
+            {
+                Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * 0.5f;
+                Debug.Log("Hi");
+                hungerDecay = hungerDecay * (10f/13f);
+                warmthDecay = warmthDecay * (10f/13f);
+            }
+            DruggedOverlay.SetActive(isDrugged);
+        }
+
+        if (tdm.timeline >= cleanAtTime && cleanAtTime != 0f)
+        {
+            drugDuration = 0f;
+
+ 
+        }
+
 
         // adjust warmth, hunger, and happiness
         if (Charging == "warmth")

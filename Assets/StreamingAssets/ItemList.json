@@ -45,7 +45,7 @@
 		"description": "This looks pointy, and unsanitary...",
 		"slug": "syringe",
 		"type": "Drug",
-		"strength": "20",
+		"strength": ".5",
 		"stackable": false,
 		"value": "5"
 	}

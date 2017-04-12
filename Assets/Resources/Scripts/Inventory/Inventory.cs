@@ -263,6 +263,9 @@ public class Inventory : MonoBehaviour {
         else if (itemToUse.Type == "Drug")
         {
             Player.Instance.Stats.isDrugged = true;
+            Player.Instance.Stats.drugDuration = itemToUse.Strength;
+            Player.Instance.Stats.Hunger += 10f;
+            Player.Instance.Stats.Warmth += 10f;
         }
         RemoveItem (slotID);
 	}
