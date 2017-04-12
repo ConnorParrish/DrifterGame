@@ -8,7 +8,20 @@ public class Cutscene : MonoBehaviour {
     public GameObject player;
     public GameObject Actor; 
     public GameObject MainCam;
+    private bool BusStop; 
 
+    public void update()
+    {
+        if (BusStop == true)
+        {
+            player.transform.Translate(0,-.1f,-.1f); 
+        }
+        else if(BusStop ==true&& player.transform.position.y == 0)
+        {
+            BusStop = false;
+            player.GetComponent<Animator>().SetBool("cutscene", false);
+        }
+    }
 
     private void Retarget(GameObject target)
     {
@@ -27,17 +40,24 @@ public class Cutscene : MonoBehaviour {
 
     public void DropOffActor()
     {
-        Actor.GetComponent<Animation>().enabled = true;
+        BusStop = true;
         Actor.GetComponentInChildren<Animator>().SetBool("IsCutscene", true);
     }
 
     public void PlacePlayer()
     {
+       
+        PlaceGameObject(player, new Vector3(66.89f, 0.46f, 9.17f));
         MainCam.GetComponent<CameraController>().enabled = true;
         Retarget(player);
-        player.GetComponent<Transform>().position = new Vector3(66.89f, 0.46f, 9.17f);
-        
-        
+        PlaceGameObject(MainCam, new Vector3(66.89f, 8.98f, 22.18f));
+
+
+
+    }
+    public void PlaceGameObject(GameObject Object, Vector3 NewLoc)
+    {
+        Object.GetComponent<Transform>().position = NewLoc; 
     }
 
     public void EndOfCutscene()
