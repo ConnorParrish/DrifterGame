@@ -6,8 +6,9 @@ public class Cutscene : MonoBehaviour {
 
 
     public GameObject player;
+    public GameObject Actor; 
     public GameObject MainCam;
-    public GameObject Title;
+
 
     private void Retarget(GameObject target)
     {
@@ -23,28 +24,27 @@ public class Cutscene : MonoBehaviour {
     {
         GetComponent<FadeManager>().Fade(true, duration);
     }
- 
 
-    public void RetargetTitle()
+    public void DropOffActor()
     {
-        Retarget(Title); 
+        Actor.GetComponent<Animation>().enabled = true;
+        Actor.GetComponentInChildren<Animator>().SetBool("IsCutscene", true);
     }
 
-    public void RetargetBus()
+    public void PlacePlayer()
     {
-        Retarget(gameObject); 
-    }
-
-    public void DropOffPlayer()
-    {
-        player.transform.position = new Vector3(transform.position.x, transform.position.y + 6.4f, transform.position.z - 4.45f);
+        MainCam.GetComponent<CameraController>().enabled = true;
         Retarget(player);
+        player.GetComponent<Transform>().position = new Vector3(66.89f, 0.46f, 9.17f);
+        
+        
     }
 
     public void EndOfCutscene()
 
     {
-        Destroy(gameObject); 
+        Destroy(Actor);
+        Destroy(gameObject);
     }
 
 }
