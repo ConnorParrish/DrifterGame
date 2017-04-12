@@ -46,6 +46,7 @@ public class SplineDeactivator : MonoBehaviour
         merchantUI.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);
 
+        //Time.timeScale = 1f;
         PlayerHUD.SetActive(true);
 
         DeactivateSpline();

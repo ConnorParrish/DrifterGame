@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
 /// <summary>
 /// Inventory is the object that holds all the information for the player's current inventory.
@@ -52,8 +53,10 @@ public class Inventory : MonoBehaviour {
      
     public Text moneyText;
     int slotAmount;                                                             // Max number of slots
-    int lastChangedAmountDifference;
+    int lastChangedAmountDifference = 1;
     public float lastSellPrice;
+
+    public bool buyer;
 
     private void OnValidate()
     {
@@ -174,13 +177,13 @@ public class Inventory : MonoBehaviour {
     public void RemoveItem(int slotID)
     {
 		ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
+        ips.ChangeActiveItem(data);
         ips.ChangeActiveItem();
         if (ItemInInventoryCheck(data.item) == -1)
         {
             Debug.Log("You don't have any " + data.item.Title + " in your inventory!");
             return;
         }
-
 		
         if (!data.item.Stackable || data.amount == 1)
         {
@@ -192,6 +195,14 @@ public class Inventory : MonoBehaviour {
 			slots[slotID].name = "Slot(Clone)";
                     
 			items[slotID] = new Item();            
+            /*if (this == Player.Instance.Inventory)
+                foreach (Inventory inv in GameObject.Find("NPC Manager").GetComponentsInChildren<Inventory>().Where(i => i.buyer))
+                {
+                    Debug.Log("inv name" + inv.transform.parent.parent.name);
+                    inv.RemoveItem(inv.ItemInInventoryCheck(data.item));
+                    Debug.Log(inv.transform.parent.name);
+                }
+                */
         }
         else
         {
@@ -219,7 +230,7 @@ public class Inventory : MonoBehaviour {
     {
         ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
 
-        if (data.item.Stackable)
+        if (true)
         {
             if (data.amount > amountToDelete)
             {
@@ -280,25 +291,22 @@ public class Inventory : MonoBehaviour {
         {
             buyerInv.AddItem(itemToBuy.ID);
             RemoveItem(data.slotID);
-            AddMoney(price);
+            AddMoney(-price);
             buyerInv.AddMoney(-price);
         }
         else
         {
-            if (buyerInv.Money > price)
+            buyerInv.RemoveItem(buyerInv.ItemInInventoryCheck(data.item));
+
+            if (!data.item.Stackable)
             {
-                buyerInv.RemoveItem(data.slotID);
-                if (data.amount == 1)
-                {
-                    buyerInv.transform.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
-                    RemoveItem(Player.Instance.Inventory.ItemInInventoryCheck(data.item));
-                    AddMoney(price);
-                    buyerInv.AddMoney(-price);
-                }
+                Player.Instance.Inventory.RemoveItem(Player.Instance.Inventory.ItemInInventoryCheck(data.item));
+                AddMoney(price);
+                buyerInv.AddMoney(price);
+
             }
-            else
-                buyerInv.transform.parent.parent.GetComponent<fullDialogue>().showDialogue("notenough");
-            
+
+
         }
     }
 

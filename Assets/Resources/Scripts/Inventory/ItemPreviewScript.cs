@@ -129,7 +129,7 @@ public class ItemPreviewScript : MonoBehaviour {
 
     public void BuyItem()
     {
-        if (currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale.Count == 0)
+        if (currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale.Count == 0) // if the NPC only buys from you
         {
             Player.Instance.Inventory.lastSellPrice = focusedItem.item.Value;
 
@@ -139,13 +139,15 @@ public class ItemPreviewScript : MonoBehaviour {
         }
         else
         {
-            if (Player.Instance.Inventory.Money >= focusedItem.item.Value)
-            {
-                Dictionary<string, float> ifs = new Dictionary<string, float>();
+            Dictionary<string, float> ifs = new Dictionary<string, float>();
 
-                foreach (Dictionary<string, float> itemForSale in currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale)
-                    if (itemForSale["itemID"] == focusedItem.item.ID)
-                        ifs = itemForSale;
+            foreach (Dictionary<string, float> itemForSale in currentInv.transform.parent.parent.GetComponent<Merchant>().NPCData.ItemsForSale)
+                if (itemForSale["itemID"] == focusedItem.item.ID)
+                    ifs = itemForSale;
+
+            if (Player.Instance.Inventory.Money >= ifs["price"])
+            {
+                
 
                 currentInv.SellItem(focusedItem, Player.Instance.Inventory, ifs["price"]);
 

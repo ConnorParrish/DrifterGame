@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,26 +25,18 @@ public class AmountDialog : MonoBehaviour {
     {
         this.itemData = itemData;
         sprite = transform.GetChild(1).GetComponent<Image>().sprite = itemData.item.Sprite;
-        if (currentInv == Player.Instance.Inventory)
-            slider.maxValue = itemData.amount;
-        else
-        {
-            int maxPurchase = 0;
-            for (int i = 0; i <= itemData.amount; i++)
-            {
-                if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * i)
-                    maxPurchase = i;
-            }
+        slider.maxValue = itemData.amount;
 
-            slider.maxValue = maxPurchase;
-
-        }
         gameObject.SetActive(true);
     }
 
     public void DestroyStack()
     {
         currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
+
+        if (currentInv == Player.Instance.Inventory)
+            foreach (Inventory inv in GameObject.Find("NPC Manager").GetComponentsInChildren<Inventory>().Where(i => i.buyer))
+                inv.ChangeItemAmount(inv.ItemInInventoryCheck(itemData.item), -Convert.ToInt32(quantityText.text));
         
         gameObject.SetActive(false);
     }
@@ -53,9 +46,13 @@ public class AmountDialog : MonoBehaviour {
         if (currentInv.Money > Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text))
         {
             currentInv.ChangeItemAmount(itemData.slotID, -Convert.ToInt32(quantityText.text));
+
+//            Player.Instance.Inventory.RemoveItem(Player.Instance.Inventory.ItemInInventoryCheck(itemData.item), -Convert.ToInt32(quantityText.text));
+
+
             Player.Instance.Inventory.ChangeItemAmount(Player.Instance.Inventory.ItemInInventoryCheck(itemData.item), -Convert.ToInt32(quantityText.text));
             Player.Instance.Inventory.AddMoney(Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text));
-            currentInv.AddMoney(-Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text));
+            currentInv.AddMoney(Player.Instance.Inventory.lastSellPrice * Convert.ToInt32(quantityText.text)); //negate for buying stacks
 
             transform.parent.parent.parent.parent.GetComponent<fullDialogue>().showDialogue("success");
 

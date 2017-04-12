@@ -11,7 +11,7 @@ public class StatGUIUpdater : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log(gameObject.name);
+
         // get the external sliders
         happinessSlider = transform.GetChild(0).GetComponent<Slider>();
         hungerSlider = transform.GetChild(1).GetComponent<Slider>();

@@ -37,7 +37,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isPlayer)
+        if (true)
         {
             offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
             this.transform.position = eventData.position - offset;                  // Sets the sprite's position to look like it stays where the mouse picks it up
