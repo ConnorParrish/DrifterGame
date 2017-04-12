@@ -9,11 +9,21 @@ public class ProximityBuffObject : MonoBehaviour {
     public Type BuffType;
     //public float AreaOfEffectRadius;
 
-    private Collider radiusTrigger;
+    public float triggerRadius;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, triggerRadius);
+    }
+
+    private void OnValidate()
+    {
+        GetComponent<SphereCollider>().radius = triggerRadius;
+    }
     private void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Player effeced");
+        Debug.Log("Player effected by " + BuffType.ToString() + " buff");
         if (col.gameObject.tag == "Player")
         {
             if (BuffType == Type.Happiness)

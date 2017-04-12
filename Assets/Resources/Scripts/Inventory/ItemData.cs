@@ -22,6 +22,7 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Tooltip tooltip;
     private Vector2 offset;                                                     // Distance between mouse and middle of sprite
     private ItemPreviewScript ips;
+    private bool isPlayer;
 
 
     void Start()
@@ -30,55 +31,62 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         tooltip = GetComponent<Tooltip>();
         ips = transform.parent.parent.parent.parent.GetChild(transform.parent.parent.parent.parent.childCount - 2).GetComponent<ItemPreviewScript>();
 
+        if (inv == Player.Instance.Inventory)
+            isPlayer = true;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
-        this.transform.position = eventData.position - offset;                  // Sets the sprite's position to look like it stays where the mouse picks it up
-        //Debug.Log(ips.name);
-        ips.ChangeActiveItem(this);
+        if (isPlayer)
+        {
+            offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
+            this.transform.position = eventData.position - offset;                  // Sets the sprite's position to look like it stays where the mouse picks it up
+                                                                                    //Debug.Log(ips.name);
+            ips.ChangeActiveItem(this);
 
+        }
     }
 
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (item != null)
+        if (isPlayer)
         {
-            this.transform.SetParent(this.transform.parent.parent);             // Brings the sprite outside of it's slot so it will render above the inventory slots
-			prevSlotID = slotID;
-            GetComponent<CanvasGroup>().blocksRaycasts = false;                 // Lets the drop recognize the slot underneath the sprite
+            if (item != null)
+            {
+                this.transform.SetParent(this.transform.parent.parent);             // Brings the sprite outside of it's slot so it will render above the inventory slots
+                prevSlotID = slotID;
+                GetComponent<CanvasGroup>().blocksRaycasts = false;                 // Lets the drop recognize the slot underneath the sprite
+                ips.ChangeActiveItem();
+            }
+
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (item != null)
+        if (isPlayer)
         {
-            this.transform.position = eventData.position - offset;              // Keeps the item's position relative to the mouse
+            if (item != null)
+            {
+                this.transform.position = eventData.position - offset;              // Keeps the item's position relative to the mouse
+            }
+
         }
     }
-	public void OED(){
-		if (slotID == -1) 
-		{
-			ips.ChangeActiveItem();
-			this.transform.SetParent (inv.slots [prevSlotID].transform);
-			this.transform.position = inv.slots[prevSlotID].transform.position;
-			slotID = prevSlotID;
-            prevSlotID = -1;
-
-		}
-
-	}
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (item != null)
+        if (isPlayer)
         {
-            this.transform.SetParent(inv.slots[slotID].transform);                // Brings the item down into the new slot
-            this.transform.position = inv.slots[slotID].transform.position;       // Sets the item in the new parent's slot
-            GetComponent<CanvasGroup>().blocksRaycasts = true;                  // Lets the player pick it back up
+            if (item != null)
+            {
+                this.transform.SetParent(inv.slots[slotID].transform);                // Brings the item down into the new slot
+                this.transform.position = inv.slots[slotID].transform.position;       // Sets the item in the new parent's slot
+                GetComponent<CanvasGroup>().blocksRaycasts = true;                  // Lets the player pick it back up
+                ips.ChangeActiveItem(this);
+
+            }
 
         }
     }
