@@ -10,13 +10,17 @@ public class CameraController : MonoBehaviour {
     Material transparentMat;
 
     Vector3 screenPos;
-    Vector3 offset;
+    public Vector3 offset;
 
     List<GameObject> GOInTheWay = new List<GameObject>();
-
-    void Start()
+    
+    void OnEnable()
     {
         offset = transform.position - target.position;
+    }
+    
+    void Start()
+    {
         opaqueMat = new Material(Resources.Load<Material>("Materials/DebugOpaque"));
         transparentMat = new Material(Resources.Load<Material>("Materials/DebugTransparent"));
     } 

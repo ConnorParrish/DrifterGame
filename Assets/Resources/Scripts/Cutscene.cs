@@ -6,27 +6,20 @@ public class Cutscene : MonoBehaviour {
 
 
     public GameObject player;
-    public GameObject Actor; 
     public GameObject MainCam;
-    private bool BusStop; 
+    private fullDialogue fDialog;
 
-    public void update()
+    public void Start()
     {
-        if (BusStop == true)
-        {
-            player.transform.Translate(0,-.1f,-.1f); 
-        }
-        else if(BusStop ==true&& player.transform.position.y == 0)
-        {
-            BusStop = false;
-            player.GetComponent<Animator>().SetBool("cutscene", false);
-        }
+        fDialog = GetComponent<fullDialogue>();
+        MainCam.GetComponent<CameraController>().enabled = false;
     }
 
-    private void Retarget(GameObject target)
+    public void ShowCustomCutsceneDialogue(string message)
     {
-        MainCam.GetComponent<CameraController>().target = target.transform;
+        fDialog.showCustomDialogue(message);
     }
+
 
     public void FadeIn(float duration)
     {
@@ -38,21 +31,16 @@ public class Cutscene : MonoBehaviour {
         GetComponent<FadeManager>().Fade(true, duration);
     }
 
-    public void DropOffActor()
-    {
-        BusStop = true;
-        Actor.GetComponentInChildren<Animator>().SetBool("IsCutscene", true);
-    }
 
     public void PlacePlayer()
     {
-       
-        PlaceGameObject(player, new Vector3(66.89f, 0.46f, 9.17f));
+
+        player.SetActive(true);
+        MainCam.GetComponent<Animation>().enabled = false;
+        MainCam.GetComponent<CameraController>().target = player.transform;
         MainCam.GetComponent<CameraController>().enabled = true;
-        Retarget(player);
-        PlaceGameObject(MainCam, new Vector3(66.89f, 8.98f, 22.18f));
-
-
+        
+        
 
     }
     public void PlaceGameObject(GameObject Object, Vector3 NewLoc)
@@ -63,7 +51,6 @@ public class Cutscene : MonoBehaviour {
     public void EndOfCutscene()
 
     {
-        Destroy(Actor);
         Destroy(gameObject);
     }
 

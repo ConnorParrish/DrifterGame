@@ -27,6 +27,8 @@ public class fullDialogue : MonoBehaviour
     IEnumerator currentCoroutine;
 	IEnumerator messageCycler;
 
+    public bool interactive = true;
+
     void Start()
     {
         PlayerHUD = GameObject.Find("General UI Canvas");
@@ -37,7 +39,10 @@ public class fullDialogue : MonoBehaviour
         text = canvas.transform.FindChild("Image").gameObject.GetComponentInChildren<Text>();
         image = canvas.transform.FindChild("Image").gameObject;
         Button button = image.GetComponent<Button>();
-        button.onClick.AddListener(showNextMessage);
+
+        if (interactive)
+            button.onClick.AddListener(showNextMessage);
+
         // set the canvas to false because we don't need it yet
         canvas.SetActive(false);
 
@@ -56,17 +61,28 @@ public class fullDialogue : MonoBehaviour
 
     private void showNextMessage()
     {
-        // code up here will cycle through the message set
-		messageCycler.MoveNext();
+        if (true)
+        {
+            // code up here will cycle through the message set
+            messageCycler.MoveNext();
 
-        // stop the old coroutine if it has not finished
-        StopCoroutine(currentCoroutine);
+            // stop the old coroutine if it has not finished
+            StopCoroutine(currentCoroutine);
 
-        // this section is for creating the next frame
-        currentCoroutine = writeMessage();
+            // this section is for creating the next frame
+            currentCoroutine = writeMessage();
 
-        // starts typing the current message
-        StartCoroutine(currentCoroutine);
+            // starts typing the current message
+            StartCoroutine(currentCoroutine);
+
+        }
+    }
+
+    public void showCustomDialogue(string message)
+    {
+        canvas.SetActive(true);
+        messageCycler = cycleSingleMessage(message);
+        StartCoroutine(growCanvas());
     }
 
 	public void showDialogue()
@@ -189,6 +205,13 @@ public class fullDialogue : MonoBehaviour
         }
 
         canvas.SetActive(false);
+    }
+
+    IEnumerator cycleSingleMessage(string message)
+    {
+        currentText = message;
+        yield return null;
+        endDialogue();
     }
 
 	IEnumerator cycleMessages(){
