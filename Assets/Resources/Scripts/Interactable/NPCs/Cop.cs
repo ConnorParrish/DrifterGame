@@ -15,6 +15,7 @@ public class Cop : NPCInteraction {
         anim = transform.GetChild(0).GetComponent<Animator>();
         base.NPCData = GameObject.Find("NPC Manager").GetComponent<NPCDatabase>().npcDict["Police Officer"];
         base.Start();
+        fDialog = gameObject.GetComponent<fullDialogue>();
     }
 
     /// <summary>
