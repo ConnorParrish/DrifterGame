@@ -107,7 +107,7 @@ public class SleepEnforcer : MonoBehaviour {
     IEnumerator Sleep(bool safe)
     {
         // stop the player from moving
-        Player.Instance.WorldInteraction.canMove = false;
+        Player.Instance.WorldInteraction.stateBools.canMove = false;
         agent.Stop();
         // trigger sleep animation
         ani.SetBool("IsWalking", false);
@@ -145,7 +145,7 @@ public class SleepEnforcer : MonoBehaviour {
         yield return new WaitForSeconds(3);
 
         // re-enable walking
-        Player.Instance.WorldInteraction.canMove = true;
+        Player.Instance.WorldInteraction.stateBools.canMove = true;
         ani.SetBool("IsWalking", false);
 
         // display muggin anouncement if necessary

@@ -12,10 +12,12 @@ public class Inventory : MonoBehaviour {
     /// <summary>
     /// The slot prefab.
     /// </summary>
+    [HideInInspector]
     public GameObject inventorySlot;                                            // Prefab of the slot itself
     /// <summary>
     /// The default item prefab.
     /// </summary>
+    [HideInInspector]
     public GameObject inventoryItem;                                            // Prefab that is the item
 
     /// <summary>
@@ -30,6 +32,9 @@ public class Inventory : MonoBehaviour {
     /// All of the player's current items.
     /// </summary>
     public List<Item> items = new List<Item>();                                 // List of items in the inventory
+
+    public int MaxSlots;
+
     /// <summary>
     /// All item slots in the inventory slots panel.
     /// </summary>
@@ -38,24 +43,26 @@ public class Inventory : MonoBehaviour {
     /// <summary>
     /// The panel housing the inventory.
     /// </summary>
+    [HideInInspector]
     public GameObject inventoryMenu;
+    [HideInInspector]
+    public AmountDialog aDialog;
+    [HideInInspector]
+    public Text moneyText;
+    [HideInInspector]
+    public float lastSellPrice;
+
     
-    public int MaxSlots;
-
-
     GameObject slotPanel;                                                       // Reference to the panel with the slots
     /// <summary>
     /// The list of all possible items.
     /// </summary>
     ItemDatabase database;                                                      // This is the list of all items
-    public AmountDialog aDialog;
     ItemPreviewScript ips;
      
-    public Text moneyText;
     int slotAmount;                                                             // Max number of slots
     int lastChangedAmountDifference = 1;
-    public float lastSellPrice;
-
+    
     public bool buyer;
 
     private void OnValidate()
@@ -176,6 +183,9 @@ public class Inventory : MonoBehaviour {
     /// <param name="id"></param>
     public void RemoveItem(int slotID)
     {
+        //if (slots[slotID].transform.childCount == 0)
+        //    return;
+
 		ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
         ips.ChangeActiveItem(data);
         ips.ChangeActiveItem();
@@ -212,6 +222,7 @@ public class Inventory : MonoBehaviour {
 
     public void ChangeItemAmount(int slotID, int amount)
     {
+        Debug.Log("olahs");
         ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
 
         data.amount += amount;
@@ -230,30 +241,25 @@ public class Inventory : MonoBehaviour {
     {
         ItemData data = slots[slotID].transform.GetChild(0).GetComponent<ItemData>();
 
-        if (true)
+        if (data.amount > amountToDelete)
         {
-            if (data.amount > amountToDelete)
-            {
-                //aDialog.OpenDialog(data);
-                Debug.Log(amountToDelete + " can be deleted.");
+            //aDialog.OpenDialog(data);
+            Debug.Log(amountToDelete + " can be deleted.");
 
-                data.amount -= amountToDelete;                                          // If there's more than one of the stacked item, we lower it
-                data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
-            }
-            else
-            {
-                if (fullInventory)
-                {
-                    fullInventory = false;
-                }
-                slots[slotID].name = "Slot(Clone)";                          // Returns the slot to it's default name
-                items[slotID] = new Item();                                  // We're creating a new blank item that is in every 
-                Destroy(data.gameObject);
-            }
+            data.amount -= amountToDelete;                                          // If there's more than one of the stacked item, we lower it
+            data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
         }
         else
-            throw new UnityException("Item needs to be stackable");
-
+        {
+            if (fullInventory)
+            {
+                fullInventory = false;
+            }
+            slots[slotID].name = "Slot(Clone)";                          // Returns the slot to it's default name
+            items[slotID] = new Item();                                  // We're creating a new blank item that is in every 
+            Destroy(data.gameObject);
+        }
+        
     }
 
     /// <summary>
@@ -273,7 +279,7 @@ public class Inventory : MonoBehaviour {
 
         else if (itemToUse.Type == "Drug")
         {
-            Player.Instance.Stats.isDrugged = true;
+            Player.Instance.Stats.stateBools.isDrugged = true;
             Player.Instance.Stats.drugDuration = itemToUse.Strength;
             Player.Instance.Stats.Hunger += 10f;
             Player.Instance.Stats.Warmth += 10f;

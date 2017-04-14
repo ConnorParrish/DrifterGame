@@ -45,7 +45,7 @@ public class PanhandleActivator : ActionItem {
             splineController.Duration = 3f;
             splineInterpolator = Camera.main.gameObject.GetComponent<SplineInterpolator>();
             //transform.GetChild(1).gameObject.SetActive(false);
-            Player.Instance.WorldInteraction.canMove = false;
+            Player.Instance.WorldInteraction.stateBools.canMove = false;
             Player.Instance.PanhandlingScript.enabled = true;
             Camera.main.gameObject.GetComponent<CameraController>().enabled = false;
             Player.Instance.transform.forward = gameObject.transform.forward;

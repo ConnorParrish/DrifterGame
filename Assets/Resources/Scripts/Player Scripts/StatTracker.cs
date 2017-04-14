@@ -3,6 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using AC.TimeOfDaySystemFree;
 using UnityEngine.UI;
+using System;
+
+[Serializable]
+public class StatThresholds
+{
+    [Range(0, 100)]
+    public int HappinessThreshold;
+    [Range(0, 100)]
+    public int HungerThreshold;
+    [Range(0, 100)]
+    public int WarmthThreshold;
+}
+
+[Serializable]
+public class MaximumValues
+{
+    public float maxHappiness = 100;
+    public float maxHunger = 100;
+    public float maxWarmth = 100;
+}
+
+[Serializable]
+public class StateBooleans
+{
+    public bool isSad;
+    public bool isHungry;
+    public bool isFreezing;
+    public bool isDrugged;
+}
+
+[Serializable]
+public class OverlaySprites
+{
+    public Sprite SadnessOverlaySprite;
+    public Sprite HungryOverlaySprite;
+    public Sprite FreezingOverlaySprite;
+    public Sprite DruggedOverlaySprite;
+
+}
 
 /// <summary>
 /// Component to keep track of player stats relative to the time of day managers timeline. Has
@@ -14,34 +53,28 @@ public class StatTracker : MonoBehaviour {
     // link this to the time of day manager in the hierarchy
     private TimeOfDayManager tdm;
 
+    public StatThresholds statThresholds;
+    public MaximumValues maxValues;
+    public StateBooleans stateBools;
+    
+
     // decays can range from 0-100. They are the amount, out of 100, that the stat will decay in 1 day
-    public float hungerDecay = 30;
-    public float warmthDecay = 30;
+    [SerializeField]
+    private float hungerDecay = 30;
+    [SerializeField]
+    private float warmthDecay = 30;
 
     // section for the stats. If a script tries to set them over their max, then they are chopped down to their max
-    public float Happiness { get { return happiness; } set { happiness = value;  if (happiness > maxHappiness) happiness = maxHappiness; } }
-    public float Hunger { get { return hunger; } set { hunger = value; if (hunger > maxHunger) hunger = maxHunger; } }
-    public float Warmth { get { return warmth; } set { warmth = value; if (warmth > maxWarmth) warmth = maxWarmth; } }
-
-    public float maxHappiness = 100;
-    public float maxHunger = 100;
-    public float maxWarmth = 100;
-
-    [Range(0,100)]
-    public int HappinessThreshold;
-    [Range(0,100)]
-    public int HungerThreshold;
-    [Range(0,100)]
-    public int WarmthThreshold;
-
-    public bool isSad;
-    public bool isHungry;
-    public bool isFreezing;
-    public bool isDrugged;
+    public float Happiness { get { return happiness; } set { happiness = value;  if (happiness > maxValues.maxHappiness) happiness = maxValues.maxHappiness; } }
+    public float Hunger { get { return hunger; } set { hunger = value; if (hunger > maxValues.maxHunger) hunger = maxValues.maxHunger; } }
+    public float Warmth { get { return warmth; } set { warmth = value; if (warmth > maxValues.maxWarmth) warmth = maxValues.maxWarmth; } }
 
     public float drugDuration = 0f;
 
     public string Charging;
+
+    public OverlaySprites overlaySprites;
+
 
     private float happiness = 100;
     private float hunger = 100;
@@ -52,10 +85,6 @@ public class StatTracker : MonoBehaviour {
     private GameObject HungryOverlay;
     private GameObject FreezingOverlay;
     private GameObject DruggedOverlay;
-    public Sprite SadnessOverlaySprite;
-    public Sprite HungryOverlaySprite;
-    public Sprite FreezingOverlaySprite;
-    public Sprite DruggedOverlaySprite;
 
     public float cleanAtTime;
 
@@ -75,10 +104,10 @@ public class StatTracker : MonoBehaviour {
         FreezingOverlay = statusEffectOverlayTransform.GetChild(2).gameObject;
         DruggedOverlay = statusEffectOverlayTransform.GetChild(3).gameObject;
 
-        SadnessOverlay.GetComponent<Image>().sprite = SadnessOverlaySprite;
-        HungryOverlay.GetComponent<Image>().sprite = HungryOverlaySprite;
-        FreezingOverlay.GetComponent<Image>().sprite = FreezingOverlaySprite;
-        DruggedOverlay.GetComponent<Image>().sprite = DruggedOverlaySprite;
+        SadnessOverlay.GetComponent<Image>().sprite = overlaySprites.SadnessOverlaySprite;
+        HungryOverlay.GetComponent<Image>().sprite = overlaySprites.HungryOverlaySprite;
+        FreezingOverlay.GetComponent<Image>().sprite = overlaySprites.FreezingOverlaySprite;
+        DruggedOverlay.GetComponent<Image>().sprite = overlaySprites.DruggedOverlaySprite;
     }
 
     // Update is called once per frame
@@ -87,43 +116,43 @@ public class StatTracker : MonoBehaviour {
         hunger -= (Time.deltaTime * scaler * hungerDecay);
         happiness = (warmth + hunger) / 2;
         
-        isSad = (happiness < HappinessThreshold);
-        isHungry = (hunger < HungerThreshold);
-        isFreezing = (warmth < WarmthThreshold);
-        isDrugged = (drugDuration > 0f);
+        stateBools.isSad = (happiness < statThresholds.HappinessThreshold);
+        stateBools.isHungry = (hunger < statThresholds.HungerThreshold);
+        stateBools.isFreezing = (warmth < statThresholds.WarmthThreshold);
+        stateBools.isDrugged = (drugDuration > 0f);
 
-        if (SadnessOverlay.activeSelf != isSad)
+        if (SadnessOverlay.activeSelf != stateBools.isSad)
         {
-            if (isSad)
+            if (stateBools.isSad)
             {
                 Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
             }
-            SadnessOverlay.SetActive(isSad);
+            SadnessOverlay.SetActive(stateBools.isSad);
 
         }
-        if (HungryOverlay.activeSelf != isHungry)
+        if (HungryOverlay.activeSelf != stateBools.isHungry)
         {
-            if (isHungry)
+            if (stateBools.isHungry)
             {
                 Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
             }
-            HungryOverlay.SetActive(isHungry);
+            HungryOverlay.SetActive(stateBools.isHungry);
 
         }
-        if (FreezingOverlay.activeSelf != isFreezing)
+        if (FreezingOverlay.activeSelf != stateBools.isFreezing)
         {
-            if (isHungry)
+            if (stateBools.isFreezing)
             {
                 Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
             }
-            FreezingOverlay.SetActive(isFreezing);
+            FreezingOverlay.SetActive(stateBools.isFreezing);
 
         }
 
-        if (DruggedOverlay.activeSelf != isDrugged)
+        if (DruggedOverlay.activeSelf != stateBools.isDrugged)
         {
             Debug.Log("drugged state changed: " + tdm.timeline);
-            if (isDrugged)
+            if (stateBools.isDrugged)
             {
                 Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * 2f;
                 warmthDecay = warmthDecay * 1.3f;
@@ -139,7 +168,7 @@ public class StatTracker : MonoBehaviour {
                 hungerDecay = hungerDecay * (10f/13f);
                 warmthDecay = warmthDecay * (10f/13f);
             }
-            DruggedOverlay.SetActive(isDrugged);
+            DruggedOverlay.SetActive(stateBools.isDrugged);
         }
 
         if (tdm.timeline >= cleanAtTime && cleanAtTime != 0f)

@@ -14,7 +14,9 @@ public class Interactable : MonoBehaviour {
     /// <summary>
     /// This is the NavMeshAgent of the player clicking on the interactable object.
     /// </summary>
+    [HideInInspector]
 	public NavMeshAgent playerAgent = new NavMeshAgent();
+    [HideInInspector]
     public Vector2 pa_destination;
     /// <summary>
     /// Returns whether or not the object has been interacted.
