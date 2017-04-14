@@ -9,11 +9,9 @@ public class AmountDialog : MonoBehaviour {
     ItemData itemData;
     Text quantityText;
     Slider slider;
-    Sprite sprite;
     Inventory currentInv;
     void Start()
     {
-        sprite = transform.GetChild(1).GetComponent<Image>().sprite;
         slider = transform.GetChild(2).gameObject.GetComponent<Slider>();
         quantityText = slider.transform.GetChild(3).GetComponent<Text>();
 
@@ -24,7 +22,6 @@ public class AmountDialog : MonoBehaviour {
     public void OpenDialog(ItemData itemData)
     {
         this.itemData = itemData;
-        sprite = transform.GetChild(1).GetComponent<Image>().sprite = itemData.item.Sprite;
         slider.maxValue = itemData.amount;
 
         gameObject.SetActive(true);

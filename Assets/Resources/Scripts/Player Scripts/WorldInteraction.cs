@@ -4,14 +4,21 @@ using UnityEngine.AI;
 using System;
 using System.Linq;
 
-public class WorldInteraction : MonoBehaviour {
-    public GameObject destinationMarker;
+[Serializable]
+public class PlayerStateBools
+{
     public bool canMove;
-	public NavMeshAgent navMeshAgent;
-	public bool walking;
+    public bool walking;
     public bool beingInterrogated;
+}
+
+public class WorldInteraction : MonoBehaviour {
+    public PlayerStateBools stateBools;
+
+    [HideInInspector]
+    public NavMeshAgent navMeshAgent;
+
 	private bool clickedPanhandle;
-	private bool interacted;
     private Animator anim;
     private GameObject panhandleButton;
     private GameObject merchantButton;
@@ -35,11 +42,12 @@ public class WorldInteraction : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		    RaycastHit[] hits = Physics.RaycastAll(ray, 100);
 
-			if (hits != null && canMove){
+			if (hits != null && stateBools.canMove){
 				foreach (RaycastHit hit in hits.Reverse<RaycastHit>())
                 {
 					if (hit.collider.gameObject.tag == "Interactable Object")
                     {
+                        hit.collider.gameObject.GetComponent<Interactable>().hasInteracted = false;
                         if (hit.collider.gameObject.GetComponent<PedestrianWalker>() == true)
                         {
                             hit.collider.gameObject.GetComponent<PedestrianWalker>().navAgent.Stop();
@@ -56,7 +64,7 @@ public class WorldInteraction : MonoBehaviour {
                         break;
 
                     }
-                    else if (canMove && ( hit.collider.gameObject.tag == "Walkable" || hit.collider.gameObject.tag == "Sidewalk") )
+                    else if (stateBools.canMove && ( hit.collider.gameObject.tag == "Walkable" || hit.collider.gameObject.tag == "Sidewalk") )
                     {
 						
                         navMeshAgent.stoppingDistance = 0f;
@@ -66,7 +74,6 @@ public class WorldInteraction : MonoBehaviour {
                         //destinationMarker.transform.position = hit.point;
                         navMeshAgent.destination = hit.point;
                         navMeshAgent.Resume();
-						interacted = false;
 
                     }
 
@@ -77,11 +84,11 @@ public class WorldInteraction : MonoBehaviour {
 
 		if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance){
 			if (!navMeshAgent.hasPath || Mathf.Abs (navMeshAgent.velocity.sqrMagnitude) < float.Epsilon){
-                walking = false;
+                stateBools.walking = false;
                 anim.SetBool("IsWalking", false);
                 //destinationMarker.SetActive(false);
 			} else {
-				walking = true;
+                stateBools.walking = true;
 				//anim.SetBool ("IsWalking", true);
 				
 			}

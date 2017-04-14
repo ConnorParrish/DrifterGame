@@ -17,9 +17,9 @@ public class StatGUIUpdater : MonoBehaviour {
         hungerSlider = transform.GetChild(1).GetComponent<Slider>();
         warmthSlider = transform.GetChild(2).GetComponent<Slider>();
 
-        happinessSlider.maxValue = Player.Instance.Stats.maxHappiness;
-        hungerSlider.maxValue = Player.Instance.Stats.maxHunger;
-        warmthSlider.maxValue = Player.Instance.Stats.maxWarmth;
+        happinessSlider.maxValue = Player.Instance.Stats.maxValues.maxHappiness;
+        hungerSlider.maxValue = Player.Instance.Stats.maxValues.maxHunger;
+        warmthSlider.maxValue = Player.Instance.Stats.maxValues.maxWarmth;
     }
 	
 	// Update is called once per frame

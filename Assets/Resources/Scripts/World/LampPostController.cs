@@ -23,20 +23,31 @@ public class LampPostController : MonoBehaviour {
 	void Start () {
         light = GetComponentInChildren<Light>();
         tod = GameObject.Find("Time Of Day Manager").GetComponent<TimeOfDayManager>();
+        StartCoroutine(slowUpdate());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (lightActive && lightsOut < tod.timeline && tod.timeline < lightsOn)
-        {
-            lightActive = false;
-            light.enabled = false;
-        }
-
-        else if (!lightActive &&( lightsOut > tod.timeline || tod.timeline > lightsOn))
-        {
-            lightActive = true;
-            light.enabled = true;
-        }
+		
 	}
+
+    IEnumerator slowUpdate()
+    {
+        while (true)
+        {
+            if (lightActive && lightsOut < tod.timeline && tod.timeline < lightsOn)
+            {
+                lightActive = false;
+                light.enabled = false;
+            }
+
+            else if (!lightActive && (lightsOut > tod.timeline || tod.timeline > lightsOn))
+            {
+                lightActive = true;
+                light.enabled = true;
+            }
+
+            yield return new WaitForSeconds(1);
+        }
+    }
 }

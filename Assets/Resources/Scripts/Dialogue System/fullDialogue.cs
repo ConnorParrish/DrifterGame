@@ -19,7 +19,6 @@ public class fullDialogue : MonoBehaviour
     Text text;
     GameObject image;
 	public NPC NPCData;
-    GameObject PlayerHUD;
 
     string currentText;
     int currentItem;
@@ -31,8 +30,6 @@ public class fullDialogue : MonoBehaviour
 
     void Start()
     {
-        PlayerHUD = GameObject.Find("General UI Canvas");
-
         // fetch a couple components and game objects for future use
         canvas = GameObject.Instantiate(Dialogue);
         canvas.transform.SetParent(transform);
@@ -57,6 +54,7 @@ public class fullDialogue : MonoBehaviour
         StartCoroutine(shrinkCanvas());
         canvas.transform.FindChild("Decline").gameObject.SetActive(false);
         canvas.transform.FindChild("Accept").gameObject.SetActive(false);
+        Player.Instance.WorldInteraction.stateBools.canMove = true;
     }
 
     private void showNextMessage()
@@ -108,6 +106,7 @@ public class fullDialogue : MonoBehaviour
 
     public void OpenMerchantUI()
     {
+        Debug.Log("Yo its merchui");
         setButtonState(false, "merchant");
         gameObject.GetComponent<Merchant>().Spline();
 //        GameObject.Find("General UI Canvas").SetActive(false);

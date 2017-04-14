@@ -15,6 +15,7 @@ public class Cop : NPCInteraction {
         anim = transform.GetChild(0).GetComponent<Animator>();
         base.NPCData = GameObject.Find("NPC Manager").GetComponent<NPCDatabase>().npcDict["Police Officer"];
         base.Start();
+        fDialog = gameObject.GetComponent<fullDialogue>();
     }
 
     /// <summary>
@@ -39,7 +40,7 @@ public class Cop : NPCInteraction {
         {
             isInterrogating = true;
 
-            Player.Instance.WorldInteraction.canMove = false;
+            Player.Instance.WorldInteraction.stateBools.canMove = false;
 
 
             anim.SetTrigger("hasArrived");
@@ -67,7 +68,7 @@ public class Cop : NPCInteraction {
             Debug.Log(isInterrogating);
             isInterrogating = false;
             Debug.Log(isInterrogating);
-            Player.Instance.WorldInteraction.canMove = true;
+            Player.Instance.WorldInteraction.stateBools.canMove = true;
             playerAgent.stoppingDistance = 0f;
             Debug.Log("playerAgent.destination: " + playerAgent.destination);
             playerAgent.destination = originalPosition;
@@ -98,7 +99,8 @@ public class Cop : NPCInteraction {
             }
             if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
             {
-                //hasInteracted = false;
+                hasInteracted = false;
+                //playerAgent = null;
                 if (fDialog != null)
                 {
                     fDialog.endDialogue();

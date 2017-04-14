@@ -14,9 +14,8 @@ using System;
 
 public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler {
     public Item item;
+    public int slotID;                                                          // The current slot (Which slot the item is in)
     public int amount;                                                          // Used to track stackable item amounts
-	public int slotID;                                                          // The current slot (Which slot the item is in)
-	private int prevSlotID;
 
     private Inventory inv;                                                      // The inventory object (with information on items/slots)
     private Tooltip tooltip;
@@ -55,7 +54,6 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             if (item != null)
             {
                 this.transform.SetParent(this.transform.parent.parent);             // Brings the sprite outside of it's slot so it will render above the inventory slots
-                prevSlotID = slotID;
                 GetComponent<CanvasGroup>().blocksRaycasts = false;                 // Lets the drop recognize the slot underneath the sprite
                 ips.ChangeActiveItem();
             }

@@ -16,6 +16,7 @@ public class FadeManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         Instance = this;
+        fadeImage.color = new Color(0, 0, 0, 0);
 	}
 
     public void Fade(bool showing, float duration)

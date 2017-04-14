@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Merchant : NPCInteraction {
 
-    public SplineInterpolator splineInterpolator;
-    public SplineController splineController;
     public GameObject splineRoots;
 
-    private GameObject PlayerHUD;
+    [HideInInspector]
+    public SplineInterpolator splineInterpolator;
+    [HideInInspector]
+    public SplineController splineController;
+    [HideInInspector]
     public GameObject merchantButton;
+    
+    private GameObject PlayerHUD;
     private GameObject merchantUI;
     private Inventory merchantInv;
     private Animator anim; // for idle animation/reacting to purchases? (maybe)
@@ -32,9 +37,16 @@ public class Merchant : NPCInteraction {
             
         base.Start();
 	}
-	
-	// Update is called once per frame
-	public override void Update () {
+
+    public override void MoveToInteraction(NavMeshAgent pAgent)
+    {
+        pAgent.stoppingDistance = 4f;
+
+        base.MoveToInteraction(pAgent);
+    }
+
+    // Update is called once per frame
+    public override void Update () {
         base.Update();
         if (splineController != null)
 
@@ -55,6 +67,7 @@ public class Merchant : NPCInteraction {
 
     public override void Interact()
     {
+        
 
         merchantInv.AddMoney(Player.Instance.Inventory.Money);
 
@@ -70,7 +83,7 @@ public class Merchant : NPCInteraction {
                 for (int i = 0; i < itemToSell["amount"]; i++)
                     merchantInv.AddItem(int.Parse(itemToSell["itemID"].ToString()));
 
-        playerAgent.Stop();
+        //playerAgent.Stop();
         PlayerHUD.SetActive(false);
         splineRoots.transform.GetChild(0).GetChild(0).rotation = Camera.main.transform.rotation;
         splineRoots.transform.GetChild(0).GetChild(0).position = Camera.main.transform.position;
@@ -90,11 +103,12 @@ public class Merchant : NPCInteraction {
         }
         //else if (sDialog != null)
         //    sDialog.showDialogue("merchant");
-        Player.Instance.WorldInteraction.canMove = false;
+        Player.Instance.WorldInteraction.stateBools.canMove = false;
     }
     
     public void Spline()
     {
+        Debug.Log("Will this appear three times?");
         fDialog.endDialogue();
         splineController = Camera.main.gameObject.AddComponent<SplineController>();
         splineInterpolator = Camera.main.gameObject.GetComponent<SplineInterpolator>();
@@ -102,5 +116,19 @@ public class Merchant : NPCInteraction {
         splineController.Duration = 4f;
         Camera.main.gameObject.GetComponent<CameraController>().enabled = false;
         
+    }
+
+    private void ResetInventory()
+    {
+        merchantInv.AddMoney(-Player.Instance.Inventory.Money);
+        int _slotAmount = merchantInv.items.Count - 1;
+
+        for (int i = 0; i < _slotAmount; i++)
+        {
+            if (merchantInv.items[i].Stackable)
+                merchantInv.ChangeItemAmount(i, -merchantInv.slots[i].transform.GetChild(0).GetComponent<ItemData>().amount);
+            else
+                merchantInv.RemoveItem(i);
+        }
     }
 }

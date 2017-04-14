@@ -7,9 +7,13 @@ public class Player : MonoBehaviour {
     public static Player Instance { get { return instance; } }
     private static Player instance = null;
 
+    [HideInInspector]
     public Inventory Inventory;
+    [HideInInspector]
     public StatTracker Stats;
+    [HideInInspector]
     public PanhandlingScript PanhandlingScript;
+    [HideInInspector]
     public WorldInteraction WorldInteraction;
 
     void Awake()

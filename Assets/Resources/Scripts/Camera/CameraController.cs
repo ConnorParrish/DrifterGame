@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
     public Transform target;
-    public float smoothing = 5f;
+    [SerializeField]
+    private float smoothing = 5f;
 
     Material opaqueMat;
     Material transparentMat;

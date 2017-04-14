@@ -9,7 +9,9 @@ using UnityEngine.EventSystems;
 
 public class NPCInteraction : Interactable
 {
+    [HideInInspector]
     public fullDialogue fDialog;
+    [HideInInspector]
     public simpleDialogue sDialog;
     public NPC NPCData;
 
@@ -30,9 +32,10 @@ public class NPCInteraction : Interactable
     //  make the player stop near the NPC and not ontop of them.
     public override void MoveToInteraction(NavMeshAgent pAgent)
     {
-        pAgent.stoppingDistance = 4f;
+
 
         base.MoveToInteraction(pAgent);
+        pAgent.stoppingDistance = 4f;
     }
 
     public override void Update()
@@ -52,13 +55,14 @@ public class NPCInteraction : Interactable
                     transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
                     Interact();
                     //Stopping(out speed);
-                    hasInteracted = true;
 
+                    hasInteracted = true;
                 }
             }
             if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
             {
-                //hasInteracted = false;
+                hasInteracted = false;
+                //playerAgent = null;
                 if (fDialog != null)
                 {
                     fDialog.endDialogue();
