@@ -12,6 +12,7 @@ public class Cutscene : MonoBehaviour {
 
     public void Start()
     {
+        enabled = true;
         fDialog = GetComponent<fullDialogue>();
         MainCam.GetComponent<CameraController>().enabled = false;
         UI.transform.GetChild(0).gameObject.SetActive(false);

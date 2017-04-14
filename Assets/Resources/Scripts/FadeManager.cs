@@ -13,11 +13,12 @@ public class FadeManager : MonoBehaviour {
     private bool isShowing;
     private float duration;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake()
+    {
         Instance = this;
-        fadeImage.color = new Color(0, 0, 0, 0);
-	}
+        fadeImage.color = new Color(0, 0, 0, 255);
+    }
 
     public void Fade(bool showing, float duration)
     {
