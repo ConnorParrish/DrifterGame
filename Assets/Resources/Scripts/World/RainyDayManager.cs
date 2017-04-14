@@ -11,7 +11,8 @@ public class RainyDayManager : MonoBehaviour {
     /// <summary>
     /// the chance of rain from 0-1
     /// </summary>
-    public float rainChance = .25;
+    [Range(0,1)]
+    public float rainChance = 0.25f;
 
 	// Use this for initialization
 	void Start () {
