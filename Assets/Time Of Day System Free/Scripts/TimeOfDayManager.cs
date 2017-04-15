@@ -8,11 +8,24 @@ namespace AC.TimeOfDaySystemFree
 	public class TimeOfDayManager : TimeOfDay
 	{
 
+        #region DrifterAdded
 
-		#region Resources.
+        public static TimeOfDayManager Instance { get { return instance; } }
+        private static TimeOfDayManager instance;
 
-		// Autoassign sky material?.
-		[SerializeField] protected bool m_AutoAssignSky = true;
+
+        void Awake()
+        {
+            instance = this;
+        }
+
+        #endregion
+
+
+        #region Resources.
+
+        // Autoassign sky material?.
+        [SerializeField] protected bool m_AutoAssignSky = true;
 
 		// Sky material.
 		public Material skyMaterial = null;
