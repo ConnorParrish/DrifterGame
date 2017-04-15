@@ -23,9 +23,14 @@ public class WorldInteraction : MonoBehaviour {
     private GameObject panhandleButton;
     private GameObject merchantButton;
 
+    void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
+
 	// Use this for initialization
 	void Start () {
-        anim = GetComponentInChildren<Animator>();
+        
         panhandleButton = GameObject.Find("LeavePanhandling");
         merchantButton = GameObject.Find("LeaveMerchant");
 
