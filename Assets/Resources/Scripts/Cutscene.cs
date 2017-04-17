@@ -22,7 +22,7 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(3).gameObject.SetActive(false);
         UI.transform.GetChild(4).gameObject.SetActive(true);
         UI.transform.GetChild(5).gameObject.SetActive(false);
-        player.SetActive(false);
+        player.transform.GetChild(1).gameObject.SetActive(false);
 
     }
 
@@ -52,7 +52,7 @@ public class Cutscene : MonoBehaviour {
 
     public void PlacePlayer()
     {
-        player.SetActive(true);
+        player.transform.GetChild(1).gameObject.SetActive(true);
         MainCam.GetComponent<Animation>().enabled = false;
         
     }
@@ -68,6 +68,7 @@ public class Cutscene : MonoBehaviour {
         MainCam.GetComponent<CameraController>().target = player.transform;
         MainCam.GetComponent<CameraController>().enabled = true;
         MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, 9.193005f);
+        MainCam.transform.localEulerAngles = new Vector3(46.5f, -180f, 0f);
     }
 
     public void DeactivatePause()

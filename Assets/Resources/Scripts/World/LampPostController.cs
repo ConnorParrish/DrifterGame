@@ -22,7 +22,7 @@ public class LampPostController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         light = GetComponentInChildren<Light>();
-        tod = GameObject.Find("Time Of Day Manager").GetComponent<TimeOfDayManager>();
+        tod = TimeOfDayManager.Instance;
         StartCoroutine(slowUpdate());
 	}
 	
