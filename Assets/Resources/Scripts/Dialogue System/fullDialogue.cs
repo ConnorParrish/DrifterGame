@@ -296,6 +296,9 @@ public class fullDialogue : MonoBehaviour
 
     private void setButtonState(bool state, string type)
     {
+        canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
+        canvas.transform.FindChild("Accept").gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
+
         canvas.transform.FindChild("Decline").gameObject.GetComponent<Button>().onClick.AddListener(endDialogue);
         canvas.transform.FindChild("Decline").gameObject.SetActive(state);
         if (type == "merchant")
