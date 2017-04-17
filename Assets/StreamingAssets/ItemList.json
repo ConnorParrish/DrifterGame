@@ -50,13 +50,23 @@
     "value": "5"
   },
   {
-		"id": 5,
-		"title": "Key",
-		"description": "I can't believe I finally have my own place!",
-		"slug": "key",
-		"type": "Quest",
+    "id": 5,
+    "title": "Key",
+    "description": "I can't believe I finally have my own place!",
+    "slug": "key",
+    "type": "Quest",
+    "strength": "0",
+    "stackable": false,
+    "value": "1000"
+  },
+    {
+		"id": 6,
+		"title": "KeyCard",
+		"description": "Finally a warm bed for a night...",
+		"slug": "keycard",
+		"type": "Consumable",
 		"strength": "0",
 		"stackable": false,
-		"value": "1000"
+		"value": "20"
 	}
 ]

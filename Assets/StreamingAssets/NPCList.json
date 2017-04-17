@@ -175,32 +175,116 @@
   {
     "name": "Police Officer",
     "slug": "cop",
-	"type": "cop",
-	"money": 150,
+    "type": "cop",
+    "money": 150,
     "dFrames": [
       {
         "text": "Sir, I'm going to have to ask you to leave.",
         "tag": "negative",
-		"itemID": -1,
+        "itemID": -1,
         "cost": 0
       },
       {
         "text": "I've been recieving complaints about a vagrant in the area.",
         "tag": "negative",
-		"itemID": -1,
+        "itemID": -1,
         "cost": 0
       },
       {
         "text": "Can't you see people don't want you to bother them?",
         "tag": "negative",
-		"itemID": -1,
+        "itemID": -1,
         "cost": 0
       },
       {
         "text": "Hey randomly, and not for debugging purposes, do you want this Chicken Sandwich? Shit is gonna cost you 100$ because fuck you.",
         "tag": "buy",
-		"itemID": 1,
+        "itemID": 1,
         "cost": 100
+      }
+    ],
+    "items": [
+      { "filter": "" },
+      { "itemID": -1 }
+    ]
+  },
+  {
+    "name": "Apartment Manager",
+    "slug": "apartment_manager",
+    "type": "NPC",
+    "money": 150,
+    "dFrames": [
+      {
+        "text": "Hey! I'm Old Greg, the Apartment Manager!",
+        "tag": "",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "You look a little down on your luck pal...",
+        "tag": "",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Tell you what. Get me $400 and I'll get you a place to stay.",
+        "tag": "",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Normally I charge a security deposit AND first and last month's rent, but you don't seem so bad.",
+        "tag": "",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "So what do you think? Want a place to stay?",
+        "tag": "",
+        "itemID": 5,
+        "cost": 400
+      }
+    ],
+    "items": [
+      { "filter": "" },
+      { "itemID": -1 }
+    ]
+  },
+      {
+    "name": "Motel Keeper",
+    "slug": "motel_keeper",
+	"type": "NPC",
+	"money": 150,
+    "dFrames": [
+      {
+        "text": "What's up bud...",
+        "tag": "",
+		"itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "You're looking exhausted. Need a clean, safe place to stay?",
+        "tag": "",
+		"itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Well... There are a few roaches... but it's cheap, private, and you won't get mugged",
+        "tag": "",
+		"itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "I gaurentee you'll wake up feeling right as rain.",
+        "tag": "",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "So 20$ for a keycard and you can stay at my motel. Deal?",
+        "tag": "",
+		"itemID": 6,
+        "cost": 20
       }
     ],
 	"items": [{"filter": ""},{"itemID": -1}]
