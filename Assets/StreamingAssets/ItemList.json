@@ -39,14 +39,24 @@
 		"stackable": false,
 		"value": "10"
 	},
-	{
-		"id": 4,
-		"title": "Syringe",
-		"description": "This looks pointy, and unsanitary...",
-		"slug": "syringe",
-		"type": "Drug",
-		"strength": ".5",
+  {
+    "id": 4,
+    "title": "Syringe",
+    "description": "This looks pointy, and unsanitary...",
+    "slug": "syringe",
+    "type": "Drug",
+    "strength": ".5",
+    "stackable": false,
+    "value": "5"
+  },
+  {
+		"id": 5,
+		"title": "Key",
+		"description": "I can't believe I finally have my own place!",
+		"slug": "key",
+		"type": "Quest",
+		"strength": "0",
 		"stackable": false,
-		"value": "5"
+		"value": "1000"
 	}
 ]
