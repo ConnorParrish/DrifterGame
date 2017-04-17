@@ -99,7 +99,7 @@ public class Inventory : MonoBehaviour {
             slots[i].transform.SetParent(slotPanel.transform);                  // Sets the parent of the slot to the slot panel
         }
 
-        if (transform.parent.name == "General UI Canvas")
+        if (transform.parent.name == "PlayerInventory")
             inventoryMenu.SetActive(false);
     }
 
@@ -111,9 +111,11 @@ public class Inventory : MonoBehaviour {
         if (inventoryMenu.activeSelf)
         {
             inventoryMenu.SetActive(false);
+            transform.parent.parent.GetChild(2).gameObject.SetActive(true);
         } else
         {
             inventoryMenu.SetActive(true);
+            transform.parent.parent.GetChild(2).gameObject.SetActive(false);
         }
     }
     
