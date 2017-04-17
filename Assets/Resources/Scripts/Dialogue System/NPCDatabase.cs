@@ -15,7 +15,7 @@ public class NPCDatabase : MonoBehaviour {
 	private List<NPC> npcList;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		JsonData dioDatabase = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
 			"/StreamingAssets/NPCList.json"));
 		ConstructNPCDatabase (dioDatabase);
