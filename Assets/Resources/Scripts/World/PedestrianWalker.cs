@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class PedestrianWalker : MonoBehaviour {
-    public float forwardDistance;
-    public Vector3 walkDirection = Vector3.forward;
+    [SerializeField]
+    private float forwardDistance;
+    private Vector3 walkDirection = Vector3.forward;
     private Vector3 walkDestination;
     public NavMeshAgent navAgent;
 
@@ -25,7 +26,7 @@ public class PedestrianWalker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //navAgent.destination = walkDestination;
-        if (!navAgent.hasPath)
+        if (navAgent.remainingDistance <= .5f)
         {
             Ray sidewalkCheck = new Ray(transform.position + Vector3.up*.5f + walkDirection * forwardDistance, Vector3.down);
             RaycastHit hit = new RaycastHit();
@@ -35,7 +36,7 @@ public class PedestrianWalker : MonoBehaviour {
                 if (hit.collider.tag == "Sidewalk")
                 {
                     //walkDirection = Vector3.forward;
-                    walkDestination = transform.position + Vector3.up*.5f + walkDirection * forwardDistance;
+                    walkDestination = transform.position + Vector3.up * .5f + walkDirection * forwardDistance;
                     navAgent.destination = walkDestination;
                     return;
                 }
