@@ -79,4 +79,13 @@ public class PedestrianWalker : MonoBehaviour {
             }
         }
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Pedestrian>())
+        {
+            navAgent.destination = navAgent.destination + new Vector3(Random.Range(0, 2), 0, Random.Range(0, 2)) * .3f;
+            Debug.Log("Nigga bumpin into me like dat");
+        }
+    }
 }
