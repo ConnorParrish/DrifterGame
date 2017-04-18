@@ -182,12 +182,12 @@ public class StatTracker : MonoBehaviour {
         // adjust warmth, hunger, and happiness
         if (Charging == "warmth")
         {
-            warmth += 2 * (Time.deltaTime * scaler * warmthDecay);
+            warmth += 6 * (Time.deltaTime * scaler * warmthDecay);
             return;
         }
         if (Charging == "hunger")
         {
-            hunger += 2 * (Time.deltaTime * scaler * hungerDecay);
+            hunger += 6 * (Time.deltaTime * scaler * hungerDecay);
             return;
         }
         if (Charging == "happiness")
