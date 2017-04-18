@@ -77,7 +77,7 @@ public class Cop : NPCInteraction {
             
         }
 
-        if (playerAgent != null && !playerAgent.pathPending)//&& this.pa_destination == new Vector2(playerAgent.destination.x, playerAgent.destination.z))
+        if (playerAgent != null && !playerAgent.pathPending && this.pa_destination == new Vector2(playerAgent.destination.x, playerAgent.destination.z))
         {
             float speed = playerAgent.desiredVelocity.magnitude;
 
