@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Cop : NPCInteraction {
+    [HideInInspector]
     public GameObject player;
     private Animator anim;
     private Vector3 originalPosition;
