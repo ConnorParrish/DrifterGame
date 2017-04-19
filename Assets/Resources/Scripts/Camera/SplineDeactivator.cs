@@ -10,8 +10,8 @@ public class SplineDeactivator : MonoBehaviour
     void Start()
     {
         PlayerHUD = GameObject.Find("General UI Canvas");
-        Debug.Log("Hi");
     }
+
     private void DeactivateSpline()
     {
         GameObject rootHolder = Camera.main.GetComponent<SplineController>().SplineRootHolder.gameObject;
@@ -29,9 +29,6 @@ public class SplineDeactivator : MonoBehaviour
         }
 
         Player.Instance.WorldInteraction.stateBools.canMove = true;
-
-        
-        
     }
 
     public void DeactivatePanhandling()

@@ -39,6 +39,9 @@ public class PanhandleActivator : ActionItem {
     {
         if (true)
         {
+            splineRoots.transform.GetChild(0).GetChild(0).rotation = Camera.main.transform.rotation;
+            splineRoots.transform.GetChild(0).GetChild(0).position = Camera.main.transform.position;
+
             splineController = Camera.main.gameObject.AddComponent<SplineController>();
             splineController.SplineRootHolder = splineRoots;
             //splineController.AutoClose = false;
