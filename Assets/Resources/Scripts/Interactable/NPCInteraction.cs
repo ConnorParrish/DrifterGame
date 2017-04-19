@@ -80,10 +80,10 @@ public class NPCInteraction : Interactable
             {
                 fDialog.showDialogue();
             }
-            else
-            {
-                fDialog.endDialogue();
-            }
+            //else
+            //{
+            //    fDialog.endDialogue();
+            //}
         } else if (sDialog != null)
         {
             sDialog.showDialogue("negative");           

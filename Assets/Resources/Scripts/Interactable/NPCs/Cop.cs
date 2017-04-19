@@ -7,7 +7,9 @@ public class Cop : NPCInteraction {
     public GameObject player;
     private Animator anim;
     private Vector3 originalPosition;
+    private Quaternion originalRotation;
     public bool isInterrogating;
+    private bool isRotating;
 
     public override void Start()
     {
@@ -36,33 +38,53 @@ public class Cop : NPCInteraction {
 
     public override void Interact()
     {
-        if (Player.Instance.PanhandlingScript.enabled)
+        if (!fDialog.canvas.activeSelf)
         {
-            isInterrogating = true;
+            if (Player.Instance.PanhandlingScript.enabled)
+            {
+                fDialog.showDialogue("negative");
 
-            Player.Instance.WorldInteraction.stateBools.canMove = false;
+                isInterrogating = true;
+
+                Player.Instance.WorldInteraction.stateBools.canMove = false;
 
 
-            anim.SetTrigger("hasArrived");
-            anim.SetBool("isRunning", false);
-            //player.GetComponent<PanhandlingScript>().canPivot = false;
-            Player.Instance.PanhandlingScript.enabled = false;
+                anim.SetTrigger("hasArrived");
+                anim.SetBool("isRunning", false);
+                //player.GetComponent<PanhandlingScript>().canPivot = false;
+                Player.Instance.PanhandlingScript.enabled = false;
 
-            GameObject panhandlingActivatorGO = Camera.main.GetComponent<SplineController>().SplineRootHolder.transform.parent.gameObject;
-            Camera.main.GetComponent<SplineInterpolator>().mState = "Once";
-            Camera.main.GetComponent<SplineInterpolator>().ended = true;
-            Camera.main.GetComponent<SplineInterpolator>().mCurrentIdx++;
+                GameObject panhandlingActivatorGO = Camera.main.GetComponent<SplineController>().SplineRootHolder.transform.parent.gameObject;
+                Camera.main.GetComponent<SplineInterpolator>().mState = "Once";
+                Camera.main.GetComponent<SplineInterpolator>().ended = true;
+                Camera.main.GetComponent<SplineInterpolator>().mCurrentIdx++;
 
-            fDialog.showDialogue("negative");
-        }
-        else
-        {
-            fDialog.showDialogue("negative");
+            }
+            else
+            {
+                fDialog.showDialogue("negative");
+            }
+
         }
     }
 
     public override void Update()
     {
+        if (isRotating)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(playerAgent.transform.position - transform.position);
+            float strength = Mathf.Min(.5f * Time.deltaTime, 1f) * 4;
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
+        }
+        else
+        {
+            float strength = Mathf.Min(.5f * Time.deltaTime, 1f) * 4;
+            transform.rotation = Quaternion.Lerp(transform.rotation, originalRotation, strength);
+        }
+
+        if (!fDialog.canvas.activeSelf)
+            isRotating = false;
+
         if (!fDialog.canvas.activeSelf && isInterrogating)
         {
             Debug.Log(isInterrogating);
@@ -85,11 +107,11 @@ public class Cop : NPCInteraction {
             {
                 if (!hasInteracted)
                 {
+                    originalRotation = transform.rotation;
                     playerAgent.Stop();
                     Debug.Log(playerAgent.transform.position);
-                    Quaternion targetRotation = Quaternion.LookRotation(playerAgent.transform.position - transform.position);
-                    float strength = Mathf.Min(.5f * Time.deltaTime, 1f);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, strength);
+                    isRotating = true;
+                    
 
                     Interact();
                     //Stopping(out speed);
@@ -97,15 +119,19 @@ public class Cop : NPCInteraction {
 
                 }
             }
-            if (playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
+        }
+
+        if (playerAgent != null && playerAgent.remainingDistance > playerAgent.stoppingDistance && hasInteracted)
+        {
+            isRotating = false;
+            hasInteracted = false;
+            Debug.Log("hi");
+            //playerAgent = null;
+            if (fDialog != null)
             {
-                hasInteracted = false;
-                //playerAgent = null;
-                if (fDialog != null)
-                {
-                    fDialog.endDialogue();
-                }
+                fDialog.endDialogue();
             }
         }
+
     }
 }
