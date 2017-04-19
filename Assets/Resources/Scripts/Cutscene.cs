@@ -83,7 +83,7 @@ public class Cutscene : MonoBehaviour {
  //       MainCam.GetComponent<CameraController>().target = player.transform;
  //       MainCam.GetComponent<CameraController>().enabled = true;
  //       MainCam.GetComponent<Animation>().enabled = false;
- //       //MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, 9.193005f);
+ //       //
  //
  //
  //       UI.transform.GetChild(2).gameObject.SetActive(true);
@@ -99,8 +99,9 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(2).gameObject.SetActive(true);
         UI.transform.GetChild(3).gameObject.SetActive(true);
         Destroy(gameObject);
-        
 
+        MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, -9.193005f);
+        MainCam.transform.localEulerAngles = new Vector3(132.9f, 180f, 180f);
     }
 
 }
