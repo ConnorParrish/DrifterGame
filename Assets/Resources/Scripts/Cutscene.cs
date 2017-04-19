@@ -15,7 +15,6 @@ public class Cutscene : MonoBehaviour {
         enabled = true;
         fDialog = GetComponent<fullDialogue>();
         MainCam.GetComponent<CameraController>().enabled = false;
-        GetComponent<Animator>().SetBool("Is Cutscene", true); 
         UI.transform.GetChild(0).gameObject.SetActive(false);
         UI.transform.GetChild(1).gameObject.SetActive(false);
         UI.transform.GetChild(2).gameObject.SetActive(false);
@@ -26,12 +25,12 @@ public class Cutscene : MonoBehaviour {
 
     }
 
-    void update()
-    {
-        if (Input.anyKey)
-
-            SkipCutscene(); 
-    }
+ //  void update()
+ //  {
+ //      if (Input.anyKey)
+ //
+ //          SkipCutscene(); 
+ //  }
 
     public void ShowCustomCutsceneDialogue(string message)
     {
@@ -67,8 +66,8 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(5).gameObject.SetActive(true);
         MainCam.GetComponent<CameraController>().target = player.transform;
         MainCam.GetComponent<CameraController>().enabled = true;
-        MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, 9.193005f);
-        MainCam.transform.localEulerAngles = new Vector3(46.5f, -180f, 0f);
+       // MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, 9.193005f);
+       // MainCam.transform.localEulerAngles = new Vector3(46.5f, -180f, 0f);
     }
 
     public void DeactivatePause()
@@ -78,20 +77,20 @@ public class Cutscene : MonoBehaviour {
         
     }
 
-    public void SkipCutscene()
-    {
-        GetComponent<Animator>().SetBool("Is Cutscene", false);
-        MainCam.GetComponent<CameraController>().target = player.transform;
-        MainCam.GetComponent<CameraController>().enabled = true;
-        MainCam.GetComponent<Animation>().enabled = false;
-        MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, 9.193005f);
-
-
-        UI.transform.GetChild(2).gameObject.SetActive(true);
-        UI.transform.GetChild(3).gameObject.SetActive(true);
-        UI.transform.GetChild(4).gameObject.SetActive(false);
-        UI.transform.GetChild(5).gameObject.SetActive(false);
-    }
+ //   public void SkipCutscene()
+ //   {
+ //       GetComponent<Animator>().SetBool("Is Cutscene", false);
+ //       MainCam.GetComponent<CameraController>().target = player.transform;
+ //       MainCam.GetComponent<CameraController>().enabled = true;
+ //       MainCam.GetComponent<Animation>().enabled = false;
+ //       //MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, 9.193005f);
+ //
+ //
+ //       UI.transform.GetChild(2).gameObject.SetActive(true);
+ //       UI.transform.GetChild(3).gameObject.SetActive(true);
+ //       UI.transform.GetChild(4).gameObject.SetActive(false);
+ //       UI.transform.GetChild(5).gameObject.SetActive(false);
+ //   }
 
     public void EndOfCutscene()
 
