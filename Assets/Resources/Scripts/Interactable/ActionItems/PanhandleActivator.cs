@@ -61,7 +61,7 @@ public class PanhandleActivator : ActionItem {
         base.Update();
         if (splineController != null)
         {
-            Debug.Log("sI.mState: " + splineInterpolator.mState);
+            //Debug.Log("sI.mState: " + splineInterpolator.mState);
             if (splineInterpolator.mState == "Stopped")
             {
                 if (!splineInterpolator.ended)

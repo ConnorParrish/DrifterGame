@@ -95,6 +95,9 @@ public class Cutscene : MonoBehaviour {
     public void EndOfCutscene()
 
     {
+		UI.transform.GetChild (0).gameObject.SetActive (true);
+		UI.transform.GetChild (1).gameObject.SetActive (true);
+		//UI.transform.GetChild (2).gameObject.SetActive (true);
         UI.transform.GetChild(5).gameObject.SetActive(false); 
         UI.transform.GetChild(2).gameObject.SetActive(true);
         UI.transform.GetChild(3).gameObject.SetActive(true);

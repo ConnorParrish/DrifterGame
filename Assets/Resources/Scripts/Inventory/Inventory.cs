@@ -72,14 +72,14 @@ public class Inventory : MonoBehaviour {
                 transform.parent.GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<Text>().text = Money.ToString("$#0.00");
     }
 
-    public void Awake()
+    public void OnEnable()
     {
         inventoryMenu = transform.parent.GetChild(1).gameObject;
     }
 
     public virtual void Start()
     {
-        
+		inventoryMenu = transform.parent.GetChild(1).gameObject;
         database = GetComponent<ItemDatabase>();
         slotAmount = MaxSlots;
         if (transform.parent.parent.name == "General UI Canvas")
