@@ -1,15 +1,25 @@
 fileFormatVersion: 2
-guid: bbf20e35538814043ba8140920f171ca
-timeCreated: 1492640781
+guid: 35ab2a7fed5ddf7418f1ef7a08a9a1b2
+timeCreated: 1492809872
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Table_Top2
+    100000: Roof_Cor
+    100002: //RootNode
+    100004: Roofs_pCube3
+    100006: Roofs_pCube4
+    100008: transform1
+    100010: transform2
+    400000: Roof_Cor
+    400002: //RootNode
+    400004: Roofs_pCube3
+    400006: Roofs_pCube4
+    400008: transform1
+    400010: transform2
+    2300000: Roof_Cor
+    3300000: Roof_Cor
+    4300000: Roof_Cor
   materials:
     importMaterials: 1
     materialName: 0
