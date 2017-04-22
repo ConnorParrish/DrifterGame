@@ -59,21 +59,17 @@ public class fullDialogue : MonoBehaviour
 
     private void showNextMessage()
     {
-        if (true)
-        {
-            // code up here will cycle through the message set
-            messageCycler.MoveNext();
+        // code up here will cycle through the message set
+        messageCycler.MoveNext();
 
-            // stop the old coroutine if it has not finished
-            StopCoroutine(currentCoroutine);
+        // stop the old coroutine if it has not finished
+        StopCoroutine(currentCoroutine);
 
-            // this section is for creating the next frame
-            currentCoroutine = writeMessage();
+        // this section is for creating the next frame
+        currentCoroutine = writeMessage();
 
-            // starts typing the current message
-            StartCoroutine(currentCoroutine);
-
-        }
+        // starts typing the current message
+        StartCoroutine(currentCoroutine);
     }
 
     public void showCustomDialogue(string message)

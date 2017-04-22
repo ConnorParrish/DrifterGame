@@ -32,6 +32,11 @@ public class SleepEnforcer : MonoBehaviour {
     /// </summary>
     public int maxMugLoss = 50;
 
+    /// <summary>
+    /// public static bool that can be used to tell if the player is sleeping by other scripts
+    /// </summary>
+    public static bool sleeping = false;
+
     private bool drowsyFired = false;
     private bool sleepFired = false;
     private bool mugged = false;
@@ -67,7 +72,8 @@ public class SleepEnforcer : MonoBehaviour {
     /// <param name="safe"></param>
     public void sleep(bool safe)
     {
-        StartCoroutine(Sleep(safe));
+        if (!DeathEnforcer.dead)
+            StartCoroutine(Sleep(safe));
     }
 
     private void DrowsyAnnouncement()
@@ -106,6 +112,8 @@ public class SleepEnforcer : MonoBehaviour {
     /// <returns></returns>
     IEnumerator Sleep(bool safe)
     {
+        // set the sleeping bool true
+        sleeping = true;
         // stop the player from moving
         Player.Instance.WorldInteraction.stateBools.canMove = false;
         agent.Stop();
@@ -160,5 +168,7 @@ public class SleepEnforcer : MonoBehaviour {
         sleepFired = false;
         // reset mugged
         mugged = false;
+        // reset sleeping
+        sleeping = false;
     }
 }
