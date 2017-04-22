@@ -36,6 +36,16 @@ public class simpleDialogue : MonoBehaviour {
 
         // set the follow object on the toFollow script so the canvas follows the game object we are attached to
         canvas.GetComponent<SimpleFollow>().toFollow = gameObject;
+
+        // get the cursor textures
+        curs1 = Resources.Load<Texture2D>("Resources/Sprites/UI/Images/Mouse_Elipse_1.png");
+        curs2 = Resources.Load<Texture2D>("Resources/Sprites/UI/Images/Mouse_Elipse_2.png");
+        curs3 = Resources.Load<Texture2D>("Resources/Sprites/UI/Images/Mouse_Elipse_3.png");
+
+        if (curs1 == null)
+        {
+            Debug.Log("ITS NULL");
+        }
     }
 
     /// <summary>
