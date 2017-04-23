@@ -141,6 +141,11 @@ public class SleepEnforcer : MonoBehaviour {
             else
                 Player.Instance.Stats.passTime((24 - timi.timeline) + wakeTime);
         }
+        else // if sleep is safe, refill stats
+        {
+            Player.Instance.Stats.Hunger = Player.Instance.Stats.maxValues.maxHunger;
+            Player.Instance.Stats.Warmth = Player.Instance.Stats.maxValues.maxWarmth;
+        }
 
         // set time to wakeTime
         timi.timeline = wakeTime;
@@ -159,11 +164,13 @@ public class SleepEnforcer : MonoBehaviour {
 
         yield return new WaitForSeconds(3);
 
-        
-
         // display muggin anouncement if necessary
         if (mugged)
             MuggedAnnouncement();
+
+        // re-enable walking
+        Player.Instance.WorldInteraction.stateBools.canMove = true;
+        ani.SetBool("IsWalking", false);
 
         // reset both animation triggers
         ani.ResetTrigger("Wake");
@@ -176,10 +183,6 @@ public class SleepEnforcer : MonoBehaviour {
         // reset sleeping
         sleeping = false;
 
-
-        yield return new WaitForSeconds(4);
-        // re-enable walking
-        Player.Instance.WorldInteraction.stateBools.canMove = true;
-        ani.SetBool("IsWalking", false);
+        
     }
 }

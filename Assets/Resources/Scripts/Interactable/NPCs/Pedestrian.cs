@@ -75,10 +75,6 @@ public class Pedestrian : NPCInteraction { // see if animator work should be don
                     //Debug.Log("Money Before: " + Player.Instance.Inventory.Money);
                     Player.Instance.Inventory.AddMoney(change * (0.01f));
                     //Debug.Log("Money After: " + Player.Instance.Inventory.Money);
-
-                    // set the delay before can ask again
-                    canAsk = false;
-                    StartCoroutine(waitToAskAgain(4));
                 }
                 else
                 {
@@ -87,6 +83,10 @@ public class Pedestrian : NPCInteraction { // see if animator work should be don
                 }
                 //timesBegged++;
             }
+
+            // set the delay before can ask again
+            canAsk = false;
+            StartCoroutine(waitToAskAgain(4));
         }
         else
         {
