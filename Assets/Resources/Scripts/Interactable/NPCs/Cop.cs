@@ -53,12 +53,8 @@ public class Cop : NPCInteraction {
                 anim.SetTrigger("hasArrived");
                 anim.SetBool("isRunning", false);
                 //player.GetComponent<PanhandlingScript>().canPivot = false;
-                Player.Instance.PanhandlingScript.enabled = false;
-
-                GameObject panhandlingActivatorGO = Camera.main.GetComponent<SplineController>().SplineRootHolder.transform.parent.gameObject;
-                Camera.main.GetComponent<SplineInterpolator>().mState = "Once";
-                Camera.main.GetComponent<SplineInterpolator>().ended = true;
-                Camera.main.GetComponent<SplineInterpolator>().mCurrentIdx++;
+                SplineDeactivator sp = GameObject.Find("DebugButtonCanvas").GetComponent<SplineDeactivator>();
+                sp.DeactivatePanhandling();
 
             }
             else

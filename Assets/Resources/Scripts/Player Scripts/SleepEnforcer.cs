@@ -72,7 +72,7 @@ public class SleepEnforcer : MonoBehaviour {
     /// <param name="safe"></param>
     public void sleep(bool safe)
     {
-        if (!DeathEnforcer.dead)
+        if (!DeathEnforcer.dead && !PlayerWin.winning)
             StartCoroutine(Sleep(safe));
     }
 
@@ -117,6 +117,13 @@ public class SleepEnforcer : MonoBehaviour {
         // stop the player from moving
         Player.Instance.WorldInteraction.stateBools.canMove = false;
         agent.Stop();
+        // stop panhandling if that is occuring
+        if (Player.Instance.PanhandlingScript.enabled)
+        {
+            SplineDeactivator sp = GameObject.Find("DebugButtonCanvas").GetComponent<SplineDeactivator>();
+            sp.DeactivatePanhandling();
+        }
+
         // trigger sleep animation
         ani.SetBool("IsWalking", false);
         ani.SetTrigger("Sleep");
@@ -152,9 +159,7 @@ public class SleepEnforcer : MonoBehaviour {
 
         yield return new WaitForSeconds(3);
 
-        // re-enable walking
-        Player.Instance.WorldInteraction.stateBools.canMove = true;
-        ani.SetBool("IsWalking", false);
+        
 
         // display muggin anouncement if necessary
         if (mugged)
@@ -170,5 +175,11 @@ public class SleepEnforcer : MonoBehaviour {
         mugged = false;
         // reset sleeping
         sleeping = false;
+
+
+        yield return new WaitForSeconds(4);
+        // re-enable walking
+        Player.Instance.WorldInteraction.stateBools.canMove = true;
+        ani.SetBool("IsWalking", false);
     }
 }

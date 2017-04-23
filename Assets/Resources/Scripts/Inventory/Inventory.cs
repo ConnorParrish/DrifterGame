@@ -281,7 +281,7 @@ public class Inventory : MonoBehaviour {
         if (itemToUse.Type != "Consumable" && itemToUse.Type != "Drug")
 			throw new UnityException ("The item isn't consumable or a drug");
 
-        if (itemToUse.Type == "Consumable")
+        if (itemToUse.Type == "Consumable" && itemToUse.Slug != "key" && itemToUse.Slug != "keycard")
             Player.Instance.Stats.Hunger += itemToUse.Strength;
 
         else if (itemToUse.Type == "Drug")
@@ -291,6 +291,19 @@ public class Inventory : MonoBehaviour {
             Player.Instance.Stats.Hunger += 10f;
             Player.Instance.Stats.Warmth += 10f;
         }
+
+        else if (itemToUse.Slug == "key")
+        {
+            Player.Instance.GetComponent<PlayerWin>().win();
+            ShowInventory();
+        }
+
+        else if (itemToUse.Slug == "keycard")
+        {
+            Player.Instance.gameObject.GetComponent<SleepEnforcer>().sleep(true);
+            ShowInventory();
+        }
+
         RemoveItem (slotID);
 	}
 

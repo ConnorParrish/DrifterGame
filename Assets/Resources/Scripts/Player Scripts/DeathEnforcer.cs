@@ -37,6 +37,12 @@ public class DeathEnforcer : MonoBehaviour {
         // stop player moving
         Player.Instance.WorldInteraction.stateBools.canMove = false;
         Player.Instance.GetComponent<NavMeshAgent>().Stop();
+        // stop panhandling if that is occuring
+        if (Player.Instance.PanhandlingScript.enabled)
+        {
+            SplineDeactivator sp = GameObject.Find("DebugButtonCanvas").GetComponent<SplineDeactivator>();
+            sp.DeactivatePanhandling();
+        }
 
         // show cause of death
         if (cause == "cold")
