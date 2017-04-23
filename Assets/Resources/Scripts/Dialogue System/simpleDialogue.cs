@@ -118,7 +118,8 @@ public class simpleDialogue : MonoBehaviour {
         float timePassed = 0f;
 
         // start cycling the mouse pointer
-        StartCoroutine(cycleMousePointer());
+        if (Player.Instance.GetComponent<PanhandlingScript>().isActiveAndEnabled)
+            StartCoroutine(cycleMousePointer());
 
         // this first loop grows the scale of the canvas
         while (waitTime > timePassed)

@@ -8,17 +8,83 @@
       {
         "text": "Why don't you get a job, you creep!",
         "tag": "negative",
-		"itemID": -1,
+		    "itemID": -1,
         "cost": 0
       },
       {
         "text": "You smell bad...",
         "tag": "negative",
-		"itemID": -1,
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "...",
+        "tag": "negative",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Sorry I'm late to work...",
+        "tag": "negative",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Please stop bothering me",
+        "tag": "negative",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "You're just not my responsibility, man",
+        "tag": "negative",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "You're just gonna buy drugs if I help you",
+        "tag": "negative",
+		    "itemID": -1,
         "cost": 0
       },
       {
         "text": "Use this for something you can eat.",
+        "tag": "recieve",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "I can spare a dollar",
+        "tag": "recieve",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Oh you poor thing...",
+        "tag": "recieve",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "I don't do this often",
+        "tag": "recieve",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "God bless you",
+        "tag": "recieve",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Good luck",
+        "tag": "recieve",
+        "itemID": -1,
+        "cost": 0
+      },
+      {
+        "text": "Alright, here. Leave me alone now.",
         "tag": "recieve",
         "itemID": -1,
         "cost": 0
@@ -72,7 +138,7 @@
 	"money": 100,
     "dFrames": [
       {
-        "text": "Welcome to Boogie Burger!!",
+        "text": "Welcome to Boogie Burger!! Want to buy some food?",
         "tag": "attention",
 		"itemID": -1,
         "cost": 0
@@ -115,9 +181,9 @@
 	"money": 20,
     "dFrames": [
       {
-        "text": "I'll buy those recyclables from you...",
+        "text": "Want me to buy those recyclables from you...?",
         "tag": "attention",
-		"itemID": -1,
+		    "itemID": -1,
         "cost": 0
       },
       {
