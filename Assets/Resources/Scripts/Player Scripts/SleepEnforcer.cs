@@ -32,6 +32,11 @@ public class SleepEnforcer : MonoBehaviour {
     /// </summary>
     public int maxMugLoss = 50;
 
+    /// <summary>
+    /// public static bool that can be used to tell if the player is sleeping by other scripts
+    /// </summary>
+    public static bool sleeping = false;
+
     private bool drowsyFired = false;
     private bool sleepFired = false;
     private bool mugged = false;
@@ -67,7 +72,8 @@ public class SleepEnforcer : MonoBehaviour {
     /// <param name="safe"></param>
     public void sleep(bool safe)
     {
-        StartCoroutine(Sleep(safe));
+        if (!DeathEnforcer.dead && !PlayerWin.winning)
+            StartCoroutine(Sleep(safe));
     }
 
     private void DrowsyAnnouncement()
@@ -106,9 +112,18 @@ public class SleepEnforcer : MonoBehaviour {
     /// <returns></returns>
     IEnumerator Sleep(bool safe)
     {
+        // set the sleeping bool true
+        sleeping = true;
         // stop the player from moving
         Player.Instance.WorldInteraction.stateBools.canMove = false;
         agent.Stop();
+        // stop panhandling if that is occuring
+        if (Player.Instance.PanhandlingScript.enabled)
+        {
+            SplineDeactivator sp = GameObject.Find("DebugButtonCanvas").GetComponent<SplineDeactivator>();
+            sp.DeactivatePanhandling();
+        }
+
         // trigger sleep animation
         ani.SetBool("IsWalking", false);
         ani.SetTrigger("Sleep");
@@ -144,9 +159,7 @@ public class SleepEnforcer : MonoBehaviour {
 
         yield return new WaitForSeconds(3);
 
-        // re-enable walking
-        Player.Instance.WorldInteraction.stateBools.canMove = true;
-        ani.SetBool("IsWalking", false);
+        
 
         // display muggin anouncement if necessary
         if (mugged)
@@ -160,5 +173,13 @@ public class SleepEnforcer : MonoBehaviour {
         sleepFired = false;
         // reset mugged
         mugged = false;
+        // reset sleeping
+        sleeping = false;
+
+
+        yield return new WaitForSeconds(4);
+        // re-enable walking
+        Player.Instance.WorldInteraction.stateBools.canMove = true;
+        ani.SetBool("IsWalking", false);
     }
 }

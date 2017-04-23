@@ -16,5 +16,8 @@ public class PlayerInventory : Inventory {
         AddItem(2);
         AddItem(3);
         AddItem(4);
+        AddItem(5);
+
+        AddMoney(400);
     }
 }
