@@ -87,7 +87,7 @@ public class WorldInteraction : MonoBehaviour {
             return;
 		}
 
-		if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance){
+		if (anim != null && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance){
 			if (!navMeshAgent.hasPath || Mathf.Abs (navMeshAgent.velocity.sqrMagnitude) < float.Epsilon){
                 stateBools.walking = false;
                 anim.SetBool("IsWalking", false);

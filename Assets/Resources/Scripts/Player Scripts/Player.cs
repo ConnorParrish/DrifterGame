@@ -8,7 +8,7 @@ public class Player : MonoBehaviour {
     private static Player instance = null;
 
     [HideInInspector]
-    public Inventory Inventory;
+    public PlayerInventory Inventory;
     [HideInInspector]
     public StatTracker Stats;
     [HideInInspector]
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
 
     private void Start()
     {
-        Inventory = GameObject.Find("General UI Canvas").transform.GetChild(1).GetChild(0).GetComponent<Inventory>();
+        Inventory = GameObject.Find("General UI Canvas").transform.GetChild(1).GetChild(0).GetComponent<PlayerInventory>();
         Stats = GetComponent<StatTracker>();
         PanhandlingScript = GetComponent<PanhandlingScript>();
         WorldInteraction = GetComponent<WorldInteraction>();

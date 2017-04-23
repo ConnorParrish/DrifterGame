@@ -12,12 +12,12 @@ public class Inventory : MonoBehaviour {
     /// <summary>
     /// The slot prefab.
     /// </summary>
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject inventorySlot;                                            // Prefab of the slot itself
     /// <summary>
     /// The default item prefab.
     /// </summary>
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject inventoryItem;                                            // Prefab that is the item
 
     /// <summary>
@@ -57,7 +57,7 @@ public class Inventory : MonoBehaviour {
     /// <summary>
     /// The list of all possible items.
     /// </summary>
-    ItemDatabase database;                                                      // This is the list of all items
+    public ItemDatabase database;                                                      // This is the list of all items
     ItemPreviewScript ips;
      
     int slotAmount;                                                             // Max number of slots
@@ -79,6 +79,9 @@ public class Inventory : MonoBehaviour {
 
     public virtual void Start()
     {
+        inventorySlot = Resources.Load<GameObject>("Prefabs/UI/Inventory/Slot");
+        inventoryItem = Resources.Load<GameObject>("Prefabs/UI/Inventory/Item");
+
 		inventoryMenu = transform.parent.GetChild(1).gameObject;
         database = GetComponent<ItemDatabase>();
         slotAmount = MaxSlots;
@@ -99,7 +102,9 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < slotAmount; i++)
         {
             items.Add(new Item());
+            if (inventorySlot == null) Debug.Log("slot prefab is null dammit");
             slots.Add(Instantiate(inventorySlot));
+            if (slots[i] == null) Debug.Log("slots[" + i + "] is null in " + transform.parent.parent.name);
             slots[i].GetComponent<SlotItem>().slotID = i;                           // This tells the slot it's ID in the slot panel
             slots[i].transform.SetParent(slotPanel.transform);                  // Sets the parent of the slot to the slot panel
         }
@@ -142,7 +147,11 @@ public class Inventory : MonoBehaviour {
     /// <param name="id"></param>
     public void AddItem(int id)
     {
-        Item itemToAdd = database.FetchItemByID(id);
+        if (Player.Instance.Inventory.ItemDB == null)
+        {
+            Debug.Log("database is null");
+        }
+        Item itemToAdd = Player.Instance.Inventory.ItemDB.FetchItemByID(id);
         if (slots[slots.Count - 1].transform.childCount != 0)
         {
             Debug.Log("Your Inventory is full!");
