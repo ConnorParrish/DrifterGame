@@ -81,7 +81,10 @@ public class Merchant : NPCInteraction {
         else
             foreach (Dictionary<string, float> itemToSell in NPCData.ItemsForSale)
                 for (int i = 0; i < itemToSell["amount"]; i++)
+                {
+                    Debug.Log(int.Parse(itemToSell["itemID"].ToString()));
                     merchantInv.AddItem(int.Parse(itemToSell["itemID"].ToString()));
+                }
 
         //playerAgent.Stop();
         PlayerHUD.SetActive(false);
