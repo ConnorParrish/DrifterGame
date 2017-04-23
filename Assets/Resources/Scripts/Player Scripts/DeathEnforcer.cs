@@ -15,7 +15,7 @@ public class DeathEnforcer : MonoBehaviour {
 	void Update () {
         StatTracker stats = Player.Instance.Stats;
         bool sleeping = SleepEnforcer.sleeping;
-        if (stats != null && !dead && !sleeping)
+        if (stats != null && !dead && !sleeping && !PlayerWin.winning)
         {
             if (stats.Hunger <= 0)
             {

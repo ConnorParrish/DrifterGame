@@ -11,8 +11,11 @@ public class PlayerWin : MonoBehaviour {
 
 	public void win()
     {
-        StartCoroutine(winCycle());
-        winning = true;
+        if (!DeathEnforcer.dead)
+        {
+            StartCoroutine(winCycle());
+            winning = true;
+        }
     }
 
     IEnumerator winCycle()
