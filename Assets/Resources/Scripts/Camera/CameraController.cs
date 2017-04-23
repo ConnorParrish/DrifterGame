@@ -54,12 +54,13 @@ public class CameraController : MonoBehaviour {
             {
                 if (GOInTheWay != null)
                 {
-                    foreach (GameObject goo in GOInTheWay)
+                    for (int i = 0; i < GOInTheWay.Count; i++)
                     {
-                        if (goo.tag == "Building")
+                        if(GOInTheWay[i].tag == "Building")
                         {
-                            foreach (Renderer renderer in goo.GetComponentsInChildren<Renderer>())
+                            foreach (Renderer renderer in GOInTheWay[i].GetComponentsInChildren<Renderer>())
                                 renderer.material = opaqueMat;
+                            GOInTheWay.RemoveAt(i);
                         }
                     }
                 }

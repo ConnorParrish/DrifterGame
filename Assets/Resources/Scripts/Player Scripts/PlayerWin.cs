@@ -11,7 +11,7 @@ public class PlayerWin : MonoBehaviour {
 
 	public void win()
     {
-        if (!DeathEnforcer.dead)
+        if (!DeathEnforcer.dead && !SleepEnforcer.sleeping)
         {
             StartCoroutine(winCycle());
             winning = true;
@@ -22,8 +22,16 @@ public class PlayerWin : MonoBehaviour {
     {
         fullDialogue dio = Player.Instance.GetComponent<fullDialogue>();
 
+        // stop movement
         Player.Instance.WorldInteraction.stateBools.canMove = false;
         Player.Instance.GetComponent<NavMeshAgent>().Stop();
+
+        // stop panhandling if that is occuring
+        if (Player.Instance.PanhandlingScript.enabled)
+        {
+            SplineDeactivator sp = GameObject.Find("DebugButtonCanvas").GetComponent<SplineDeactivator>();
+            sp.DeactivatePanhandling();
+        }
 
         dio.showCustomDialogue("I did it!");
         yield return new WaitForSeconds(3);

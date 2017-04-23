@@ -7,6 +7,8 @@ public class Pedestrian : NPCInteraction { // see if animator work should be don
     public int maxTimesBegged;
     public bool askingForHelp;
 
+    private bool canAsk = true;
+
     private int timesBegged;
     private List<GameObject> cops;
 
@@ -61,40 +63,50 @@ public class Pedestrian : NPCInteraction { // see if animator work should be don
         if (timesBegged < maxTimesBegged)
         {
             int chance = Random.Range(0, 5); // Chance the pedestrian will give you $$$
-            if (true)
+            if (canAsk)
             {
                 if (chance < 3)
                 {
-                    Debug.Log("They cared enough");
+                    //Debug.Log("They cared enough");
                     sDialog.showDialogue("recieve");
                     resultPS.Play();
 
-                    int change = Random.Range(1, 100); // The possible money you will receive in cents
-                    Debug.Log("Money Before: " + Player.Instance.Inventory.Money);
+                    int change = Random.Range(100, 1000); // The possible money you will receive in cents
+                    //Debug.Log("Money Before: " + Player.Instance.Inventory.Money);
                     Player.Instance.Inventory.AddMoney(change * (0.01f));
-                    Debug.Log("Money After: " + Player.Instance.Inventory.Money);
+                    //Debug.Log("Money After: " + Player.Instance.Inventory.Money);
+
+                    // set the delay before can ask again
+                    canAsk = false;
+                    StartCoroutine(waitToAskAgain(4));
                 }
                 else
                 {
-                    Debug.Log("They didn't care");
+                    //Debug.Log("They didn't care");
                     sDialog.showDialogue("negative");
                 }
-                timesBegged++;
+                //timesBegged++;
             }
         }
         else
         {
-            Debug.Log("They're gonna call the cops!");
-            askingForHelp = true; // Implement later to call cops
-            sDialog.showDialogue("callHelp");
+            //Debug.Log("They're gonna call the cops!");
+            //askingForHelp = true; // Implement later to call cops
+            //sDialog.showDialogue("callHelp");
         }
 
         if (askingForHelp)
         {
-            Debug.Log("Callin cops");
-            GetClosestCop().GetComponent<Cop>().RunToPlayer(Player.Instance.transform);
+            //Debug.Log("Callin cops");
+            //GetClosestCop().GetComponent<Cop>().RunToPlayer(Player.Instance.transform);
         }
 
+    }
+
+    IEnumerator waitToAskAgain(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        canAsk = true;
     }
 
 }

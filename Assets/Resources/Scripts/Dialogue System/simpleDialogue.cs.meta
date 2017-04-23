@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 42826e025c1d0f24da84bfec536d41b3
-timeCreated: 1488900067
+timeCreated: 1492931722
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
@@ -8,9 +8,9 @@ MonoImporter:
   - popUpDialogue: {fileID: 1178896769219432, guid: 55b3bf11240bb264caf4121093701a9f,
       type: 2}
   - canvas: {instanceID: 0}
-  - curs1: {fileID: 2800000, guid: 9d1304ef116d4c548a66a224d86b678c, type: 3}
-  - curs2: {fileID: 2800000, guid: 32d467a054fef4b4199d0f6044bc8c4e, type: 3}
-  - curs3: {fileID: 2800000, guid: b499f4f4878ec9b49ba65ab983cd7903, type: 3}
+  - curs1: {fileID: 2800000, guid: efc296dece3d2ad49a3044b5841e4623, type: 3}
+  - curs2: {fileID: 2800000, guid: c522ec4426c7d1f41ada67c8de0f4d56, type: 3}
+  - curs3: {fileID: 2800000, guid: 53843ff4d9416564c9b6ee266d988809, type: 3}
   executionOrder: 500
   icon: {instanceID: 0}
   userData: 
