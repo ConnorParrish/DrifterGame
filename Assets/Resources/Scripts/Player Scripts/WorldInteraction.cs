@@ -87,6 +87,11 @@ public class WorldInteraction : MonoBehaviour {
             return;
 		}
 
+        if (Input.GetButtonDown("Cancel"))
+        {
+            TogglePause();
+        }
+
 		if (anim != null && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance){
 			if (!navMeshAgent.hasPath || Mathf.Abs (navMeshAgent.velocity.sqrMagnitude) < float.Epsilon){
                 stateBools.walking = false;
@@ -99,4 +104,14 @@ public class WorldInteraction : MonoBehaviour {
 			}
 		}
 	}
+
+    public void TogglePause()
+    {
+        Player.Instance.Inventory.transform.parent.parent.GetChild(5).gameObject.SetActive(!Player.Instance.Inventory.transform.parent.parent.GetChild(5).gameObject.activeSelf);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

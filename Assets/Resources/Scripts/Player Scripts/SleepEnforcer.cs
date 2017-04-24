@@ -157,10 +157,12 @@ public class SleepEnforcer : MonoBehaviour {
 
         yield return new WaitForSeconds(2);
 
-        // fade screen back to visible
-        FadeManager.Instance.Fade(false, 2);
+
         // play wakeup animation
         ani.SetTrigger("Wake");
+        // fade screen back to visible
+        FadeManager.Instance.Fade(false, 1);
+       
 
         yield return new WaitForSeconds(2);
 
