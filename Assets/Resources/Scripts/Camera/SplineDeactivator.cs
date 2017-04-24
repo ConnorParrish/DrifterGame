@@ -47,6 +47,7 @@ public class SplineDeactivator : MonoBehaviour
 
         if (true)// _merchantInv.buyer) //removing items if its a buyer
         {
+            _merchantInv.AddMoney(-_merchantInv.Money);
             int _slotAmount = _merchantInv.items.Count - 1;
 
             for (int i = 0; i < _slotAmount; i++)
