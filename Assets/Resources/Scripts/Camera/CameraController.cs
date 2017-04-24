@@ -33,25 +33,31 @@ public class CameraController : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
         Debug.DrawRay(ray.origin, ray.direction * 50, Color.yellow);
 
-        if (Physics.Raycast(ray, out hit))
+        if (false)//Physics.Raycast(ray, out hit))
         {
             GameObject go = hit.collider.gameObject;
-            if (go.tag == "Building")
+            if (go.layer == 11) //Buildings is Layer 11
             {
-                GOInTheWay.Add(go);
+                Debug.Log("toggling xray");
+                Player.Instance.Inventory.ToggleXRay(true);
+                /*GOInTheWay.Add(go);
                 if (go.tag == "Building")
                 {
                     foreach (Renderer renderer in go.GetComponentsInChildren<Renderer>())
-                        renderer.material = transparentMat;
+                        for (int i = 0; i < renderer.materials.Length; i++)
+                            renderer.materials[i] = transparentMat;
                 }
                 else
                 {
                     foreach (Renderer renderer in go.GetComponentsInChildren<Renderer>())
                         renderer.material = opaqueMat;
-                }
+                }*/
             }
             else
             {
+                Debug.Log("shouldd siabled sv");
+                Player.Instance.Inventory.ToggleXRay(false);
+                /*
                 if (GOInTheWay != null)
                 {
                     for (int i = 0; i < GOInTheWay.Count; i++)
@@ -63,7 +69,7 @@ public class CameraController : MonoBehaviour {
                             GOInTheWay.RemoveAt(i);
                         }
                     }
-                }
+                }*/
             }
         }
     }

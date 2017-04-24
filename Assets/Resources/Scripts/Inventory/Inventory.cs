@@ -129,6 +129,11 @@ public class Inventory : MonoBehaviour {
         }
     }
     
+    public void ToggleXRay(bool state)
+    {
+        transform.parent.parent.GetChild(2).GetChild(2).gameObject.SetActive(state);
+    }
+
     /// <summary>
     /// Adds money to the player's inventory. Can't go below zero
     /// </summary>
@@ -139,6 +144,9 @@ public class Inventory : MonoBehaviour {
         if (Money < 0)
             Money = 0f;
         moneyText.text = Money.ToString("$#0.00");
+
+        // play sound to notify player money was changed
+        AudioDB.Instance.playOneShot(AudioDB.Instance.moneyJingle);
     }
 
     /// <summary>
