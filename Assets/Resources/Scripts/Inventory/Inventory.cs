@@ -144,9 +144,6 @@ public class Inventory : MonoBehaviour {
         if (Money < 0)
             Money = 0f;
         moneyText.text = Money.ToString("$#0.00");
-
-        // play sound to notify player money was changed
-        AudioDB.Instance.playOneShot(AudioDB.Instance.moneyJingle);
     }
 
     /// <summary>
@@ -299,7 +296,10 @@ public class Inventory : MonoBehaviour {
 			throw new UnityException ("The item isn't consumable or a drug");
 
         if (itemToUse.Type == "Consumable" && itemToUse.Slug != "key" && itemToUse.Slug != "keycard")
+        {
             Player.Instance.Stats.Hunger += itemToUse.Strength;
+            AudioDB.Instance.playChewFood();
+        }
 
         else if (itemToUse.Type == "Drug")
         {

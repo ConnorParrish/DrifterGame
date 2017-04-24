@@ -163,6 +163,7 @@ public class ItemPreviewScript : MonoBehaviour {
 
         }
 
+        AudioDB.Instance.playCoinJingle();
     }
     
 }

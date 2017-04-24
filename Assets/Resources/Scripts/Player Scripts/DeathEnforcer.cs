@@ -10,6 +10,11 @@ public class DeathEnforcer : MonoBehaviour {
     /// used to know if the player is currently alive or dead
     /// </summary>
     public static bool dead = false;
+
+    void Start()
+    {
+        dead = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {

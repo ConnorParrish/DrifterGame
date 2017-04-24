@@ -9,6 +9,11 @@ public class PlayerWin : MonoBehaviour {
     public static bool winning = false;
 
 
+    public void Start()
+    {
+        winning = false;
+    }
+
 	public void win()
     {
         if (!DeathEnforcer.dead && !SleepEnforcer.sleeping)
