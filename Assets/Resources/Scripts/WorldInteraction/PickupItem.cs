@@ -25,7 +25,8 @@ public class PickupItem : Interactable {
     public override void Interact()
     {
 
-        string itemName = itemDB.FetchItemByID(itemID).Title;
+		string itemName = Player.Instance.Inventory.ItemDB.FetchItemByID(itemID).Title;
+		FloatingTextController.Initialize ();
         FloatingTextController.CreateFloatingText("+1 " + itemName, transform);
         Player.Instance.Inventory.AddItem(itemID);
         Destroy(gameObject);
