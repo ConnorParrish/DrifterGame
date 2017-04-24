@@ -45,7 +45,7 @@ public class Cutscene : MonoBehaviour {
 
     public void PlacePlayer()
     {
-        player.transform.position = new Vector3(55.75f, .02f, 23.47f);
+        player.transform.position = new Vector3(55.75f, .02f, 22.44f);
         player.transform.GetChild(1).gameObject.SetActive(true);
         MainCam.GetComponent<Animation>().enabled = false;
         // stop audio playback

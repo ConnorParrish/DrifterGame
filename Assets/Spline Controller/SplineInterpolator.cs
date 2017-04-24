@@ -200,6 +200,7 @@ public class SplineInterpolator : MonoBehaviour
                 Destroy(gameObject.GetComponent<SplineController>());
 
 				Camera.main.gameObject.GetComponent<CameraController> ().enabled = true;
+				Camera.main.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, -9.193005f);
 				Destroy(this);
 			}
             else
