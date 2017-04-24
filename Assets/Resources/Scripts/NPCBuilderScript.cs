@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 
 public class NPCBuilderScript : MonoBehaviour {
@@ -60,7 +60,7 @@ public class NPCBuilderScript : MonoBehaviour {
             p = transform.GetChild(2);
         }
 
-        Instantiate(obj, SceneView.lastActiveSceneView.camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10f)), new Quaternion(), p);
+        //Instantiate(obj, SceneView.lastActiveSceneView.camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10f)), new Quaternion(), p);
 
 
     }
