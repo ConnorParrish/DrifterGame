@@ -130,7 +130,7 @@ public class SleepEnforcer : MonoBehaviour {
         // start screen fade
         FadeManager.Instance.Fade(true, 2);
 
-        //yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2);
 
         
         // adjust Stats
@@ -155,16 +155,16 @@ public class SleepEnforcer : MonoBehaviour {
         if (!safe)
             RollMugging();
 
-        //yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2);
 
 
         // play wakeup animation
         ani.SetTrigger("Wake");
         // fade screen back to visible
-        FadeManager.Instance.Fade(false, 1);
+        FadeManager.Instance.Fade(false, 2);
        
 
-        //yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2);
 
         // display muggin anouncement if necessary
         if (mugged)
@@ -184,7 +184,5 @@ public class SleepEnforcer : MonoBehaviour {
         mugged = false;
         // reset sleeping
         sleeping = false;
-
-		yield return true; 
     }
 }

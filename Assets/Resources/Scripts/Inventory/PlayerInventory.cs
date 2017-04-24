@@ -10,18 +10,5 @@ public class PlayerInventory : Inventory {
         base.Start();
 
         ItemDB = base.database;
-
-        AddItem(0);
-        AddItem(2);
-        AddItem(2);
-        AddItem(2);
-        AddItem(2);
-        AddItem(2);
-        AddItem(3);
-        AddItem(4);
-        AddItem(5);
-        AddItem(6);
-
-        AddMoney(400);
     }
 }

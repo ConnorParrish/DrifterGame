@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class FadeManager : MonoBehaviour {
 
-    public static FadeManager Instance {get;set;}
+    public static FadeManager Instance { get { return instance; } }
+    private static FadeManager instance;
 
     public Image fadeImage;
     private bool isInTranition;
@@ -14,9 +15,9 @@ public class FadeManager : MonoBehaviour {
     private float duration;
 
     // Use this for initialization
-    void Awake()
+    void Start()
     {
-        Instance = this;
+        instance = this;
         fadeImage.color = new Color(0, 0, 0, 255);
     }
 
