@@ -73,8 +73,8 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(5).gameObject.SetActive(true);
         MainCam.GetComponent<CameraController>().target = player.transform;
         MainCam.GetComponent<CameraController>().enabled = true;
-       // MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, 9.193005f);
-       // MainCam.transform.localEulerAngles = new Vector3(46.5f, -180f, 0f);
+        MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, -9.193005f);
+        MainCam.transform.localEulerAngles = new Vector3(132.9f, 180f, 180f);
     }
 
     public void DeactivatePause()
@@ -113,8 +113,7 @@ public class Cutscene : MonoBehaviour {
 
         Destroy(gameObject);
 
-        MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, -9.193005f);
-        MainCam.transform.localEulerAngles = new Vector3(132.9f, 180f, 180f);
+        
     }
 
 }
