@@ -128,9 +128,9 @@ public class SleepEnforcer : MonoBehaviour {
         ani.SetBool("IsWalking", false);
         ani.SetTrigger("Sleep");
         // start screen fade
-        FadeManager.Instance.Fade(true, 5);
+        FadeManager.Instance.Fade(true, 1);
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
 
         
         // adjust Stats
@@ -158,11 +158,11 @@ public class SleepEnforcer : MonoBehaviour {
         yield return new WaitForSeconds(1);
 
         // fade screen back to visible
-        FadeManager.Instance.Fade(false, 5);
+        FadeManager.Instance.Fade(false, 2);
         // play wakeup animation
         ani.SetTrigger("Wake");
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(.5f);
 
         // display muggin anouncement if necessary
         if (mugged)
@@ -170,7 +170,7 @@ public class SleepEnforcer : MonoBehaviour {
 
         // re-enable walking
         Player.Instance.WorldInteraction.stateBools.canMove = true;
-        ani.SetBool("IsWalking", false);
+        ani.SetBool("IsWalking", true);
 
         // reset both animation triggers
         ani.ResetTrigger("Wake");

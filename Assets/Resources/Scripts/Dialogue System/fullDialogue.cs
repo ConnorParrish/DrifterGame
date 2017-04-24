@@ -57,6 +57,14 @@ public class fullDialogue : MonoBehaviour
         Player.Instance.WorldInteraction.stateBools.canMove = true;
     }
 
+    public void CutsceneEndDialogue()
+    {
+        // sort of a placeholder right now
+        StartCoroutine(shrinkCanvas());
+        canvas.transform.FindChild("Decline").gameObject.SetActive(false);
+        canvas.transform.FindChild("Accept").gameObject.SetActive(false);
+    }
+
     private void showNextMessage()
     {
         // code up here will cycle through the message set

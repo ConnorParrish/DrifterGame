@@ -26,14 +26,6 @@ public class Cutscene : MonoBehaviour {
 
     }
 
-   void update()
-   {
-        if (player.GetComponent<WorldInteraction>().stateBools.canMove == false)
-        {
-
-        }
-            
-   }
 
     public void ShowCustomCutsceneDialogue(string message)
     {
@@ -54,10 +46,11 @@ public class Cutscene : MonoBehaviour {
 
     public void PlacePlayer()
     {
+        player.transform.position = new Vector3(55.75f, .02f, 23.47f);
         player.transform.GetChild(1).gameObject.SetActive(true);
         MainCam.GetComponent<Animation>().enabled = false;
-        player.transform.position = new Vector3(55.75f, .02f, 23.47f); 
-        
+
+
     }
 
     public void PlaceGameObject(GameObject Object, Vector3 NewLoc)
@@ -81,27 +74,11 @@ public class Cutscene : MonoBehaviour {
         
     }
 
- //   public void SkipCutscene()
- //   {
- //       GetComponent<Animator>().SetBool("Is Cutscene", false);
- //       MainCam.GetComponent<CameraController>().target = player.transform;
- //       MainCam.GetComponent<CameraController>().enabled = true;
- //       MainCam.GetComponent<Animation>().enabled = false;
- //       //
- //
- //
- //       UI.transform.GetChild(2).gameObject.SetActive(true);
- //       UI.transform.GetChild(3).gameObject.SetActive(true);
- //       UI.transform.GetChild(4).gameObject.SetActive(false);
- //       UI.transform.GetChild(5).gameObject.SetActive(false);
- //   }
-
     public void EndOfCutscene()
 
     {
 		UI.transform.GetChild (0).gameObject.SetActive (true);
 		UI.transform.GetChild (1).gameObject.SetActive (true);
-		//UI.transform.GetChild (2).gameObject.SetActive (true);
         UI.transform.GetChild(5).gameObject.SetActive(false); 
         UI.transform.GetChild(2).gameObject.SetActive(true);
         UI.transform.GetChild(3).gameObject.SetActive(true);
