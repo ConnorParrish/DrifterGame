@@ -22,8 +22,9 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(4).gameObject.SetActive(true);
         UI.transform.GetChild(5).gameObject.SetActive(false);
         player.transform.GetChild(1).gameObject.SetActive(false);
-        player.GetComponent<WorldInteraction>().stateBools.canMove = false; 
+        player.GetComponent<WorldInteraction>().stateBools.canMove = false;
 
+        AudioDB.Instance.playLoop(AudioDB.Instance.Ambience1, 1);
     }
 
    void update()
@@ -56,8 +57,10 @@ public class Cutscene : MonoBehaviour {
     {
         player.transform.GetChild(1).gameObject.SetActive(true);
         MainCam.GetComponent<Animation>().enabled = false;
-        player.transform.position = new Vector3(55.75f, .02f, 23.47f); 
-        
+        player.transform.position = new Vector3(55.75f, .02f, 23.47f);
+
+        // stop bus audio
+        GetComponent<AudioSource>().Stop();
     }
 
     public void PlaceGameObject(GameObject Object, Vector3 NewLoc)
