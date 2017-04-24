@@ -23,8 +23,6 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(5).gameObject.SetActive(false);
         player.transform.GetChild(1).gameObject.SetActive(false);
         player.GetComponent<WorldInteraction>().stateBools.canMove = false;
-
-        AudioDB.Instance.playLoop(AudioDB.Instance.Ambience1, 1);
     }
 
    void update()
