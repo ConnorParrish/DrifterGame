@@ -22,8 +22,7 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(4).gameObject.SetActive(true);
         UI.transform.GetChild(5).gameObject.SetActive(false);
         player.transform.GetChild(1).gameObject.SetActive(false);
-        player.GetComponent<WorldInteraction>().stateBools.canMove = false; 
-
+        player.GetComponent<WorldInteraction>().stateBools.canMove = false;
     }
 
    void update()
@@ -56,8 +55,10 @@ public class Cutscene : MonoBehaviour {
     {
         player.transform.GetChild(1).gameObject.SetActive(true);
         MainCam.GetComponent<Animation>().enabled = false;
-        player.transform.position = new Vector3(55.75f, .02f, 23.47f); 
-        
+        player.transform.position = new Vector3(55.75f, .02f, 23.47f);
+
+        // stop bus audio
+        GetComponent<AudioSource>().Stop();
     }
 
     public void PlaceGameObject(GameObject Object, Vector3 NewLoc)
@@ -70,8 +71,8 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(5).gameObject.SetActive(true);
         MainCam.GetComponent<CameraController>().target = player.transform;
         MainCam.GetComponent<CameraController>().enabled = true;
-       // MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, 9.193005f);
-       // MainCam.transform.localEulerAngles = new Vector3(46.5f, -180f, 0f);
+        MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, -9.193005f);
+        MainCam.transform.localEulerAngles = new Vector3(132.9f, 180f, 180f);
     }
 
     public void DeactivatePause()
@@ -110,8 +111,7 @@ public class Cutscene : MonoBehaviour {
 
         Destroy(gameObject);
 
-        MainCam.GetComponent<CameraController>().offset = new Vector3(0, 12.57099f, -9.193005f);
-        MainCam.transform.localEulerAngles = new Vector3(132.9f, 180f, 180f);
+        
     }
 
 }
