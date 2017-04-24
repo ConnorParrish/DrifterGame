@@ -129,6 +129,11 @@ public class Inventory : MonoBehaviour {
         }
     }
     
+    public void ToggleXRay(bool state)
+    {
+        transform.parent.parent.GetChild(2).GetChild(2).gameObject.SetActive(state);
+    }
+
     /// <summary>
     /// Adds money to the player's inventory. Can't go below zero
     /// </summary>
