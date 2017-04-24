@@ -9,6 +9,6 @@ public class PlayerInventory : Inventory {
     {
         base.Start();
 
-        ItemDB = base.database;
+		ItemDB = base.database;
     }
 }

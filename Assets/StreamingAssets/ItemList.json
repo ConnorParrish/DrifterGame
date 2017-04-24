@@ -2,7 +2,7 @@
 	{
 		"id": 0,
 		"title": "Cheeseburger",
-		"description": "Eat this beefy shit to regain your hunger",
+		"description": "Eat this beefy boy to regain your hunger",
 		"slug": "burger",
 		"type": "Consumable",
 		"strength": "20",
@@ -12,7 +12,7 @@
 	{
 		"id": 1,
 		"title": "Chicken Sandwich",
-		"description": "Eat this chicken shit to regain your hunger",
+		"description": "Eat this chicken to regain your hunger",
 		"slug": "chicken_sandwich",
 		"type": "Consumable",
 		"strength": "20",
@@ -32,7 +32,7 @@
 	{
 		"id": 3,
 		"title": "Beer Bottle",
-		"description": "Shit, I wish there was still some in here for me...",
+		"description": "Darn, I wish there was still some in here for me...",
 		"slug": "beerbottle",
 		"type": "Recyclable",
 		"strength": "0",
