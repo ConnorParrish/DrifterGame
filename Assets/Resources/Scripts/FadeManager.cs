@@ -9,10 +9,10 @@ public class FadeManager : MonoBehaviour {
     private static FadeManager instance;
 
     public Image fadeImage;
-    private bool isInTranition;
-    private float transition;
-    private bool isShowing;
-    private float duration;
+    public bool isInTranition;
+    public float transition;
+    public bool isShowing;
+    public float duration;
 
     // Use this for initialization
     void Start()

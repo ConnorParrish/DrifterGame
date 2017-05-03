@@ -7,7 +7,8 @@ public class Cutscene : MonoBehaviour {
 
     public GameObject player;
     public GameObject MainCam;
-    public GameObject UI; 
+    public GameObject UI;
+    public GameObject FadeCanvase;
     private fullDialogue fDialog;
 
     public void Start()
@@ -19,7 +20,7 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(1).gameObject.SetActive(false);
         UI.transform.GetChild(2).gameObject.SetActive(false);
         UI.transform.GetChild(3).gameObject.SetActive(false);
-        UI.transform.GetChild(4).gameObject.SetActive(true);
+        //UI.transform.GetChild(4).gameObject.SetActive(true);
         UI.transform.GetChild(5).gameObject.SetActive(false);
         player.transform.GetChild(1).gameObject.SetActive(false);
         player.GetComponent<WorldInteraction>().stateBools.canMove = false;
@@ -34,12 +35,12 @@ public class Cutscene : MonoBehaviour {
 
     public void FadeIn(float duration)
     {
-        GetComponent<FadeManager>().Fade(false, duration);
+        FadeManager.Instance.Fade(false, duration);
     }
 
     public void FadeOut(float duration)
     {
-        GetComponent<FadeManager>().Fade(true, duration);
+        FadeManager.Instance.Fade(true, duration);
     }
 
 
@@ -83,6 +84,13 @@ public class Cutscene : MonoBehaviour {
         UI.transform.GetChild(3).gameObject.SetActive(true);
 
         player.GetComponent<WorldInteraction>().stateBools.canMove = true;
+
+
+        //Destroy(GameObject.Find("FadeCanvas"));
+        //GameObject c = Instantiate(FadeCanvase);
+        //c.transform.SetParent(UI.transform);
+
+        //FadeManager.Instance.Fade(true, 1f);
 
         Destroy(gameObject);
 

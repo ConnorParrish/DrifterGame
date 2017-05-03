@@ -123,30 +123,18 @@ public class StatTracker : MonoBehaviour {
 
         if (SadnessOverlay.activeSelf != stateBools.isSad)
         {
-            if (stateBools.isSad)
-            {
-                Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
-            }
             SadnessOverlay.SetActive(stateBools.isSad);
-
         }
+
         if (HungryOverlay.activeSelf != stateBools.isHungry)
         {
-            if (stateBools.isHungry)
-            {
-                Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
-            }
             HungryOverlay.SetActive(stateBools.isHungry);
-
         }
+
         if (FreezingOverlay.activeSelf != stateBools.isFreezing)
         {
-            if (stateBools.isFreezing)
-            {
-                Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * .75f;
-            }
-            FreezingOverlay.SetActive(stateBools.isFreezing);
 
+            FreezingOverlay.SetActive(stateBools.isFreezing);
         }
 
         if (DruggedOverlay.activeSelf != stateBools.isDrugged)
@@ -158,13 +146,11 @@ public class StatTracker : MonoBehaviour {
                 warmthDecay = warmthDecay * 1.3f;
                 hungerDecay = hungerDecay * 1.3f;
                 cleanAtTime = tdm.timeline + drugDuration;
-                if (cleanAtTime != 0f) Debug.Log("Clean at: " + cleanAtTime);
 
             }
             else
             {
                 Player.Instance.WorldInteraction.navMeshAgent.speed = Player.Instance.WorldInteraction.navMeshAgent.speed * 0.5f;
-                Debug.Log("Hi");
                 hungerDecay = hungerDecay * (10f/13f);
                 warmthDecay = warmthDecay * (10f/13f);
             }
